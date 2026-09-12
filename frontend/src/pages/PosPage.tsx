@@ -12,7 +12,7 @@ import {
 } from '@/lib/api'
 import { useAuthStore } from '@/store/authStore'
 import { usePosStore } from '@/store/posStore'
-import { Alert, Badge, Button, EmptyState, Input, Modal, Select, Spinner } from '@/components/ui'
+import { Alert, Badge, Button, EmptyState, Input, Modal, Select, Spinner, cn } from '@/components/ui'
 import {
   Minus,
   Plus,
@@ -23,6 +23,8 @@ import {
   Smartphone,
   LayoutGrid,
   Keyboard,
+  ShoppingCart,
+  ArrowLeft,
 } from 'lucide-react'
 import { mediaUrl } from '@/lib/media'
 import InvoiceReceipt from '@/components/InvoiceReceipt'
@@ -40,6 +42,7 @@ export default function PosPage() {
   const [error, setError] = useState('')
   const [lastInvoice, setLastInvoice] = useState<Order | null>(null)
   const [barcode, setBarcode] = useState('')
+  const [mobileTab, setMobileTab] = useState<'catalog' | 'cart'>('catalog')
   const qc = useQueryClient()
 
   const cart = usePosStore((s) => s.cart)
@@ -200,7 +203,7 @@ export default function PosPage() {
       <div className="flex flex-wrap items-center justify-between gap-2 shrink-0">
         <div className="min-w-0">
           <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-brand-600 font-semibold">Point of sale</div>
-          <h1 className="text-lg sm:text-2xl font-black tracking-tight">Live terminal</h1>
+          <h1 className="text-lg sm:text-xl md:text-2xl font-black tracking-tight">Live terminal</h1>
         </div>
         <div className="flex flex-wrap gap-1.5 sm:gap-2 text-xs">
           <Badge tone="info">{t.lines} lines</Badge>
@@ -209,24 +212,64 @@ export default function PosPage() {
         </div>
       </div>
 
-      <div className="flex-1 min-h-0 flex flex-col xl:flex-row gap-3">
+      {/* Mobile/Tablet tab switch (< md) */}
+      <div className="md:hidden flex rounded-2xl bg-slate-100 dark:bg-slate-900 p-1 border border-slate-200 dark:border-slate-800 shrink-0">
+        <button
+          type="button"
+          onClick={() => setMobileTab('catalog')}
+          className={cn(
+            'flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold transition-all',
+            mobileTab === 'catalog'
+              ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm'
+              : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
+          )}
+        >
+          <LayoutGrid size={14} />
+          <span>Products</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setMobileTab('cart')}
+          className={cn(
+            'flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold transition-all relative',
+            mobileTab === 'cart'
+              ? 'bg-slate-950 text-white shadow-sm'
+              : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
+          )}
+        >
+          <ShoppingCart size={14} />
+          <span>Retail Checkout</span>
+          {t.items > 0 && (
+            <span className="rounded-full bg-emerald-600 px-1.5 py-0.5 text-[10px] font-black text-white">
+              {t.items}
+            </span>
+          )}
+        </button>
+      </div>
+
+      <div className="flex-1 min-h-0 flex flex-col md:flex-row gap-2.5 sm:gap-3">
         {/* Catalog */}
-        <div className="pos-catalog flex flex-col rounded-2xl sm:rounded-3xl border border-ink-200/80 dark:border-ink-800 bg-white dark:bg-ink-900 overflow-hidden shadow-sm min-h-[42dvh] xl:min-h-0">
-          <div className="p-2.5 sm:p-4 border-b border-ink-100 dark:border-ink-800 space-y-2.5 sm:space-y-3">
-            <div className="flex flex-wrap gap-2">
-              <div className="relative flex-1 min-w-[min(100%,140px)]">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" size={16} />
+        <div
+          className={cn(
+            'pos-catalog flex flex-col rounded-2xl sm:rounded-3xl border border-ink-200/80 dark:border-ink-800 bg-white dark:bg-ink-900 overflow-hidden shadow-sm',
+            mobileTab === 'catalog' ? 'flex' : 'hidden md:flex'
+          )}
+        >
+          <div className="p-2.5 sm:p-3 md:p-3 border-b border-ink-100 dark:border-ink-800 space-y-2 shrink-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" size={15} />
                 <input
-                  className="field-control has-icon-left !bg-slate-50 dark:!bg-slate-950"
+                  className="field-control has-icon-left !bg-slate-50 dark:!bg-slate-950 !py-1.5 text-xs"
                   placeholder="Search name, SKU…"
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
                 />
               </div>
-              <div className="relative min-w-[min(100%,140px)] flex-1 sm:flex-none">
-                <Keyboard className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
+              <div className="relative">
+                <Keyboard className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={15} />
                 <input
-                  className="field-control has-icon-left !bg-slate-50 dark:!bg-slate-950"
+                  className="field-control has-icon-left !bg-slate-50 dark:!bg-slate-950 !py-1.5 text-xs"
                   placeholder="Scan barcode + Enter"
                   value={barcode}
                   onChange={(e) => setBarcode(e.target.value)}
@@ -238,7 +281,9 @@ export default function PosPage() {
                   }}
                 />
               </div>
-              <Select value={orderType} onChange={(e) => setOrderType(e.target.value)} className="w-full sm:w-36 py-2.5">
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Select value={orderType} onChange={(e) => setOrderType(e.target.value)} className="w-full !py-1.5 text-xs">
                 <option value="retail">Retail</option>
                 <option value="dine_in">Dine in</option>
                 <option value="takeaway">Takeaway</option>
@@ -248,7 +293,7 @@ export default function PosPage() {
               <Select
                 value={terminalId ?? ''}
                 onChange={(e) => setTerminalId(e.target.value ? Number(e.target.value) : null)}
-                className="w-full sm:w-40 py-2.5"
+                className="w-full !py-1.5 text-xs"
               >
                 <option value="">No terminal</option>
                 {terminals?.items.map((term) => (
@@ -258,26 +303,24 @@ export default function PosPage() {
                 ))}
               </Select>
             </div>
-            <div className="flex gap-2 overflow-x-auto pb-1">
+            <div className="flex gap-1.5 overflow-x-auto pb-0.5">
               <button
                 onClick={() => setCategoryId('')}
-                className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold border ${
-                  !categoryId
-                    ? 'bg-brand-600 text-white border-brand-600'
-                    : 'border-ink-200 dark:border-ink-700 text-ink-600'
-                }`}
+                className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold border ${!categoryId
+                  ? 'bg-brand-600 text-white border-brand-600'
+                  : 'border-ink-200 dark:border-ink-700 text-ink-600'
+                  }`}
               >
-                <LayoutGrid size={12} className="inline mr-1" /> All
+                <LayoutGrid size={11} className="inline mr-1" /> All
               </button>
               {categories?.items.map((c) => (
                 <button
                   key={c.id}
                   onClick={() => setCategoryId(String(c.id))}
-                  className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold border ${
-                    categoryId === String(c.id)
-                      ? 'bg-brand-600 text-white border-brand-600'
-                      : 'border-ink-200 dark:border-ink-700 text-ink-600'
-                  }`}
+                  className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold border ${categoryId === String(c.id)
+                    ? 'bg-brand-600 text-white border-brand-600'
+                    : 'border-ink-200 dark:border-ink-700 text-ink-600'
+                    }`}
                 >
                   {c.name}
                 </button>
@@ -285,7 +328,7 @@ export default function PosPage() {
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-3 sm:p-4">
+          <div className="flex-1 min-h-0 overflow-y-auto p-2.5 sm:p-3">
             {error && !payOpen && (
               <div className="mb-3">
                 <Alert tone="danger">{error}</Alert>
@@ -298,125 +341,168 @@ export default function PosPage() {
             ) : !products?.items?.length ? (
               <EmptyState title="No products" description="Add products or clear filters." />
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-2.5">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-2.5">
                 {products.items.map((p) => (
                   <button
                     key={p.id}
                     onClick={() => addProduct(p)}
-                    className="pos-product-tile text-left rounded-2xl border border-ink-200 dark:border-ink-800 p-3.5 bg-gradient-to-b from-white to-ink-50 dark:from-ink-900 dark:to-ink-950"
+                    className="pos-product-tile text-left rounded-2xl border border-ink-200 dark:border-ink-800 p-2.5 sm:p-3 bg-gradient-to-b from-white to-ink-50 dark:from-ink-900 dark:to-ink-950 hover:shadow-lg hover:border-brand-500/40 transition-all duration-150"
                   >
                     {p.image_url ? (
                       <img
                         src={mediaUrl(p.image_url)}
-                        alt=""
-                        className="h-14 w-full rounded-xl object-cover mb-2.5 border border-slate-200"
+                        alt={p.name}
+                        className="h-28 sm:h-32 md:h-32 lg:h-36 xl:h-40 w-full rounded-xl object-cover mb-2 border border-slate-200 dark:border-slate-800"
                       />
                     ) : (
                       <div
-                        className="h-11 w-11 rounded-2xl flex items-center justify-center font-bold text-sm mb-2.5 text-white shadow-md"
+                        className="h-28 sm:h-32 md:h-32 lg:h-36 xl:h-40 w-full rounded-xl flex items-center justify-center font-bold text-3xl mb-2 text-white shadow-md"
                         style={{
-                          background: `linear-gradient(135deg, #ff7a45, ${
-                            categories?.items.find((c) => c.id === p.category_id)?.color || '#faad14'
-                          })`,
+                          background: `linear-gradient(135deg, #ff7a45, ${categories?.items.find((c) => c.id === p.category_id)?.color || '#faad14'
+                            })`,
                         }}
                       >
                         {p.name.charAt(0).toUpperCase()}
                       </div>
                     )}
-                    <div className="font-semibold text-sm line-clamp-2 min-h-[2.5rem] leading-snug">{p.name}</div>
-                    <div className="mt-2 flex items-center justify-between gap-1">
-                      <span className="font-black text-brand-700 dark:text-brand-300">{money(p.price)}</span>
+                    <div className="font-bold text-xs sm:text-sm md:text-sm text-slate-900 dark:text-white truncate" title={p.name}>{p.name}</div>
+                    <div className="mt-1.5 flex items-center justify-between gap-1">
+                      <span className="font-black text-xs sm:text-sm md:text-base text-brand-700 dark:text-brand-300">{money(p.price)}</span>
                       {p.inventory && (
-                        <span className="text-[10px] text-ink-400 font-medium">
+                        <span className="text-[11px] text-ink-400 font-semibold">
                           {Number(p.inventory.quantity_on_hand)} {p.unit}
                         </span>
                       )}
                     </div>
-                    {p.sku && <div className="text-[10px] text-ink-400 mt-1 truncate">{p.sku}</div>}
+                    {p.sku && <div className="text-[10px] text-ink-400 mt-0.5 truncate">{p.sku}</div>}
                   </button>
                 ))}
               </div>
             )}
           </div>
+
+          {mobileTab === 'catalog' && t.items > 0 && (
+            <div className="md:hidden sticky bottom-2 p-2 mx-2 rounded-2xl bg-slate-950 text-white shadow-2xl flex items-center justify-between border border-white/15 z-10 shrink-0 animate-fade-up">
+              <div className="flex items-center gap-2 pl-2">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-xs font-black text-white">
+                  {t.items}
+                </span>
+                <div className="text-xs font-bold text-slate-200">
+                  Total: <span className="text-white font-extrabold">{money(t.grand)}</span>
+                </div>
+              </div>
+              <Button
+                size="sm"
+                className="!py-1.5 !px-3 text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white"
+                onClick={() => setMobileTab('cart')}
+              >
+                Checkout <ShoppingCart size={13} className="ml-1 inline" />
+              </Button>
+            </div>
+          )}
         </div>
 
         {/* Cart panel - high contrast dark bill (pos-cart CSS forces readable colors) */}
-        <div className="pos-cart flex flex-col rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl shadow-black/30 border border-slate-800 bg-slate-950 text-white">
-          <div className="px-5 py-4 border-b border-white/15 flex items-center justify-between">
-            <div>
-              <div className="font-bold text-lg text-white">Bill</div>
-              <div className="text-xs pos-cart-muted capitalize">{orderType.replace('_', ' ')} checkout</div>
+        <div
+          className={cn(
+            'pos-cart flex flex-col rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl shadow-black/30 border border-slate-800 bg-slate-950 text-white',
+            mobileTab === 'cart' ? 'flex' : 'hidden md:flex'
+          )}
+        >
+          <div className="px-4 py-3 border-b border-white/15 flex items-center justify-between shrink-0">
+            <div className="flex items-center gap-2">
+              <Button
+                size="sm"
+                variant="ghost"
+                className="md:hidden !p-1 text-slate-300 hover:text-white"
+                onClick={() => setMobileTab('catalog')}
+                title="Back to products"
+              >
+                <ArrowLeft size={16} />
+              </Button>
+              <div>
+                <div className="font-bold text-base text-white">Bill</div>
+                <div className="text-[11px] pos-cart-muted capitalize">{orderType.replace('_', ' ')} checkout</div>
+              </div>
             </div>
             <Button size="sm" variant="ghost" className="text-slate-200 hover:text-white" onClick={clearCart}>
               Clear
             </Button>
           </div>
 
-          <div className="px-4 pt-3 grid grid-cols-2 gap-2">
+          <div className="px-3 pt-2.5 pb-2 grid grid-cols-2 gap-2 shrink-0 border-b border-white/10">
             <input
-              className="rounded-xl px-3 py-2 text-xs outline-none"
+              className="rounded-xl px-2.5 py-1.5 text-xs outline-none md:w-16"
               placeholder="Table / counter label"
               value={tableLabel}
               onChange={(e) => setTableLabel(e.target.value)}
             />
             <input
-              className="rounded-xl px-3 py-2 text-xs outline-none"
+              className="rounded-xl px-2.5 py-1.5 text-xs outline-none"
               placeholder="Order notes"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
             />
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 space-y-2">
+          <div className="flex-1 min-h-0 overflow-y-auto p-2.5 sm:p-3 space-y-2">
             {cart.length === 0 ? (
-              <p className="text-sm pos-cart-muted text-center py-12">Tap products or scan barcode</p>
+              <p className="text-sm pos-cart-muted text-center py-10">Tap products or scan barcode</p>
             ) : (
               cart.map((line) => (
-                <div key={line.product_id} className="pos-cart-line rounded-2xl p-3">
-                  <div className="flex justify-between gap-2">
-                    <div className="min-w-0">
-                      <div className="pos-cart-line-title text-sm truncate">{line.name}</div>
+                <div key={line.product_id} className="pos-cart-line rounded-xl p-2.5 space-y-1.5">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0 flex-1">
+                      <div className="pos-cart-line-title text-xs font-semibold truncate" title={line.name}>
+                        {line.name}
+                      </div>
                       <div className="text-[11px] pos-cart-line-meta">{money(line.unit_price)} each</div>
                     </div>
-                    <button onClick={() => removeLine(line.product_id)} className="text-slate-300 hover:text-red-400">
-                      <Trash2 size={14} />
-                    </button>
-                  </div>
-                  <div className="mt-2 flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-2 shrink-0">
+                      <div className="text-xs font-bold text-white">
+                        {money(line.quantity * line.unit_price - line.discount_amount)}
+                      </div>
                       <button
-                        className="h-8 w-8 rounded-xl bg-white/15 text-white flex items-center justify-center"
+                        onClick={() => removeLine(line.product_id)}
+                        className="text-slate-300 hover:text-red-400 p-0.5 transition"
+                        title="Remove line"
+                      >
+                        <Trash2 size={13} />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 pt-0.5">
+                    <div className="flex items-center gap-1 shrink-0">
+                      <button
+                        className="h-6 w-6 rounded-md bg-white/15 text-white flex items-center justify-center hover:bg-white/25 transition"
                         onClick={() => updateQty(line.product_id, line.quantity - 1)}
                       >
-                        <Minus size={12} />
+                        <Minus size={11} />
                       </button>
-                      <span className="w-8 text-center text-sm font-bold text-white">{line.quantity}</span>
+                      <span className="w-6 text-center text-xs font-bold text-white">{line.quantity}</span>
                       <button
-                        className="h-8 w-8 rounded-xl bg-white/15 text-white flex items-center justify-center"
+                        className="h-6 w-6 rounded-md bg-white/15 text-white flex items-center justify-center hover:bg-white/25 transition"
                         onClick={() => updateQty(line.product_id, line.quantity + 1)}
                       >
-                        <Plus size={12} />
+                        <Plus size={11} />
                       </button>
                     </div>
-                    <div className="text-sm font-bold text-white">
-                      {money(line.quantity * line.unit_price - line.discount_amount)}
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <span className="text-[10px] pos-cart-line-meta">Line disc.</span>
+                      <input
+                        type="number"
+                        className="w-16 rounded-md px-1.5 py-0.5 text-xs text-right outline-none"
+                        value={line.discount_amount || ''}
+                        onChange={(e) => setLineDiscount(line.product_id, Number(e.target.value || 0))}
+                      />
                     </div>
-                  </div>
-                  <div className="mt-2 flex items-center gap-2">
-                    <span className="text-[10px] pos-cart-line-meta">Line disc.</span>
-                    <input
-                      type="number"
-                      className="w-20 rounded-lg px-2 py-1 text-xs text-right outline-none"
-                      value={line.discount_amount || ''}
-                      onChange={(e) => setLineDiscount(line.product_id, Number(e.target.value || 0))}
-                    />
                   </div>
                 </div>
               ))
             )}
           </div>
 
-          <div className="pos-cart-totals p-4 border-t border-white/15 space-y-2 text-sm">
+          <div className="pos-cart-totals p-3 border-t border-white/15 space-y-1.5 text-xs shrink-0">
             <div className="pos-cart-row flex justify-between">
               <span>Subtotal</span>
               <span className="font-semibold text-white">{money(t.subtotal)}</span>
@@ -425,22 +511,22 @@ export default function PosPage() {
               <span>Tax</span>
               <span className="font-semibold text-white">{money(t.tax)}</span>
             </div>
-            <div className="pos-cart-row flex items-center justify-between gap-3">
+            <div className="pos-cart-row flex items-center justify-between gap-2">
               <span>Bill discount</span>
               <input
                 type="number"
-                className="w-24 rounded-xl px-2 py-1.5 text-right outline-none"
+                className="w-20 rounded-lg px-2 py-1 text-right outline-none text-xs"
                 value={discountTotal || ''}
                 onChange={(e) => setDiscountTotal(Number(e.target.value || 0))}
               />
             </div>
-            <div className="flex justify-between text-xl font-black pt-2 text-white">
+            <div className="flex justify-between text-base font-black pt-1 text-white">
               <span>Total</span>
               <span className="pos-cart-total-value">{money(t.grand)}</span>
             </div>
             <Button
-              className="w-full mt-2"
-              size="xl"
+              className="w-full mt-1.5"
+              size="lg"
               disabled={!cart.length}
               onClick={() => {
                 setError('')
@@ -474,11 +560,10 @@ export default function PosPage() {
               <button
                 key={key}
                 onClick={() => setMethod(key)}
-                className={`rounded-2xl border p-3 flex flex-col items-center gap-1.5 text-sm font-semibold transition ${
-                  method === key
-                    ? 'border-brand-500 bg-brand-50 dark:bg-brand-950 text-brand-700 shadow-md'
-                    : 'border-ink-200 dark:border-ink-700'
-                }`}
+                className={`rounded-2xl border p-3 flex flex-col items-center gap-1.5 text-sm font-semibold transition ${method === key
+                  ? 'border-brand-500 bg-brand-50 dark:bg-brand-950 text-brand-700 shadow-md'
+                  : 'border-ink-200 dark:border-ink-700'
+                  }`}
               >
                 <Icon size={18} />
                 {label}

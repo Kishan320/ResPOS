@@ -198,7 +198,7 @@ export default function Layout() {
     <div className="min-h-full flex mesh-bg">
       <aside
         className={cn(
-          'hidden lg:flex flex-col text-slate-300 no-print transition-all duration-200',
+          'hidden lg:flex flex-col text-slate-300 no-print transition-all duration-200 sticky top-0 h-screen shrink-0',
           'bg-gradient-to-b from-[#0b1220] to-[#0f172a] border-r border-white/5',
           sidebarCollapsed ? 'w-[76px]' : 'w-[272px]'
         )}
