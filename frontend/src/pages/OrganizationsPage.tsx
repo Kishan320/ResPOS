@@ -1,0 +1,252 @@
+import { useState } from 'react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { api, errMsg, labelize, type Organization, type Page } from '@/lib/api'
+import { useAuthStore } from '@/store/authStore'
+import { Alert, Badge, Button, Card, EmptyState, Input, Modal, PageHeader, Select, Spinner, Textarea } from '@/components/ui'
+import { Building2, CheckCircle2, Plus, Search } from 'lucide-react'
+
+const BUSINESS_TYPES = [
+  'restaurant', 'cafe', 'fast_food', 'grocery', 'kirana', 'supermarket', 'retail', 'bakery', 'other',
+]
+
+const emptyForm = {
+  name: '',
+  business_type: 'restaurant',
+  email: '',
+  phone: '',
+  city: '',
+  state: '',
+  country: 'AE',
+  address_line1: '',
+  tax_id: '',
+  currency_code: 'AED',
+  timezone: 'Asia/Dubai',
+  notes: '',
+  admin_email: '',
+  admin_password: '',
+  admin_name: '',
+}
+
+export default function OrganizationsPage() {
+  const [open, setOpen] = useState(false)
+  const [detail, setDetail] = useState<Organization | null>(null)
+  const [q, setQ] = useState('')
+  const [typeFilter, setTypeFilter] = useState('')
+  const [form, setForm] = useState(emptyForm)
+  const [error, setError] = useState('')
+  const qc = useQueryClient()
+  const { organizationId, setOrganization, user } = useAuthStore()
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['organizations', q, typeFilter],
+    queryFn: async () =>
+      (
+        await api.get<Page<Organization>>('/organizations', {
+          params: { q: q || undefined, business_type: typeFilter || undefined, page_size: 100 },
+        })
+      ).data,
+  })
+
+  const createMut = useMutation({
+    mutationFn: async () => {
+      const payload: Record<string, unknown> = {
+        name: form.name,
+        business_type: form.business_type,
+        email: form.email || null,
+        phone: form.phone || null,
+        city: form.city || null,
+        state: form.state || null,
+        country: form.country || 'AE',
+        address_line1: form.address_line1 || null,
+        tax_id: form.tax_id || null,
+        currency_code: form.currency_code || 'AED',
+        timezone: form.timezone || 'Asia/Dubai',
+        notes: form.notes || null,
+      }
+      // Organization owner admin (required for real onboarding hierarchy)
+      if (form.admin_email && form.admin_password) {
+        payload.admin_email = form.admin_email
+        payload.admin_password = form.admin_password
+        payload.admin_name = form.admin_name || `${form.name} Owner`
+      }
+      return (await api.post('/organizations', payload)).data as Organization
+    },
+    onSuccess: (org) => {
+      qc.invalidateQueries({ queryKey: ['organizations'] })
+      qc.invalidateQueries({ queryKey: ['dashboard'] })
+      setOpen(false)
+      setForm(emptyForm)
+      setOrganization(org.id, org.name)
+    },
+    onError: (e) => setError(errMsg(e)),
+  })
+
+  const updateMut = useMutation({
+    mutationFn: async (payload: Partial<Organization> & { is_active?: boolean }) =>
+      (await api.patch(`/organizations/${detail!.id}`, payload)).data as Organization,
+    onSuccess: (org) => {
+      qc.invalidateQueries({ queryKey: ['organizations'] })
+      setDetail(org)
+      if (organizationId === org.id) setOrganization(org.id, org.name)
+    },
+    onError: (e) => setError(errMsg(e)),
+  })
+
+  if (user?.role !== 'super_admin') {
+    return (
+      <Card>
+        <EmptyState title="Super admin only" description="Organization onboarding is restricted to platform super admins." />
+      </Card>
+    )
+  }
+
+  return (
+    <div>
+      <PageHeader
+        breadcrumb="Platform"
+        title="Organizations"
+        subtitle="Onboard restaurants, cafes, grocery, kirana, supermarkets - each fully isolated."
+        actions={
+          <Button onClick={() => { setError(''); setOpen(true) }}>
+            <Plus size={16} /> New organization
+          </Button>
+        }
+      />
+
+      <div className="flex flex-col sm:flex-row gap-3 mb-6">
+        <div className="relative flex-1 max-w-md">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" size={16} />
+          <input
+            className="w-full rounded-2xl border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-900 pl-9 pr-3 py-3 text-sm outline-none focus:ring-2 focus:ring-brand-500/40"
+            placeholder="Search name, city, slug…"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+          />
+        </div>
+        <Select className="sm:w-48" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+          <option value="">All types</option>
+          {BUSINESS_TYPES.map((t) => (
+            <option key={t} value={t}>{labelize(t)}</option>
+          ))}
+        </Select>
+      </div>
+
+      {isLoading ? (
+        <div className="flex justify-center py-16"><Spinner className="h-8 w-8" /></div>
+      ) : !data?.items?.length ? (
+        <Card>
+          <EmptyState
+            icon={<Building2 size={24} />}
+            title="No organizations yet"
+            description="Create your first tenant to start selling."
+            action={<Button onClick={() => setOpen(true)}><Plus size={16} /> Create organization</Button>}
+          />
+        </Card>
+      ) : (
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {data.items.map((org) => {
+            const active = organizationId === org.id
+            return (
+              <div
+                key={org.id}
+                className={`premium-card p-5 transition hover:-translate-y-0.5 ${active ? 'ring-2 ring-brand-500 shadow-xl shadow-brand-600/10' : ''}`}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <h3 className="font-bold text-lg truncate">{org.name}</h3>
+                    <p className="text-sm text-ink-500 capitalize mt-0.5">
+                      {labelize(org.business_type)}
+                      {org.city ? ` · ${org.city}` : ''}
+                    </p>
+                  </div>
+                  <Badge tone={org.is_active ? 'success' : 'neutral'}>{org.is_active ? 'Active' : 'Inactive'}</Badge>
+                </div>
+                <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-ink-500">
+                  <div>Currency: <span className="text-ink-800 dark:text-ink-200 font-medium">{org.currency_code}</span></div>
+                  <div>TZ: <span className="text-ink-800 dark:text-ink-200 font-medium truncate">{org.timezone}</span></div>
+                  <div className="col-span-2 truncate">Slug: {org.slug}</div>
+                </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <Button
+                    size="sm"
+                    variant={active ? 'success' : 'primary'}
+                    onClick={() => setOrganization(org.id, org.name)}
+                  >
+                    {active ? <><CheckCircle2 size={14} /> Active tenant</> : 'Use as active tenant'}
+                  </Button>
+                  <Button size="sm" variant="secondary" onClick={() => { setDetail(org); setError('') }}>
+                    Details
+                  </Button>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
+
+      <Modal open={open} onClose={() => setOpen(false)} title="Create organization" subtitle="Fully dynamic - any business brand" xwide>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <Input label="Business name *" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Sunrise Cafe / Patel Kirana / Metro Mart" />
+          <Select label="Business type" value={form.business_type} onChange={(e) => setForm({ ...form, business_type: e.target.value })}>
+            {BUSINESS_TYPES.map((t) => <option key={t} value={t}>{labelize(t)}</option>)}
+          </Select>
+          <Input label="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+          <Input label="Phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+          <Input label="City" value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
+          <Input label="State" value={form.state} onChange={(e) => setForm({ ...form, state: e.target.value })} />
+          <Input label="Country" value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })} />
+          <Input label="Address" value={form.address_line1} onChange={(e) => setForm({ ...form, address_line1: e.target.value })} />
+          <Input label="Tax ID / GSTIN" value={form.tax_id} onChange={(e) => setForm({ ...form, tax_id: e.target.value })} />
+          <Input label="Currency" value={form.currency_code} onChange={(e) => setForm({ ...form, currency_code: e.target.value })} />
+          <Input label="Timezone" value={form.timezone} onChange={(e) => setForm({ ...form, timezone: e.target.value })} />
+          <div className="sm:col-span-2 lg:col-span-3">
+            <Textarea label="Notes" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
+          </div>
+        </div>
+        <div className="mt-6 border-t border-ink-100 dark:border-ink-800 pt-5">
+          <h4 className="font-semibold mb-1">Organization owner (admin)</h4>
+          <p className="text-xs font-medium text-slate-500 mb-3">
+            This user becomes the store owner - they can create managers, cashiers and staff with RBAC.
+          </p>
+          <div className="grid sm:grid-cols-3 gap-4">
+            <Input label="Admin name" value={form.admin_name} onChange={(e) => setForm({ ...form, admin_name: e.target.value })} />
+            <Input label="Admin email" value={form.admin_email} onChange={(e) => setForm({ ...form, admin_email: e.target.value })} />
+            <Input label="Admin password" type="password" value={form.admin_password} onChange={(e) => setForm({ ...form, admin_password: e.target.value })} />
+          </div>
+        </div>
+        {error && <div className="mt-4"><Alert tone="danger">{error}</Alert></div>}
+        <div className="mt-6 flex justify-end gap-2">
+          <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
+          <Button disabled={!form.name || createMut.isPending} onClick={() => { setError(''); createMut.mutate() }}>
+            {createMut.isPending ? 'Creating…' : 'Create & activate'}
+          </Button>
+        </div>
+      </Modal>
+
+      <Modal open={!!detail} onClose={() => setDetail(null)} title={detail?.name || 'Organization'} subtitle="Tenant profile" wide>
+        {detail && (
+          <div className="space-y-4">
+            <div className="grid sm:grid-cols-2 gap-3 text-sm">
+              <div><span className="text-ink-500">Type</span><div className="font-medium capitalize">{labelize(detail.business_type)}</div></div>
+              <div><span className="text-ink-500">City</span><div className="font-medium">{detail.city || '-'}</div></div>
+              <div><span className="text-ink-500">Phone</span><div className="font-medium">{detail.phone || '-'}</div></div>
+              <div><span className="text-ink-500">Tax ID</span><div className="font-medium">{detail.tax_id || '-'}</div></div>
+              <div className="sm:col-span-2"><span className="text-ink-500">Address</span><div className="font-medium">{detail.address_line1 || '-'}</div></div>
+            </div>
+            {error && <Alert tone="danger">{error}</Alert>}
+            <div className="flex flex-wrap gap-2">
+              <Button onClick={() => { setOrganization(detail.id, detail.name); setDetail(null) }}>Set active</Button>
+              <Button
+                variant="secondary"
+                disabled={updateMut.isPending}
+                onClick={() => updateMut.mutate({ is_active: !detail.is_active })}
+              >
+                {detail.is_active ? 'Deactivate' : 'Activate'}
+              </Button>
+            </div>
+          </div>
+        )}
+      </Modal>
+    </div>
+  )
+}

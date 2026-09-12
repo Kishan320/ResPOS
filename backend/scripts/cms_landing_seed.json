@@ -1,0 +1,1164 @@
+[
+  {
+    "section_key": "hero",
+    "title": "Everything your store organization needs to sell, stock and report",
+    "subtitle": "When your organization is onboarded, your admin gets POS Terminal, products, inventory, staff permissions, discounts, restaurant floor tools and 30 reports in PDF and Excel - ready for daily store work.",
+    "body": "Rathin POS is built for the organization you run: restaurants, cafes, QSR, grocery, supermarket and retail. Your org admin controls catalog, cashiers, terminals and reports for that store. Multi-store groups run each organization separately under one platform.",
+    "badge_text": "For organization admins and store teams",
+    "cta_label": "Sign in to your organization",
+    "cta_url": "/login",
+    "image_url": "/landing/hero.jpg",
+    "image_url_2": "/landing/pos.jpg",
+    "sort_order": 10
+  },
+  {
+    "section_key": "stats",
+    "title": "Built for real store volume",
+    "badge_text": "At a glance",
+    "image_url": "/landing/dashboard.jpg",
+    "extra_json": {
+      "items": [
+        {
+          "value": "30",
+          "label": "Reports in PDF and Excel"
+        },
+        {
+          "value": "19+",
+          "label": "Product modules in the app"
+        },
+        {
+          "value": "AED",
+          "label": "Base currency with world rates"
+        },
+        {
+          "value": "5",
+          "label": "Order types on POS"
+        }
+      ]
+    },
+    "sort_order": 20
+  },
+  {
+    "section_key": "about",
+    "title": "Designed around your organization",
+    "subtitle": "Super admin creates your organization and org admin. From there, your team runs the full store stack.",
+    "body": "Organization admins manage products, categories, inventory, POS machines, staff, customers, discounts, tables and taxes (for restaurants), invoices and the full Report Hub. Cashiers sell on POS Terminal. Finance exports the reports your business needs every day.",
+    "badge_text": "Organization-first product",
+    "image_url": "/landing/fine-dine.jpg",
+    "image_url_2": "/landing/retail.jpg",
+    "sort_order": 30
+  },
+  {
+    "section_key": "module_map",
+    "title": "Modules available to your organization",
+    "subtitle": "After onboarding, org admins and permitted staff use these tools inside the app - the same names you see below.",
+    "badge_text": "Organization modules",
+    "image_url": "/landing/dashboard.jpg",
+    "extra_json": {
+      "items": [
+        {
+          "t": "Dashboard",
+          "d": "Platform and store KPIs"
+        },
+        {
+          "t": "POS Terminal",
+          "d": "Live billing and checkout"
+        },
+        {
+          "t": "Products and Menu",
+          "d": "Catalog, barcode, tax, stock"
+        },
+        {
+          "t": "Categories",
+          "d": "Menu and aisle groups"
+        },
+        {
+          "t": "Inventory and Stock",
+          "d": "Adjustments and low stock"
+        },
+        {
+          "t": "Orders and Sales",
+          "d": "Hold, KOT, cancel, checkout"
+        },
+        {
+          "t": "Invoices and Bills",
+          "d": "Print and reprint"
+        },
+        {
+          "t": "Report Hub",
+          "d": "30 PDF and Excel reports"
+        },
+        {
+          "t": "Discounts and Offers",
+          "d": "Coupons and seasonal rules"
+        },
+        {
+          "t": "Tables, Waiters and Tax",
+          "d": "Restaurant floor setup"
+        },
+        {
+          "t": "POS Machines",
+          "d": "Terminal registry"
+        },
+        {
+          "t": "Customers",
+          "d": "Buyer directory"
+        },
+        {
+          "t": "Staff and Permissions",
+          "d": "Org team RBAC"
+        },
+        {
+          "t": "Team Directory",
+          "d": "User list"
+        },
+        {
+          "t": "World Currencies",
+          "d": "AED base and FX rates"
+        },
+        {
+          "t": "Organizations",
+          "d": "Multi-tenant onboarding"
+        },
+        {
+          "t": "CMS and Landing",
+          "d": "Website content control"
+        },
+        {
+          "t": "Org Module Access",
+          "d": "Module grants per org"
+        },
+        {
+          "t": "Platform Users",
+          "d": "Platform operators"
+        },
+        {
+          "t": "Settings",
+          "d": "Password and theme"
+        }
+      ]
+    },
+    "sort_order": 40
+  },
+  {
+    "section_key": "industries",
+    "title": "Industries we serve",
+    "subtitle": "Same product, configured per organization business type.",
+    "badge_text": "Verticals",
+    "image_url": "/landing/retail.jpg",
+    "extra_json": {
+      "items": [
+        {
+          "t": "Restaurants and fine dine",
+          "d": "Tables, waiters, KOT, dine-in billing",
+          "img": "/landing/fine-dine.jpg"
+        },
+        {
+          "t": "QSR and quick service",
+          "d": "Fast counters, combos, peak-hour POS",
+          "img": "/landing/pos.jpg"
+        },
+        {
+          "t": "Cafes and bakeries",
+          "d": "Menu boards, takeaway, multi-tax bills",
+          "img": "/landing/cafe.jpg"
+        },
+        {
+          "t": "Grocery and kirana",
+          "d": "Barcode, high SKU, live stock",
+          "img": "/landing/grocery.jpg"
+        },
+        {
+          "t": "Supermarket and retail",
+          "d": "Multi-terminal checkout and promotions",
+          "img": "/landing/retail.jpg"
+        },
+        {
+          "t": "Multi-store groups",
+          "d": "Super admin network of organizations",
+          "img": "/landing/organizations.jpg"
+        }
+      ]
+    },
+    "sort_order": 50
+  },
+  {
+    "section_key": "mod_pos",
+    "title": "POS Terminal",
+    "subtitle": "Live counter billing for restaurants, QSR, grocery and retail",
+    "body": "Open a bill, add items from menu tiles or barcode, apply line discounts, choose order type (dine-in, takeaway, delivery, pickup, retail), assign a POS machine, and complete checkout with cash, card, UPI or wallet. Split payments, tendered cash and change, and automatic invoice print are built in.",
+    "badge_text": "Core selling",
+    "image_url": "/landing/pos.jpg",
+    "image_url_2": "/landing/checkout.jpg",
+    "extra_json": {
+      "bullets": [
+        "Barcode scan and menu-tile add to cart",
+        "Order types: dine-in, takeaway, delivery, pickup, retail",
+        "Line discount and bill-level discount",
+        "Split payments across cash, card, UPI, wallet",
+        "Hold bill, cancel bill, kitchen order ticket (KOT)",
+        "Terminal selection for multi-counter stores"
+      ],
+      "growth": "Shorter queues, fewer billing errors, and cleaner end-of-day cash reconciliation."
+    },
+    "sort_order": 200,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_products",
+    "title": "Products and Menu",
+    "subtitle": "Catalog for every vertical - menu items, grocery SKUs and barcodes",
+    "body": "Create products with price, cost, tax rate, unit (pcs, kg, litre), SKU, barcode, category, image, initial stock and low-stock threshold. Track inventory per item or sell by weight. Edit anytime without downtime.",
+    "badge_text": "Catalog",
+    "image_url": "/landing/cafe.jpg",
+    "image_url_2": "/landing/grocery.jpg",
+    "extra_json": {
+      "bullets": [
+        "Price, cost price and tax % per product",
+        "SKU, barcode and unit of measure",
+        "Category link and product image upload",
+        "Initial stock and low-stock threshold",
+        "Track inventory on/off, sold-by-weight flag"
+      ],
+      "growth": "Faster menu launches and accurate pricing across outlets."
+    },
+    "sort_order": 210,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_categories",
+    "title": "Categories",
+    "subtitle": "Menu sections, aisles and product groups",
+    "body": "Organize the catalog into categories with color, image, sort order and active status. Cashiers filter the POS by category for faster billing.",
+    "badge_text": "Catalog",
+    "image_url": "/landing/retail.jpg",
+    "image_url_2": null,
+    "extra_json": {
+      "bullets": [
+        "Named categories with color tags",
+        "Sort order for POS layout",
+        "Active/inactive control"
+      ],
+      "growth": "Cashiers find items faster during peak hours."
+    },
+    "sort_order": 220,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_inventory",
+    "title": "Inventory and Stock",
+    "subtitle": "Live on-hand quantities, low-stock filters and signed adjustments",
+    "body": "See every product with on-hand quantity and health (healthy, low, out). Adjust stock with movement types: purchase, return, waste, transfer, opening and adjustment. Notes and user trail stay on each movement.",
+    "badge_text": "Stock control",
+    "image_url": "/landing/inventory.jpg",
+    "image_url_2": "/landing/grocery.jpg",
+    "extra_json": {
+      "bullets": [
+        "Live quantity on hand",
+        "Low-stock and out-of-stock filters",
+        "Purchase, waste, return, transfer, opening, adjustment",
+        "Stock reduces automatically on tracked sales"
+      ],
+      "growth": "Fewer stock-outs and less dead inventory."
+    },
+    "sort_order": 230,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_orders",
+    "title": "Orders and Sales",
+    "subtitle": "Full order lifecycle from open to completed",
+    "body": "List and filter orders by status. Hold an open order for later. Cancel with reason. Send kitchen order tickets. Checkout with multi-payment and invoice generation. Daily order numbers and sales codes stay unique per organization.",
+    "badge_text": "Sales floor",
+    "image_url": "/landing/kot.jpg",
+    "image_url_2": "/landing/pos.jpg",
+    "extra_json": {
+      "bullets": [
+        "Open, held, completed, cancelled statuses",
+        "Hold and resume bills",
+        "Cancel with reason",
+        "KOT print for kitchen",
+        "Checkout with multi-pay and invoice"
+      ],
+      "growth": "Kitchen and counter stay aligned; fewer lost orders."
+    },
+    "sort_order": 240,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_invoices",
+    "title": "Invoices and Bills",
+    "subtitle": "Printable receipts with brand snapshot and reprint tracking",
+    "body": "Every completed sale can produce an invoice with organization snapshot, line items and payments. Reprint from the invoice list; printed count is tracked for control.",
+    "badge_text": "Billing",
+    "image_url": "/landing/invoices.jpg",
+    "image_url_2": null,
+    "extra_json": {
+      "bullets": [
+        "Invoice number per sale",
+        "Customer name on bill",
+        "Subtotal, tax, grand total",
+        "Print and reprint with count"
+      ],
+      "growth": "Professional bills and audit-ready reprint history."
+    },
+    "sort_order": 250,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_reports",
+    "title": "Report Hub - 30 reports",
+    "subtitle": "PDF and Excel for store and platform decisions",
+    "body": "Run and export every report below. Org reports need an active organization. Platform reports serve super admin across all tenants. Empty periods still download a valid file.",
+    "badge_text": "Analytics",
+    "image_url": "/landing/reports.jpg",
+    "image_url_2": "/landing/dashboard.jpg",
+    "extra_json": {
+      "org_reports": [
+        {
+          "name": "Cashier summary",
+          "desc": "Shift-level cash performance for each cashier."
+        },
+        {
+          "name": "Daily sales register",
+          "desc": "Day-wise sales register for store operations."
+        },
+        {
+          "name": "Sales detailed (line items)",
+          "desc": "Every sold line with product, qty and value."
+        },
+        {
+          "name": "Item-wise sales",
+          "desc": "Which items sell and how much revenue they bring."
+        },
+        {
+          "name": "Category-wise sales",
+          "desc": "Sales grouped by menu or product category."
+        },
+        {
+          "name": "Payment method mix",
+          "desc": "Cash, card, UPI and wallet share of collections."
+        },
+        {
+          "name": "Bill type summary",
+          "desc": "Cash, credit and guest bill breakdown."
+        },
+        {
+          "name": "Order type summary",
+          "desc": "Dine-in, takeaway, delivery, retail and pickup mix."
+        },
+        {
+          "name": "Hourly sales heatmap",
+          "desc": "Peak hours so you staff and stock correctly."
+        },
+        {
+          "name": "Tax collected report",
+          "desc": "Tax liability by period for finance teams."
+        },
+        {
+          "name": "Discounts given",
+          "desc": "Every discount and offer applied on bills."
+        },
+        {
+          "name": "Cancelled / void orders",
+          "desc": "Voids and cancellations with reasons."
+        },
+        {
+          "name": "Open & held orders",
+          "desc": "Bills still open or held on the floor."
+        },
+        {
+          "name": "Invoice register",
+          "desc": "Complete invoice list with reprint counts."
+        },
+        {
+          "name": "Customer-wise sales",
+          "desc": "Repeat buyers and customer revenue."
+        },
+        {
+          "name": "Cashier performance",
+          "desc": "Speed and value by cashier for coaching."
+        },
+        {
+          "name": "Terminal / POS machine sales",
+          "desc": "Sales by each registered POS machine."
+        },
+        {
+          "name": "Stock on hand",
+          "desc": "Live on-hand quantity by product."
+        },
+        {
+          "name": "Low stock alert",
+          "desc": "Items at or below reorder threshold."
+        },
+        {
+          "name": "Product catalog export",
+          "desc": "Full catalog dump for audit or sharing."
+        },
+        {
+          "name": "Top products by revenue",
+          "desc": "Best sellers ranked by revenue."
+        },
+        {
+          "name": "Slow / zero movers",
+          "desc": "Products that need promotion or delist."
+        },
+        {
+          "name": "Margin proxy (price-cost)",
+          "desc": "Price vs cost view for pricing decisions."
+        },
+        {
+          "name": "Sales by calendar day",
+          "desc": "Calendar trend of completed sales."
+        },
+        {
+          "name": "Refunded orders",
+          "desc": "Refund activity for control and review."
+        }
+      ],
+      "platform_reports": [
+        {
+          "name": "All organizations",
+          "desc": "Every tenant on the platform."
+        },
+        {
+          "name": "Platform revenue by org",
+          "desc": "Revenue contribution of each organization."
+        },
+        {
+          "name": "Platform order volume",
+          "desc": "Order counts across the network."
+        },
+        {
+          "name": "Platform users directory",
+          "desc": "Users directory for platform governance."
+        },
+        {
+          "name": "Products count by org",
+          "desc": "Catalog size per organization."
+        }
+      ],
+      "growth": "Owners see what sells, what sticks, and where cash moves - every day."
+    },
+    "sort_order": 260,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_discounts",
+    "title": "Discounts and Offers",
+    "subtitle": "Coupons, seasonal windows, item and category offers",
+    "body": "Create organization promotions with display name, coupon code, scope (cart, product, category, coupon, seasonal, super-admin org offer), percentage or fixed value, min order, max cap and validity window. Super admin can also push platform offers to a target organization. Preview discount against a cart before go-live.",
+    "badge_text": "Promotions",
+    "image_url": "/landing/discounts.jpg",
+    "image_url_2": null,
+    "extra_json": {
+      "bullets": [
+        "Coupon codes and seasonal date windows",
+        "Order-level, product-wise and category-wise scopes",
+        "Percentage or fixed amount off",
+        "Min subtotal and max discount cap",
+        "Cart preview evaluation",
+        "Platform offers targeted to an organization"
+      ],
+      "growth": "Run campaigns without manual cashier math."
+    },
+    "sort_order": 270,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_restaurant",
+    "title": "Tables, Waiters and Tax",
+    "subtitle": "Restaurant floor and bill configuration",
+    "body": "Manage dining tables (name, capacity, area, occupied flag), waiters (name, code, phone), and tax rates (name, code, rate, default). Configure bill header, footer, KOT enable, table management, waiter enable and currency symbol per organization.",
+    "badge_text": "Restaurant ops",
+    "image_url": "/landing/tables.jpg",
+    "image_url_2": "/landing/fine-dine.jpg",
+    "extra_json": {
+      "bullets": [
+        "Dining tables with capacity and area",
+        "Waiter directory",
+        "Tax master with default rate",
+        "Bill header/footer and KOT settings"
+      ],
+      "growth": "Floor service and tax-ready bills for F&B brands."
+    },
+    "sort_order": 280,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_terminals",
+    "title": "POS Machines",
+    "subtitle": "Register every counter device",
+    "body": "Create POS terminals with name and code per organization. Select the active machine on the POS Terminal so sales and reports stay attributed to the right counter.",
+    "badge_text": "Hardware ready",
+    "image_url": "/landing/pos.jpg",
+    "image_url_2": null,
+    "extra_json": {
+      "bullets": [
+        "Named terminals per store",
+        "Code for identification",
+        "Sales by terminal in Report Hub"
+      ],
+      "growth": "Multi-counter stores know which machine sold what."
+    },
+    "sort_order": 290,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_customers",
+    "title": "Customers",
+    "subtitle": "Walk-in and registered buyers",
+    "body": "Maintain customer records linked to the organization. Use them on bills and review customer-wise sales in Report Hub.",
+    "badge_text": "CRM lite",
+    "image_url": "/landing/cafe.jpg",
+    "image_url_2": null,
+    "extra_json": {
+      "bullets": [
+        "Customer directory per organization",
+        "Link to sales and invoices",
+        "Customer-wise sales report"
+      ],
+      "growth": "Recognize regulars and track their value."
+    },
+    "sort_order": 300,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_staff",
+    "title": "Staff and Permissions",
+    "subtitle": "Org admins create team members with module access for their organization",
+    "body": "Organization owners create managers, cashiers and staff for their store only. Grant module permissions so each person sees POS, inventory or reports as needed - without sharing the owner login.",
+    "badge_text": "People",
+    "image_url": "/landing/team.jpg",
+    "image_url_2": null,
+    "extra_json": {
+      "bullets": [
+        "Create org staff with credentials",
+        "Module permission grants",
+        "List staff of current organization"
+      ],
+      "growth": "Safe delegation without sharing owner login."
+    },
+    "sort_order": 310,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_users",
+    "title": "Team Directory",
+    "subtitle": "Users list for the active organization",
+    "body": "Browse team members, roles and activity status. Keep the directory clean as people join or leave.",
+    "badge_text": "People",
+    "image_url": "/landing/team.jpg",
+    "image_url_2": null,
+    "extra_json": {
+      "bullets": [
+        "Role-aware directory",
+        "Active status",
+        "Organization scoped list"
+      ],
+      "growth": "HR and ops know who has access today."
+    },
+    "sort_order": 320,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_currency",
+    "title": "World Currencies",
+    "subtitle": "AED base with daily exchange rates",
+    "body": "Base currency is AED. Maintain active world currencies and daily rates. Convert amounts through AED for planning and multi-market operations. Super admin maintains rates for the platform.",
+    "badge_text": "Finance",
+    "image_url": "/landing/currency.jpg",
+    "image_url_2": null,
+    "extra_json": {
+      "bullets": [
+        "AED as platform base currency",
+        "Currency list with symbols",
+        "Daily FX rates vs AED",
+        "Convert tool for any pair via AED"
+      ],
+      "growth": "One system for multi-country rollouts and clear FX."
+    },
+    "sort_order": 330,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_organizations",
+    "title": "Organizations",
+    "subtitle": "How stores are onboarded - then handed to org admin",
+    "body": "Platform super admin creates each organization (restaurant, cafe, grocery, supermarket and more), sets currency and timezone, and can create the organization owner admin. That admin then runs the store. Super admin can switch active organization to support any tenant.",
+    "badge_text": "Platform",
+    "image_url": "/landing/organizations.jpg",
+    "image_url_2": null,
+    "extra_json": {
+      "bullets": [
+        "Multi-tenant organization master",
+        "Business types for F&B and retail",
+        "Owner admin creation at onboarding",
+        "Active tenant switch for super admin"
+      ],
+      "growth": "Scale from one outlet to a network under one platform."
+    },
+    "sort_order": 340,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_cms",
+    "title": "CMS and Landing",
+    "subtitle": "Super admin edits the public website live",
+    "body": "Update hero, modules, reports list, FAQs, careers, social links and every landing section with text and images. The public site reads the CMS bundle on each visit.",
+    "badge_text": "Marketing site",
+    "image_url": "/landing/hero.jpg",
+    "image_url_2": null,
+    "extra_json": {
+      "bullets": [
+        "Section-based CMS",
+        "Image uploads",
+        "Careers posts",
+        "Social links",
+        "Live public bundle"
+      ],
+      "growth": "Marketing updates without a developer release."
+    },
+    "sort_order": 350,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_rbac",
+    "title": "Org Module Access",
+    "subtitle": "Control which modules each organization may use",
+    "body": "Super admin grants module access per organization. Combined with staff permissions, this keeps platform and store roles clear.",
+    "badge_text": "Security",
+    "image_url": "/landing/team.jpg",
+    "image_url_2": null,
+    "extra_json": {
+      "bullets": [
+        "Module catalog",
+        "Org-level grants",
+        "My-access view for signed-in users"
+      ],
+      "growth": "Right people, right screens, right data."
+    },
+    "sort_order": 360,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_platform_users",
+    "title": "Platform Users",
+    "subtitle": "Platform operators without an organization",
+    "body": "Super admin creates platform-level operator users and grants module permissions for platform work such as onboarding and CMS.",
+    "badge_text": "Platform",
+    "image_url": "/landing/organizations.jpg",
+    "image_url_2": null,
+    "extra_json": {
+      "bullets": [
+        "Platform operator accounts",
+        "Full module grants",
+        "No organization binding"
+      ],
+      "growth": "Internal team can support customers safely."
+    },
+    "sort_order": 370,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_dashboard",
+    "title": "Dashboard",
+    "subtitle": "Command center for platform and store",
+    "body": "Organization users see revenue today, invoices, products, low stock, terminals, customers, 7-day sales, payment mix, top products and recent orders for their store. Super admin sees the full network of organizations.",
+    "badge_text": "Home",
+    "image_url": "/landing/dashboard.jpg",
+    "image_url_2": "/landing/reports.jpg",
+    "extra_json": {
+      "bullets": [
+        "Store KPIs for organization users",
+        "Revenue, invoices and open orders today",
+        "Low stock and top products for your org",
+        "Payment mix and recent bills"
+      ],
+      "growth": "Your organization starts every day knowing sales, stock risk and counter health."
+    },
+    "sort_order": 190,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "mod_settings",
+    "title": "Settings",
+    "subtitle": "Profile, theme and password",
+    "body": "Users change password, switch light/dark theme, and see active organization context. Restaurant bill settings live under Tables, Waiters and Tax.",
+    "badge_text": "Account",
+    "image_url": "/landing/analytics.jpg",
+    "image_url_2": null,
+    "extra_json": {
+      "bullets": [
+        "Change password",
+        "Light and dark theme",
+        "Active tenant display"
+      ],
+      "growth": "Secure accounts on shared counters."
+    },
+    "sort_order": 380,
+    "cta_label": "Open product",
+    "cta_url": "/login"
+  },
+  {
+    "section_key": "journey",
+    "title": "A day in your organization",
+    "subtitle": "How org admins and cashiers use Rathin POS from open to close.",
+    "badge_text": "Store operations",
+    "image_url": "/landing/cafe.jpg",
+    "extra_json": {
+      "steps": [
+        {
+          "time": "Morning",
+          "t": "Open counters",
+          "d": "Staff sign in, select POS machine, confirm stock and menus.",
+          "img": "/landing/cafe.jpg"
+        },
+        {
+          "time": "Peak",
+          "t": "Bill and serve",
+          "d": "Barcode or menu tiles, KOT to kitchen, split payments, print invoices.",
+          "img": "/landing/pos.jpg"
+        },
+        {
+          "time": "Afternoon",
+          "t": "Restock",
+          "d": "Inventory adjustments for purchases and waste; watch low-stock alerts.",
+          "img": "/landing/inventory.jpg"
+        },
+        {
+          "time": "Close",
+          "t": "Report and reconcile",
+          "d": "Cashier summary, daily sales, payment mix - export PDF or Excel.",
+          "img": "/landing/reports.jpg"
+        }
+      ]
+    },
+    "sort_order": 400
+  },
+  {
+    "section_key": "how_it_works",
+    "title": "From onboarding to first sale",
+    "badge_text": "For new organizations",
+    "image_url": "/landing/organizations.jpg",
+    "extra_json": {
+      "steps": [
+        {
+          "n": "1",
+          "t": "Organization is created",
+          "d": "Super admin onboards your store and sets up the organization owner admin."
+        },
+        {
+          "n": "2",
+          "t": "Org admin builds catalog",
+          "d": "Categories, products, barcodes, opening stock and POS machines for your organization."
+        },
+        {
+          "n": "3",
+          "t": "Team sells on POS",
+          "d": "Cashiers bill, print KOT and invoices, take multi-pay on your counters."
+        },
+        {
+          "n": "4",
+          "t": "Admin exports reports",
+          "d": "Organization reports for sales, tax, stock and cashiers - PDF or Excel."
+        }
+      ]
+    },
+    "sort_order": 410,
+    "subtitle": "How a new organization goes live on Rathin POS."
+  },
+  {
+    "section_key": "testimonials",
+    "title": "What operators say",
+    "badge_text": "Customers",
+    "image_url": "/landing/team.jpg",
+    "extra_json": {
+      "items": [
+        {
+          "name": "Aisha Rahman",
+          "role": "Owner, Spice Route",
+          "quote": "Tables, KOT and cashier reports finally sit in one system. Peak-hour billing is cleaner for our team.",
+          "img": "/landing/fine-dine.jpg"
+        },
+        {
+          "name": "Rahul Mehta",
+          "role": "Ops, FreshBasket Grocery",
+          "quote": "Barcode billing plus low-stock alerts cut empty shelves. We run multiple stores under one super admin.",
+          "img": "/landing/grocery.jpg"
+        },
+        {
+          "name": "Sara Al Noor",
+          "role": "Founder, Daily Mart",
+          "quote": "Supermarket counters, promotions and Excel exports are what we needed for weekly planning.",
+          "img": "/landing/retail.jpg"
+        }
+      ]
+    },
+    "sort_order": 420
+  },
+  {
+    "section_key": "faqs",
+    "title": "Questions from organization owners and admins",
+    "badge_text": "FAQ for organizations",
+    "image_url": "/landing/dashboard.jpg",
+    "extra_json": {
+      "items": [
+        {
+          "q": "What does my organization get after onboarding?",
+          "a": "Your org admin gets Dashboard, POS Terminal, Products, Categories, Inventory, Orders, Invoices, Report Hub (30 reports), Discounts, Tables/Waiters/Tax (for restaurants), POS Machines, Customers, Staff Permissions, Team Directory, Currencies view and Settings for that organization."
+        },
+        {
+          "q": "Who creates my organization?",
+          "a": "Platform super admin creates the organization and can create the organization owner admin. That admin then runs day-to-day store operations and staff."
+        },
+        {
+          "q": "Can one organization run restaurant and grocery?",
+          "a": "Each organization has a business type (restaurant, cafe, fast food, grocery, kirana, supermarket, retail, bakery, other). Restaurant tools like tables, waiters and KOT are available for F&B orgs; barcode and high-SKU inventory suit grocery and supermarket orgs."
+        },
+        {
+          "q": "How many reports can my organization export?",
+          "a": "25 organization reports in Report Hub (cashier summary, daily sales, item-wise, low stock, tax collected, and more), each as PDF and Excel. Platform-level reports are for super admin across all organizations."
+        },
+        {
+          "q": "How do staff permissions work inside my organization?",
+          "a": "Organization owners create staff and grant module permissions (for example POS only, or inventory plus reports). Super admin can also control which modules the organization may use."
+        },
+        {
+          "q": "Can we run multiple counters?",
+          "a": "Yes. Register POS Machines for the organization and select the terminal on POS Terminal so sales and reports stay attributed correctly."
+        },
+        {
+          "q": "What payments work on the organization POS?",
+          "a": "Cash with tendered amount and change, card, UPI and wallet, including split payments on one bill."
+        },
+        {
+          "q": "Does inventory update when we sell?",
+          "a": "Yes for products with inventory tracking on. Org admins can also adjust stock for purchase, waste, return, transfer, opening and manual adjustment."
+        },
+        {
+          "q": "Who edits the public website?",
+          "a": "Platform super admin CMS. Organization users focus on store modules after login."
+        },
+        {
+          "q": "How do we start selling?",
+          "a": "Org admin signs in, adds products and a terminal, opens POS Terminal, completes a bill, then uses Report Hub for daily close."
+        }
+      ]
+    },
+    "sort_order": 430,
+    "subtitle": "Straight answers about what your store gets after onboarding."
+  },
+  {
+    "section_key": "careers_banner",
+    "title": "Careers at Rathin POS",
+    "subtitle": "Product, engineering and customer success roles.",
+    "badge_text": "Careers",
+    "cta_label": "See open roles",
+    "cta_url": "#careers",
+    "image_url": "/landing/team.jpg",
+    "sort_order": 440
+  },
+  {
+    "section_key": "cta",
+    "title": "Open your organization workspace",
+    "subtitle": "Sign in as org admin or staff to run POS, stock, team and reports for your store.",
+    "badge_text": "Organization access",
+    "cta_label": "Sign in to Rathin POS",
+    "cta_url": "/login",
+    "image_url": "/landing/checkout.jpg",
+    "sort_order": 450
+  },
+  {
+    "section_key": "footer",
+    "title": "Rathin POS",
+    "subtitle": "Point of sale for restaurant and retail organizations - inventory, staff, discounts and 30 reports.",
+    "body": "Organization admin · POS · Inventory · Report Hub · Multi-store",
+    "badge_text": "For organizations",
+    "image_url": "/landing/hero.jpg",
+    "sort_order": 460
+  },
+  {
+    "section_key": "gallery",
+    "title": "In stores and kitchens",
+    "image_url": "/landing/fine-dine.jpg",
+    "image_url_2": "/landing/pos.jpg",
+    "image_url_3": "/landing/grocery.jpg",
+    "image_url_4": "/landing/retail.jpg",
+    "sort_order": 55
+  },
+  {
+    "section_key": "features",
+    "title": "What organization admins get on day one",
+    "subtitle": "Practical store tools your team uses at the counter, in the stockroom and in the back office.",
+    "badge_text": "For your store",
+    "image_url": "/landing/pos.jpg",
+    "extra_json": {
+      "items": [
+        {
+          "t": "POS Terminal",
+          "d": "Barcode, multi-pay, hold, KOT, invoice.",
+          "img": "/landing/pos.jpg"
+        },
+        {
+          "t": "Inventory",
+          "d": "Live stock, low alerts, purchase and waste.",
+          "img": "/landing/inventory.jpg"
+        },
+        {
+          "t": "30 reports",
+          "d": "PDF and Excel for store and platform.",
+          "img": "/landing/reports.jpg"
+        },
+        {
+          "t": "Discounts",
+          "d": "Coupons, seasonal and item offers.",
+          "img": "/landing/discounts.jpg"
+        },
+        {
+          "t": "Restaurant floor",
+          "d": "Tables, waiters, tax and bill settings.",
+          "img": "/landing/tables.jpg"
+        },
+        {
+          "t": "Multi-store",
+          "d": "Organizations with owner and staff roles.",
+          "img": "/landing/organizations.jpg"
+        }
+      ]
+    },
+    "sort_order": 45
+  },
+  {
+    "section_key": "why_us",
+    "title": "Why organizations choose Rathin POS",
+    "badge_text": "Why Rathin POS",
+    "image_url": "/landing/team.jpg",
+    "extra_json": {
+      "items": [
+        {
+          "t": "Full store stack",
+          "d": "Your organization gets counter, kitchen, stock, staff and finance reports in one login.",
+          "img": "/landing/dashboard.jpg"
+        },
+        {
+          "t": "Clear roles",
+          "d": "Org owner and staff permissions - each organization controls its own team.",
+          "img": "/landing/team.jpg"
+        },
+        {
+          "t": "Report depth",
+          "d": "Thirty named reports for organization decisions - PDF and Excel.",
+          "img": "/landing/reports.jpg"
+        },
+        {
+          "t": "Restaurant and retail",
+          "d": "Tables and KOT for F&B; barcode grocery for retail - one product, per organization.",
+          "img": "/landing/grocery.jpg"
+        }
+      ]
+    },
+    "sort_order": 415
+  },
+  {
+    "section_key": "reports",
+    "title": "Report Hub - every report by name",
+    "subtitle": "Export PDF or Excel for each report listed here.",
+    "badge_text": "30 reports",
+    "image_url": "/landing/reports.jpg",
+    "extra_json": {
+      "org_reports": [
+        {
+          "name": "Cashier summary",
+          "desc": "Shift-level cash performance for each cashier."
+        },
+        {
+          "name": "Daily sales register",
+          "desc": "Day-wise sales register for store operations."
+        },
+        {
+          "name": "Sales detailed (line items)",
+          "desc": "Every sold line with product, qty and value."
+        },
+        {
+          "name": "Item-wise sales",
+          "desc": "Which items sell and how much revenue they bring."
+        },
+        {
+          "name": "Category-wise sales",
+          "desc": "Sales grouped by menu or product category."
+        },
+        {
+          "name": "Payment method mix",
+          "desc": "Cash, card, UPI and wallet share of collections."
+        },
+        {
+          "name": "Bill type summary",
+          "desc": "Cash, credit and guest bill breakdown."
+        },
+        {
+          "name": "Order type summary",
+          "desc": "Dine-in, takeaway, delivery, retail and pickup mix."
+        },
+        {
+          "name": "Hourly sales heatmap",
+          "desc": "Peak hours so you staff and stock correctly."
+        },
+        {
+          "name": "Tax collected report",
+          "desc": "Tax liability by period for finance teams."
+        },
+        {
+          "name": "Discounts given",
+          "desc": "Every discount and offer applied on bills."
+        },
+        {
+          "name": "Cancelled / void orders",
+          "desc": "Voids and cancellations with reasons."
+        },
+        {
+          "name": "Open & held orders",
+          "desc": "Bills still open or held on the floor."
+        },
+        {
+          "name": "Invoice register",
+          "desc": "Complete invoice list with reprint counts."
+        },
+        {
+          "name": "Customer-wise sales",
+          "desc": "Repeat buyers and customer revenue."
+        },
+        {
+          "name": "Cashier performance",
+          "desc": "Speed and value by cashier for coaching."
+        },
+        {
+          "name": "Terminal / POS machine sales",
+          "desc": "Sales by each registered POS machine."
+        },
+        {
+          "name": "Stock on hand",
+          "desc": "Live on-hand quantity by product."
+        },
+        {
+          "name": "Low stock alert",
+          "desc": "Items at or below reorder threshold."
+        },
+        {
+          "name": "Product catalog export",
+          "desc": "Full catalog dump for audit or sharing."
+        },
+        {
+          "name": "Top products by revenue",
+          "desc": "Best sellers ranked by revenue."
+        },
+        {
+          "name": "Slow / zero movers",
+          "desc": "Products that need promotion or delist."
+        },
+        {
+          "name": "Margin proxy (price-cost)",
+          "desc": "Price vs cost view for pricing decisions."
+        },
+        {
+          "name": "Sales by calendar day",
+          "desc": "Calendar trend of completed sales."
+        },
+        {
+          "name": "Refunded orders",
+          "desc": "Refund activity for control and review."
+        }
+      ],
+      "platform_reports": [
+        {
+          "name": "All organizations",
+          "desc": "Every tenant on the platform."
+        },
+        {
+          "name": "Platform revenue by org",
+          "desc": "Revenue contribution of each organization."
+        },
+        {
+          "name": "Platform order volume",
+          "desc": "Order counts across the network."
+        },
+        {
+          "name": "Platform users directory",
+          "desc": "Users directory for platform governance."
+        },
+        {
+          "name": "Products count by org",
+          "desc": "Catalog size per organization."
+        }
+      ]
+    },
+    "sort_order": 265
+  },
+  {
+    "section_key": "contact",
+    "title": "Contact us",
+    "subtitle": "Tell us about your store. Share name, email, phone and requirements - we reply quickly.",
+    "body": "Organizations use Rathin POS for restaurants, grocery and retail. Leave a message and our team will help with onboarding.",
+    "badge_text": "Contact",
+    "cta_label": "Open contact form",
+    "sort_order": 95,
+    "extra_json": {
+      "show_on_landing": true,
+      "submit_label": "Send message",
+      "success_message": "Thank you. Your message was received and our team will contact you soon.",
+      "fields": [
+        {
+          "key": "name",
+          "label": "Name",
+          "type": "text",
+          "required": false,
+          "enabled": true,
+          "placeholder": "Your full name"
+        },
+        {
+          "key": "email",
+          "label": "Email",
+          "type": "email",
+          "required": true,
+          "enabled": true,
+          "placeholder": "you@company.com"
+        },
+        {
+          "key": "phone",
+          "label": "Phone",
+          "type": "tel",
+          "required": false,
+          "enabled": true,
+          "placeholder": "+971 ..."
+        },
+        {
+          "key": "message",
+          "label": "Message and requirements",
+          "type": "textarea",
+          "required": true,
+          "enabled": true,
+          "placeholder": "Tell us about your stores and what you need"
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,277 @@
+import { useState } from 'react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { api, errMsg, money, type Category, type Page, type Product } from '@/lib/api'
+import { Alert, Badge, Button, Card, EmptyState, Input, Modal, PageHeader, Select, Spinner, Textarea } from '@/components/ui'
+import { Package, Plus, Search } from 'lucide-react'
+import { useAuthStore } from '@/store/authStore'
+import ImageUpload from '@/components/ImageUpload'
+import { mediaUrl } from '@/lib/media'
+
+const empty = {
+  name: '',
+  price: '',
+  cost_price: '',
+  tax_rate: '5',
+  category_id: '',
+  sku: '',
+  barcode: '',
+  unit: 'pcs',
+  description: '',
+  image_url: '' as string | null,
+  initial_stock: '100',
+  low_stock_threshold: '10',
+  is_track_inventory: true,
+  is_sold_by_weight: false,
+}
+
+export default function ProductsPage() {
+  const orgId = useAuthStore((s) => s.organizationId)
+  const [q, setQ] = useState('')
+  const [categoryId, setCategoryId] = useState('')
+  const [open, setOpen] = useState(false)
+  const [edit, setEdit] = useState<Product | null>(null)
+  const [error, setError] = useState('')
+  const [form, setForm] = useState(empty)
+  const qc = useQueryClient()
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['products', orgId, q, categoryId],
+    enabled: !!orgId,
+    queryFn: async () =>
+      (
+        await api.get<Page<Product>>('/catalog/products', {
+          params: { q: q || undefined, category_id: categoryId || undefined, page_size: 100, is_active: undefined },
+        })
+      ).data,
+  })
+
+  const { data: cats } = useQuery({
+    queryKey: ['categories', orgId],
+    enabled: !!orgId,
+    queryFn: async () => (await api.get<Page<Category>>('/catalog/categories', { params: { page_size: 200 } })).data,
+  })
+
+  const createMut = useMutation({
+    mutationFn: async () =>
+      (
+        await api.post('/catalog/products', {
+          name: form.name,
+          price: Number(form.price),
+          cost_price: form.cost_price ? Number(form.cost_price) : null,
+          tax_rate: Number(form.tax_rate || 0),
+          category_id: form.category_id ? Number(form.category_id) : null,
+          sku: form.sku || null,
+          barcode: form.barcode || null,
+          unit: form.unit,
+          description: form.description || null,
+          image_url: form.image_url || null,
+          initial_stock: Number(form.initial_stock || 0),
+          low_stock_threshold: Number(form.low_stock_threshold || 0),
+          is_track_inventory: form.is_track_inventory,
+          is_sold_by_weight: form.is_sold_by_weight,
+        })
+      ).data,
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['products'] })
+      qc.invalidateQueries({ queryKey: ['dashboard'] })
+      setOpen(false)
+      setForm(empty)
+    },
+    onError: (e) => setError(errMsg(e)),
+  })
+
+  const updateMut = useMutation({
+    mutationFn: async () =>
+      (
+        await api.patch(`/catalog/products/${edit!.id}`, {
+          name: form.name,
+          price: Number(form.price),
+          cost_price: form.cost_price ? Number(form.cost_price) : null,
+          tax_rate: Number(form.tax_rate || 0),
+          category_id: form.category_id ? Number(form.category_id) : null,
+          sku: form.sku || null,
+          barcode: form.barcode || null,
+          unit: form.unit,
+          description: form.description || null,
+          image_url: form.image_url || null,
+          low_stock_threshold: Number(form.low_stock_threshold || 0),
+          is_track_inventory: form.is_track_inventory,
+          is_sold_by_weight: form.is_sold_by_weight,
+        })
+      ).data,
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['products'] })
+      setEdit(null)
+      setForm(empty)
+    },
+    onError: (e) => setError(errMsg(e)),
+  })
+
+  if (!orgId) {
+    return (
+      <Card>
+        <EmptyState title="Select an organization" description="Super admin: set an active tenant first." />
+      </Card>
+    )
+  }
+
+  function openEdit(p: Product) {
+    setEdit(p)
+    setError('')
+    setForm({
+      name: p.name,
+      price: String(Number(p.price)),
+      cost_price: p.cost_price != null ? String(Number(p.cost_price)) : '',
+      tax_rate: String(Number(p.tax_rate)),
+      category_id: p.category_id ? String(p.category_id) : '',
+      sku: p.sku || '',
+      barcode: p.barcode || '',
+      unit: p.unit,
+      description: p.description || '',
+      image_url: p.image_url || '',
+      initial_stock: '',
+      low_stock_threshold: p.low_stock_threshold != null ? String(Number(p.low_stock_threshold)) : '10',
+      is_track_inventory: p.is_track_inventory,
+      is_sold_by_weight: !!p.is_sold_by_weight,
+    })
+  }
+
+  const formFields = (
+    <div className="grid sm:grid-cols-2 gap-4">
+      <div className="sm:col-span-2">
+        <ImageUpload
+          label="Product image"
+          entity="products"
+          value={form.image_url}
+          onChange={(url) => setForm({ ...form, image_url: url })}
+        />
+      </div>
+      <Input label="Name *" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+      <Input label="Price *" type="number" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
+      <Input label="Cost price" type="number" value={form.cost_price} onChange={(e) => setForm({ ...form, cost_price: e.target.value })} />
+      <Input label="Tax %" type="number" value={form.tax_rate} onChange={(e) => setForm({ ...form, tax_rate: e.target.value })} />
+      <Select label="Category" value={form.category_id} onChange={(e) => setForm({ ...form, category_id: e.target.value })}>
+        <option value="">- None -</option>
+        {cats?.items.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+      </Select>
+      <Input label="Unit" value={form.unit} onChange={(e) => setForm({ ...form, unit: e.target.value })} placeholder="pcs / kg / litre" />
+      <Input label="SKU" value={form.sku} onChange={(e) => setForm({ ...form, sku: e.target.value })} />
+      <Input label="Barcode" value={form.barcode} onChange={(e) => setForm({ ...form, barcode: e.target.value })} />
+      {!edit && (
+        <Input label="Initial stock" type="number" value={form.initial_stock} onChange={(e) => setForm({ ...form, initial_stock: e.target.value })} />
+      )}
+      <Input label="Low stock threshold" type="number" value={form.low_stock_threshold} onChange={(e) => setForm({ ...form, low_stock_threshold: e.target.value })} />
+      <div className="sm:col-span-2 flex flex-wrap gap-4 text-sm">
+        <label className="flex items-center gap-2"><input type="checkbox" checked={form.is_track_inventory} onChange={(e) => setForm({ ...form, is_track_inventory: e.target.checked })} /> Track inventory</label>
+        <label className="flex items-center gap-2"><input type="checkbox" checked={form.is_sold_by_weight} onChange={(e) => setForm({ ...form, is_sold_by_weight: e.target.checked })} /> Sold by weight</label>
+      </div>
+      <div className="sm:col-span-2">
+        <Textarea label="Description" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+      </div>
+    </div>
+  )
+
+  return (
+    <div>
+      <PageHeader
+        breadcrumb="Catalog"
+        title="Products"
+        subtitle="Menu items, grocery SKUs, barcodes - fully dynamic per tenant."
+        actions={<Button onClick={() => { setForm(empty); setError(''); setOpen(true) }}><Plus size={16} /> Add product</Button>}
+      />
+
+      <div className="flex flex-col sm:flex-row gap-3 mb-5">
+        <div className="relative flex-1 max-w-md">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" size={16} />
+          <input className="w-full rounded-2xl border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-900 pl-9 pr-3 py-3 text-sm outline-none focus:ring-2 focus:ring-brand-500/40" placeholder="Search name, SKU, barcode…" value={q} onChange={(e) => setQ(e.target.value)} />
+        </div>
+        <Select className="sm:w-56" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
+          <option value="">All categories</option>
+          {cats?.items.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+        </Select>
+      </div>
+
+      {isLoading ? (
+        <div className="flex justify-center py-16"><Spinner className="h-8 w-8" /></div>
+      ) : !data?.items?.length ? (
+        <Card>
+          <EmptyState icon={<Package size={24} />} title="No products" description="Add your first product for this business." action={<Button onClick={() => setOpen(true)}>Add product</Button>} />
+        </Card>
+      ) : (
+        <div className="premium-card overflow-hidden">
+          <div className="table-scroll overflow-x-auto">
+            <table className="w-full text-sm table-row-hover">
+              <thead className="bg-ink-50 dark:bg-ink-950 text-ink-500">
+                <tr>
+                  <th className="text-left px-4 py-3 font-semibold">Product</th>
+                  <th className="text-left px-4 py-3 font-semibold">SKU</th>
+                  <th className="text-right px-4 py-3 font-semibold">Price</th>
+                  <th className="text-right px-4 py-3 font-semibold">Tax</th>
+                  <th className="text-right px-4 py-3 font-semibold">Stock</th>
+                  <th className="text-left px-4 py-3 font-semibold">Status</th>
+                  <th className="text-right px-4 py-3 font-semibold"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.items.map((p) => {
+                  const stock = p.inventory ? Number(p.inventory.quantity_on_hand) : null
+                  const low = stock != null && p.low_stock_threshold != null && stock <= Number(p.low_stock_threshold)
+                  return (
+                    <tr key={p.id} className="border-t border-ink-100 dark:border-ink-800">
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-3">
+                          {p.image_url ? (
+                            <img src={mediaUrl(p.image_url)} alt="" className="h-10 w-10 rounded-xl object-cover border border-slate-200" />
+                          ) : (
+                            <div className="h-10 w-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-black text-sm">
+                              {p.name[0]}
+                            </div>
+                          )}
+                          <div>
+                            <div className="font-semibold">{p.name}</div>
+                            {p.barcode && <div className="text-[11px] text-slate-400">{p.barcode}</div>}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-ink-500">{p.sku || '-'}</td>
+                      <td className="px-4 py-3 text-right font-semibold">{money(p.price)}</td>
+                      <td className="px-4 py-3 text-right">{Number(p.tax_rate)}%</td>
+                      <td className={`px-4 py-3 text-right font-medium ${low ? 'text-amber-600' : ''}`}>
+                        {stock == null ? '-' : `${stock} ${p.unit}`}
+                      </td>
+                      <td className="px-4 py-3"><Badge tone={p.is_active ? 'success' : 'neutral'}>{p.is_active ? 'Active' : 'Off'}</Badge></td>
+                      <td className="px-4 py-3 text-right">
+                        <Button size="sm" variant="secondary" onClick={() => openEdit(p)}>Edit</Button>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+          <div className="px-4 py-3 border-t border-ink-100 dark:border-ink-800 text-xs text-ink-500">
+            {data.meta.total} products
+          </div>
+        </div>
+      )}
+
+      <Modal open={open} onClose={() => setOpen(false)} title="Add product" subtitle="Catalog item for active tenant" wide>
+        {formFields}
+        {error && <div className="mt-4"><Alert tone="danger">{error}</Alert></div>}
+        <div className="mt-5 flex justify-end gap-2">
+          <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
+          <Button disabled={!form.name || !form.price || createMut.isPending} onClick={() => { setError(''); createMut.mutate() }}>Save product</Button>
+        </div>
+      </Modal>
+
+      <Modal open={!!edit} onClose={() => setEdit(null)} title="Edit product" subtitle={edit?.name} wide>
+        {formFields}
+        {error && <div className="mt-4"><Alert tone="danger">{error}</Alert></div>}
+        <div className="mt-5 flex justify-end gap-2">
+          <Button variant="secondary" onClick={() => setEdit(null)}>Cancel</Button>
+          <Button disabled={updateMut.isPending} onClick={() => { setError(''); updateMut.mutate() }}>Update</Button>
+        </div>
+      </Modal>
+    </div>
+  )
+}
