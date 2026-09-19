@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# Rathin POS - safe production deploy
+# DineFlow - safe production deploy
 # Run on the server after git pull / rsync. Does NOT wipe .env, nginx, or MySQL.
 # Usage (on server):
 #   bash ~/POSProject/pos/deploy.sh
@@ -11,7 +11,7 @@ APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKEND="$APP_DIR/backend"
 FRONTEND="$APP_DIR/frontend"
 
-echo "[deploy] Rathin POS at $APP_DIR"
+echo "[deploy] DineFlow at $APP_DIR"
 
 if [[ ! -f "$BACKEND/.env" ]]; then
   echo "[deploy] ERROR: backend/.env missing. Do not overwrite production env."
@@ -35,12 +35,16 @@ fi
 npm run build
 
 echo "[deploy] Restart API (zero-config systemd)..."
-if systemctl is-enabled rathin-pos-api >/dev/null 2>&1; then
+if systemctl is-enabled dineflow-api >/dev/null 2>&1; then
+  sudo systemctl restart dineflow-api
+  sleep 1
+  sudo systemctl --no-pager --full status dineflow-api | head -12 || true
+elif systemctl is-enabled rathin-pos-api >/dev/null 2>&1; then
   sudo systemctl restart rathin-pos-api
   sleep 1
   sudo systemctl --no-pager --full status rathin-pos-api | head -12 || true
 else
-  echo "[deploy] WARNING: rathin-pos-api service not found"
+  echo "[deploy] WARNING: dineflow-api / rathin-pos-api service not found"
 fi
 
 if command -v nginx >/dev/null 2>&1; then

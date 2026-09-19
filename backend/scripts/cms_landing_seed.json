@@ -3,7 +3,7 @@
     "section_key": "hero",
     "title": "Everything your store organization needs to sell, stock and report",
     "subtitle": "When your organization is onboarded, your admin gets POS Terminal, products, inventory, staff permissions, discounts, restaurant floor tools and 30 reports in PDF and Excel - ready for daily store work.",
-    "body": "Rathin POS is built for the organization you run: restaurants, cafes, QSR, grocery, supermarket and retail. Your org admin controls catalog, cashiers, terminals and reports for that store. Multi-store groups run each organization separately under one platform.",
+    "body": "DineFlow is built for the organization you run: restaurants, cafes, QSR, grocery, supermarket and retail. Your org admin controls catalog, cashiers, terminals and reports for that store. Multi-store groups run each organization separately under one platform.",
     "badge_text": "For organization admins and store teams",
     "cta_label": "Sign in to your organization",
     "cta_url": "/login",
@@ -722,7 +722,7 @@
   {
     "section_key": "journey",
     "title": "A day in your organization",
-    "subtitle": "How org admins and cashiers use Rathin POS from open to close.",
+    "subtitle": "How org admins and cashiers use DineFlow from open to close.",
     "badge_text": "Store operations",
     "image_url": "/landing/cafe.jpg",
     "extra_json": {
@@ -785,7 +785,7 @@
       ]
     },
     "sort_order": 410,
-    "subtitle": "How a new organization goes live on Rathin POS."
+    "subtitle": "How a new organization goes live on DineFlow."
   },
   {
     "section_key": "testimonials",
@@ -870,7 +870,7 @@
   },
   {
     "section_key": "careers_banner",
-    "title": "Careers at Rathin POS",
+    "title": "Careers at DineFlow",
     "subtitle": "Product, engineering and customer success roles.",
     "badge_text": "Careers",
     "cta_label": "See open roles",
@@ -883,14 +883,14 @@
     "title": "Open your organization workspace",
     "subtitle": "Sign in as org admin or staff to run POS, stock, team and reports for your store.",
     "badge_text": "Organization access",
-    "cta_label": "Sign in to Rathin POS",
+    "cta_label": "Sign in to DineFlow",
     "cta_url": "/login",
     "image_url": "/landing/checkout.jpg",
     "sort_order": 450
   },
   {
     "section_key": "footer",
-    "title": "Rathin POS",
+    "title": "DineFlow",
     "subtitle": "Point of sale for restaurant and retail organizations - inventory, staff, discounts and 30 reports.",
     "body": "Organization admin · POS · Inventory · Report Hub · Multi-store",
     "badge_text": "For organizations",
@@ -950,8 +950,8 @@
   },
   {
     "section_key": "why_us",
-    "title": "Why organizations choose Rathin POS",
-    "badge_text": "Why Rathin POS",
+    "title": "Why organizations choose DineFlow",
+    "badge_text": "Why DineFlow",
     "image_url": "/landing/team.jpg",
     "extra_json": {
       "items": [
@@ -1117,7 +1117,7 @@
     "section_key": "contact",
     "title": "Contact us",
     "subtitle": "Tell us about your store. Share name, email, phone and requirements - we reply quickly.",
-    "body": "Organizations use Rathin POS for restaurants, grocery and retail. Leave a message and our team will help with onboarding.",
+    "body": "Organizations use DineFlow for restaurants, grocery and retail. Leave a message and our team will help with onboarding.",
     "badge_text": "Contact",
     "cta_label": "Open contact form",
     "sort_order": 95,

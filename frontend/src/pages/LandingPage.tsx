@@ -738,7 +738,7 @@ export default function LandingPage() {
       <MenuRail
         sectionId="menu-preview"
         title="Restaurant menu browsing on POS"
-        subtitle="Swipe categories and dishes like food apps - then complete the bill with Rathin POS multi-pay checkout."
+        subtitle="Swipe categories and dishes like food apps - then complete the bill with DineFlow multi-pay checkout."
       />
 
       {/* MODULE MAP */}
@@ -867,10 +867,10 @@ export default function LandingPage() {
           <div className="min-w-0">
             <Reveal from="left">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700 mb-2">
-                {why?.badge_text || 'Why Rathin POS'}
+                {why?.badge_text || 'Why DineFlow'}
               </p>
               <h2 className="text-3xl font-extrabold text-slate-950 mb-6 leading-tight">
-                {why?.title || 'Why organizations choose Rathin POS'}
+                {why?.title || 'Why organizations choose DineFlow'}
               </h2>
             </Reveal>
             <div className="space-y-3">
@@ -918,7 +918,7 @@ export default function LandingPage() {
       {/* Food / menu style horizontal rail (Swiggy-Zomato style) */}
       <MenuRail
         title="Sell like a modern food menu"
-        subtitle="Horizontal menu rails for restaurants and QSR - browse categories the way guests know from food apps, then bill on Rathin POS."
+        subtitle="Horizontal menu rails for restaurants and QSR - browse categories the way guests know from food apps, then bill on DineFlow."
         large
       />
 
@@ -1211,7 +1211,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="mt-10 text-xs font-medium text-slate-500 flex flex-col sm:flex-row sm:justify-between gap-2">
-            <span>© {new Date().getFullYear()} {footer?.title || 'Rathin POS'}. All rights reserved.</span>
+            <span>© {new Date().getFullYear()} {footer?.title || 'DineFlow'}. All rights reserved.</span>
             <span>Website content managed in Super Admin CMS.</span>
           </div>
         </div>

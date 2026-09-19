@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# Rathin POS - single entrypoint
+# DineFlow - single entrypoint
 # Starts MySQL migration/seed, FastAPI backend (8000), React UI (3000)
 # Usage: ./start.sh
 # =============================================================================
@@ -127,14 +127,14 @@ done
 
 echo ""
 echo -e "${GREEN}════════════════════════════════════════════════════════════${NC}"
-echo -e "${GREEN}  Rathin POS is running${NC}"
+echo -e "${GREEN}  DineFlow is running${NC}"
 echo -e "${GREEN}════════════════════════════════════════════════════════════${NC}"
 echo -e "  UI:       ${CYAN}http://localhost:3000${NC}"
 echo -e "  API:      ${CYAN}http://localhost:8000${NC}"
 echo -e "  API docs: ${CYAN}http://localhost:8000/docs${NC}"
 echo -e "  Health:   ${CYAN}http://localhost:8000/health${NC}"
 echo ""
-echo -e "  Super admin: ${YELLOW}superadmin${NC} / ${YELLOW}Rathin@1290${NC}"
+echo -e "  Super admin: ${YELLOW}superadmin${NC} / ${YELLOW}DineFlow@1290${NC}"
 echo -e "  Logs:        $LOG_DIR/"
 echo ""
 echo -e "  Press ${YELLOW}Ctrl+C${NC} to stop both services."

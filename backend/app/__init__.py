@@ -1,3 +1,3 @@
-"""Rathin POS - multi-tenant Point of Sale backend."""
+"""DineFlow - multi-tenant Point of Sale backend."""
 
 __version__ = "1.0.0"

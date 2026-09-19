@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 564" width="2000" height="564" fill="none">
+  <defs>
+    <linearGradient id="df-logo-grad" x1="60" y1="60" x2="480" y2="480" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="50%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="df-text-flow" x1="1080" y1="180" x2="1520" y2="380" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <filter id="df-icon-shadow" x="-5%" y="-5%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#047857" flood-opacity="0.3" />
+    </filter>
+  </defs>
+
+  <!-- Group: Emblem on Left -->
+  <g transform="translate(60, 52)">
+    <!-- Rounded Emblem Background -->
+    <rect x="0" y="0" width="460" height="460" rx="115" fill="url(#df-logo-grad)" filter="url(#df-icon-shadow)" />
+    <rect x="2" y="2" width="456" height="456" rx="113" stroke="#ffffff" stroke-width="4" stroke-opacity="0.3" />
+
+    <!-- Stylized DineFlow "D" with Dining Dome & Flow Wave inside -->
+    <g transform="translate(75, 75)">
+      <!-- Main D back-stem -->
+      <path d="M40 30 C40 19 49 10 60 10 L140 10 C210 10 260 60 260 150 C260 240 210 290 140 290 L60 290 C49 290 40 281 40 270 Z" fill="#ffffff" fill-opacity="0.95" />
+      
+      <!-- Cutout / Flow Dynamic Inside D -->
+      <path d="M95 70 L135 70 C180 70 205 105 205 150 C205 195 180 230 135 230 L95 230 Z" fill="url(#df-logo-grad)" />
+
+      <!-- Cloche / Dining Arc in Center -->
+      <path d="M110 150 C110 120 132 95 162 95 C192 95 214 120 214 150 Z" fill="#ffffff" fill-opacity="0.9" />
+      <!-- Cloche handle -->
+      <circle cx="162" cy="85" r="10" fill="#ffffff" />
+
+      <!-- Steam / Flow swooshes above -->
+      <path d="M130 60 C135 50 145 45 155 50" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-opacity="0.85" />
+      <path d="M170 55 C175 45 185 40 195 45" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-opacity="0.85" />
+    </g>
+  </g>
+
+  <!-- Group: Typography on Right -->
+  <g id="wordmark">
+    <!-- "Dine" in deep slate/ink #0f172a -->
+    <text x="600" y="340" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif" font-size="250" font-weight="900" fill="#0f172a" letter-spacing="-6">Dine</text>
+    
+    <!-- "Flow" in Emerald/Cyan gradient #10b981 -> #06b6d4 -->
+    <text x="1135" y="340" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif" font-size="250" font-weight="900" fill="url(#df-text-flow)" letter-spacing="-6">Flow</text>
+
+    <!-- Accent Dot -->
+    <circle cx="1705" cy="320" r="22" fill="#10b981" />
+
+    <!-- Subtitle: POINT OF SALE -->
+    <text x="610" y="440" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif" font-size="52" font-weight="700" fill="#64748b" letter-spacing="18">POINT OF SALE</text>
+  </g>
+</svg>

@@ -83,7 +83,7 @@ export default function SettingsPage() {
 
       <Card className="mt-4" title="Session">
         <Button variant="danger" onClick={() => { logout(); window.location.href = '/login' }}>
-          Sign out of Rathin POS
+          Sign out of DineFlow
         </Button>
       </Card>
     </div>

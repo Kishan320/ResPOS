@@ -1,5 +1,5 @@
 """
-Rathin POS API
+DineFlow API
 Multi-tenant Point of Sale for restaurants, cafes, grocery, kirana and retail.
 """
 
@@ -24,7 +24,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.app_name,
     version="1.0.0",
-    description="Rathin POS - multi-tenant point of sale for restaurant and retail organizations",
+    description="DineFlow - multi-tenant point of sale for restaurant and retail organizations",
     default_response_class=ORJSONResponse,
     lifespan=lifespan,
     docs_url="/docs",

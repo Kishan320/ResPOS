@@ -45,7 +45,7 @@ export default function LoginPage() {
         <div className="relative h-full flex flex-col justify-between p-12 text-white">
           <BrandLogo to="/" height={36} maxWidth={150} surface="dark" />
           <div>
-            <p className="text-emerald-300 text-sm font-bold uppercase tracking-wider mb-3">Rathin POS</p>
+            <p className="text-emerald-300 text-sm font-bold uppercase tracking-wider mb-3">DineFlow</p>
             <h1 className="text-4xl font-extrabold leading-tight max-w-md tracking-tight">
               Built for your organization - restaurants, grocery and retail
             </h1>

@@ -20,7 +20,7 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    app_name: str = "Rathin POS"
+    app_name: str = "DineFlow"
     app_env: str = "development"
     debug: bool = True
     api_prefix: str = "/api/v1"
@@ -44,7 +44,7 @@ class Settings(BaseSettings):
 
     super_admin_email: str = "superadmin@yopmail.com"
     super_admin_username: str = "superadmin"
-    super_admin_password: str = "Rathin@1290"
+    super_admin_password: str = "DineFlow@1290"
     base_currency: str = "AED"
     super_admin_name: str = "Super Admin"
 

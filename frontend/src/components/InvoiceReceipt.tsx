@@ -156,7 +156,7 @@ export default function InvoiceReceipt({
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <div className="text-[10px] uppercase tracking-[0.2em] font-semibold opacity-90">
-              Tax invoice · Rathin POS
+              Tax invoice · DineFlow
             </div>
             <div className="text-2xl sm:text-3xl font-black mt-1 leading-tight">
               {org?.name || 'Store invoice'}
@@ -300,7 +300,7 @@ export default function InvoiceReceipt({
       </div>
 
       <div className="px-5 py-3 bg-slate-900 text-slate-200 text-center text-xs">
-        Thank you for your visit · Powered by Rathin POS · Invoice {invNo}
+        Thank you for your visit · Powered by DineFlow · Invoice {invNo}
       </div>
     </div>
   )

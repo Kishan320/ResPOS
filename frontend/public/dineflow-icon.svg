@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192" fill="none">
+  <defs>
+    <linearGradient id="df-icon-bg" x1="16" y1="16" x2="176" y2="176" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="50%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="df-icon-accent" x1="40" y1="40" x2="150" y2="150" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#ecfdf5" />
+    </linearGradient>
+    <filter id="df-shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#022c22" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Rounded App Icon Background -->
+  <rect x="8" y="8" width="176" height="176" rx="42" fill="url(#df-icon-bg)" filter="url(#df-shadow)" />
+
+  <!-- Inner Subtle Border -->
+  <rect x="9" y="9" width="174" height="174" rx="41" stroke="#ffffff" stroke-width="2" stroke-opacity="0.25" />
+
+  <!-- Stylized DineFlow "D" with Dining Dome & Flow Wave -->
+  <g transform="translate(36, 36)">
+    <!-- Main D back-stem -->
+    <path d="M16 12 C16 7.58 19.58 4 24 4 L56 4 C84 4 104 24 104 60 C104 96 84 116 56 116 L24 116 C19.58 116 16 112.42 16 108 Z" fill="#ffffff" fill-opacity="0.95" />
+    
+    <!-- Cutout / Flow Dynamic Inside the D -->
+    <path d="M38 28 L54 28 C72 28 82 42 82 60 C82 78 72 92 54 92 L38 92 Z" fill="url(#df-icon-bg)" />
+
+    <!-- Cloche / Dining Arc in Center -->
+    <path d="M44 60 C44 48 53 38 65 38 C77 38 86 48 86 60 Z" fill="#ffffff" fill-opacity="0.9" />
+    <!-- Cloche handle -->
+    <circle cx="65" cy="34" r="4" fill="#ffffff" />
+
+    <!-- Steam / Flow swooshes above -->
+    <path d="M52 24 C54 20 58 18 62 20" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-opacity="0.8" />
+    <path d="M68 22 C70 18 74 16 78 18" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-opacity="0.8" />
+  </g>
+</svg>

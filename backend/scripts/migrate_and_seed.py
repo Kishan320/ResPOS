@@ -277,14 +277,19 @@ def seed_cms(db) -> None:
             title="Senior Product Engineer", slug="senior-product-engineer",
             department="Engineering", location="Dubai / Remote", employment_type="full_time",
             description="Ship multi-tenant POS features used by restaurants and retail chains.",
-            requirements="Python, TypeScript, MySQL", apply_email="careers@rathin.local", is_active=True,
+            requirements="Python, TypeScript, MySQL", apply_email="careers@dineflow.local", is_active=True,
         ))
         db.add(CareerPost(
             title="Customer Success Manager", slug="customer-success-manager",
             department="Success", location="Global", employment_type="full_time",
-            description="Help restaurants and retail groups adopt Rathin POS.",
-            apply_email="careers@rathin.local", is_active=True,
+            description="Help restaurants and retail groups adopt DineFlow.",
+            apply_email="careers@dineflow.local", is_active=True,
         ))
+    else:
+        try:
+            db.execute(text("UPDATE career_posts SET description = REPLACE(description, 'Rathin POS', 'DineFlow'), apply_email = REPLACE(apply_email, 'rathin.local', 'dineflow.local')"))
+        except Exception:
+            pass
     if not db.execute(select(SocialLink).limit(1)).scalar_one_or_none():
         for i, (p, label, url) in enumerate([
             ("linkedin", "LinkedIn", "https://www.linkedin.com"),
@@ -298,7 +303,7 @@ def seed_cms(db) -> None:
 
 def main() -> None:
     print("=" * 60)
-    print(" Rathin POS - Migration & Seed")
+    print(" DineFlow - Migration & Seed")
     print("=" * 60)
     create_schema()
     db = SessionLocal()

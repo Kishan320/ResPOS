@@ -1,4 +1,4 @@
-# Rathin POS
+# DineFlow
 
 **High-scale, multi-tenant Point of Sale** for restaurants, cafes, fast food, grocery stores, kirana shops, supermarkets, bakeries, and any retail organization.
 

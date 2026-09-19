@@ -20,7 +20,7 @@ type Props = {
 }
 
 /**
- * Official Rathin POS logo - sized for headers.
+ * Official DineFlow logo - sized for headers.
  * Uses transparent-bg PNG so it stays visible on light and dark surfaces.
  */
 export default function BrandLogo({
@@ -35,14 +35,14 @@ export default function BrandLogo({
   surface = 'light',
 }: Props) {
   const isMark = collapsed || variant === 'mark'
-  const src = isMark ? '/rathin-icon-192.png' : '/rathin-logo.png'
+  const src = isMark ? '/dineflow-icon-192.png' : '/dineflow-logo.png'
   const h = isMark ? 36 : height
   const w = isMark ? 36 : maxWidth
 
   const img = (
     <img
       src={src}
-      alt="Rathin POS"
+      alt="DineFlow"
       width={w}
       height={h}
       decoding="async"
@@ -71,7 +71,7 @@ export default function BrandLogo({
     >
       {img}
       {showWordmark && !isMark && (
-        <span className="font-bold tracking-tight text-inherit truncate text-sm">Rathin POS</span>
+        <span className="font-bold tracking-tight text-inherit truncate text-sm">DineFlow</span>
       )}
     </span>
   )
@@ -81,7 +81,7 @@ export default function BrandLogo({
     <Link
       to={to}
       className="inline-flex items-center shrink-0 max-w-[min(100%,180px)]"
-      aria-label="Rathin POS home"
+      aria-label="DineFlow home"
     >
       {body}
     </Link>
