@@ -113,7 +113,7 @@ export default function Layout() {
 
   const SidebarBody = (
     <>
-      <div className="px-4 py-5 border-b border-white/5">
+      <div className="px-4 py-5 border-b border-slate-200 dark:border-white/5">
         <div className={cn('flex items-center gap-3', sidebarCollapsed && 'justify-center')}>
           <BrandLogo
             to="/app"
@@ -121,12 +121,14 @@ export default function Layout() {
             imgClassName={
               sidebarCollapsed
                 ? 'h-10 w-10 rounded-xl bg-white p-1'
-                : 'h-9 w-auto max-w-[148px] brightness-0 invert'
+                : theme === 'dark'
+                  ? 'h-9 w-auto max-w-[148px] brightness-0 invert'
+                  : 'h-9 w-auto max-w-[148px]'
             }
           />
         </div>
         {!sidebarCollapsed && (
-          <div className="mt-2 text-[10px] text-slate-400 uppercase tracking-[0.16em] font-semibold px-0.5">
+          <div className="mt-2 text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-[0.16em] font-semibold px-0.5">
             {t('nav.storeOpsPlatform')}
           </div>
         )}
@@ -152,9 +154,9 @@ export default function Layout() {
                         sidebarCollapsed && 'justify-center',
                         isActive
                           ? item.accent
-                            ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md shadow-emerald-900/30'
-                            : 'bg-white/10 text-white'
-                          : 'text-slate-400 hover:bg-white/5 hover:text-white'
+                            ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md shadow-emerald-600/30'
+                            : 'bg-emerald-50 text-emerald-700 dark:bg-white/10 dark:text-white'
+                          : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white'
                       )
                     }
                   >
@@ -169,13 +171,13 @@ export default function Layout() {
 
       <div className="p-3 border-t border-white/5 space-y-2">
         {!sidebarCollapsed && (
-          <div className="rounded-xl bg-white/[0.04] border border-white/5 px-3 py-3 text-xs">
-            <div className="text-white font-semibold truncate">{user?.full_name}</div>
-            <div className="text-slate-400 capitalize mt-0.5 font-medium">
+          <div className="rounded-xl bg-slate-50 border border-slate-200 dark:bg-white/[0.04] dark:border-white/5 px-3 py-3 text-xs">
+            <div className="text-slate-900 dark:text-white font-semibold truncate">{user?.full_name}</div>
+            <div className="text-slate-500 dark:text-slate-400 capitalize mt-0.5 font-medium">
               {tEnum('roles', user?.role, String(user?.role || '').replace(/_/g, ' '))}
             </div>
             {(organizationName || organizationId) && (
-              <div className="mt-2 text-emerald-300/90 truncate font-medium" title={organizationName || undefined}>
+              <div className="mt-2 text-emerald-700 dark:text-emerald-300/90 truncate font-medium" title={organizationName || undefined}>
                 {organizationName || t('nav.orgNumber', { id: organizationId ?? '' })}
               </div>
             )}
@@ -187,7 +189,7 @@ export default function Layout() {
             navigate('/login')
           }}
           className={cn(
-            'flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-400 hover:bg-white/5 hover:text-white',
+            'flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white',
             sidebarCollapsed && 'justify-center'
           )}
         >
@@ -202,8 +204,8 @@ export default function Layout() {
     <div className="min-h-full flex mesh-bg">
       <aside
         className={cn(
-          'hidden lg:flex flex-col text-slate-300 no-print transition-all duration-200 sticky top-0 h-screen shrink-0',
-          'bg-gradient-to-b from-[#0b1220] to-[#0f172a] border-r border-white/5',
+          'hidden lg:flex flex-col text-slate-600 dark:text-slate-300 no-print transition-all duration-200 sticky top-0 h-screen shrink-0',
+          'bg-white dark:bg-gradient-to-b dark:from-[#0b1220] dark:to-[#0f172a] border-r border-slate-200 dark:border-white/5',
           sidebarCollapsed ? 'w-[76px]' : 'w-[272px]'
         )}
       >
@@ -221,8 +223,8 @@ export default function Layout() {
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-50 flex">
           <div className="absolute inset-0 bg-slate-950/50" onClick={() => setMobileOpen(false)} />
-          <aside className="relative w-[280px] h-full flex flex-col bg-[#0b1220]">
-            <button className="absolute right-3 top-4 text-white p-2" onClick={() => setMobileOpen(false)}>
+          <aside className="relative w-[280px] h-full flex flex-col bg-white dark:bg-[#0b1220]">
+            <button className="absolute right-3 top-4 text-slate-500 dark:text-white p-2" onClick={() => setMobileOpen(false)}>
               <X size={18} />
             </button>
             {SidebarBody}

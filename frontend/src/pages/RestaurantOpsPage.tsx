@@ -130,7 +130,7 @@ export default function RestaurantOpsPage() {
             key={k}
             onClick={() => setTab(k)}
             className={`rounded-full px-4 py-2 text-sm font-bold border ${
-              tab === k ? 'bg-orange-600 text-white border-orange-600' : 'bg-white border-slate-200 text-slate-700'
+              tab === k ? 'bg-orange-600 text-white border-orange-600' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200'
             }`}
           >
             {label}

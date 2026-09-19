@@ -236,7 +236,7 @@ export default function PosPage() {
           className={cn(
             'flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold transition-all relative',
             mobileTab === 'cart'
-              ? 'bg-slate-950 text-white shadow-sm'
+              ? 'bg-slate-950 dark:bg-slate-800 text-white shadow-sm'
               : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
           )}
         >
@@ -385,7 +385,7 @@ export default function PosPage() {
           </div>
 
           {mobileTab === 'catalog' && t.items > 0 && (
-            <div className="md:hidden sticky bottom-2 p-2 mx-2 rounded-2xl bg-slate-950 text-white shadow-2xl flex items-center justify-between border border-white/15 z-10 shrink-0 animate-fade-up">
+            <div className="md:hidden sticky bottom-2 p-2 mx-2 rounded-2xl bg-slate-950 dark:bg-slate-800 text-white shadow-2xl flex items-center justify-between border border-white/15 z-10 shrink-0 animate-fade-up">
               <div className="flex items-center gap-2 pl-2">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-xs font-black text-white">
                   {t.items}
@@ -408,32 +408,32 @@ export default function PosPage() {
         {/* Cart panel - high contrast dark bill (pos-cart CSS forces readable colors) */}
         <div
           className={cn(
-            'pos-cart flex flex-col rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl shadow-black/30 border border-slate-800 bg-slate-950 text-white',
+            'pos-cart flex flex-col rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl shadow-black/30 border border-slate-200 dark:border-slate-800 bg-slate-950 dark:bg-slate-950 text-white',
             mobileTab === 'cart' ? 'flex' : 'hidden md:flex'
           )}
         >
-          <div className="px-4 py-3 border-b border-white/15 flex items-center justify-between shrink-0">
+          <div className="px-4 py-3 border-b border-slate-200 dark:border-white/15 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2">
               <Button
                 size="sm"
                 variant="ghost"
-                className="md:hidden !p-1 text-slate-300 hover:text-white"
+                className="md:hidden !p-1 text-slate-500 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
                 onClick={() => setMobileTab('catalog')}
                 title={tr('pos.backToProducts')}
               >
                 <ArrowLeft size={16} />
               </Button>
               <div>
-                <div className="font-bold text-base text-white">{tr('pos.bill')}</div>
+                <div className="font-bold text-base text-slate-900 dark:text-white">{tr('pos.bill')}</div>
                 <div className="text-[11px] pos-cart-muted capitalize">{trEnum('orderType', orderType, orderType.replace('_', ' '))} {tr('pos.checkoutSuffix')}</div>
               </div>
             </div>
-            <Button size="sm" variant="ghost" className="text-slate-200 hover:text-white" onClick={clearCart}>
+            <Button size="sm" variant="ghost" className="text-slate-500 hover:text-slate-900 dark:text-slate-200 dark:hover:text-white" onClick={clearCart}>
               {tr('pos.clear')}
             </Button>
           </div>
 
-          <div className="px-3 pt-2.5 pb-2 grid grid-cols-2 gap-2 shrink-0 border-b border-white/10">
+          <div className="px-3 pt-2.5 pb-2 grid grid-cols-2 gap-2 shrink-0 border-b border-slate-200 dark:border-white/10">
             <input
               className="rounded-xl px-2.5 py-1.5 text-xs outline-none md:w-16"
               placeholder={tr('pos.tableLabelPlaceholder')}
@@ -462,12 +462,12 @@ export default function PosPage() {
                       <div className="text-[11px] pos-cart-line-meta">{tr('pos.each', { price: money(line.unit_price) })}</div>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
-                      <div className="text-xs font-bold text-white">
+                      <div className="text-xs font-bold text-slate-900 dark:text-white">
                         {money(line.quantity * line.unit_price - line.discount_amount)}
                       </div>
                       <button
                         onClick={() => removeLine(line.product_id)}
-                        className="text-slate-300 hover:text-red-400 p-0.5 transition"
+                        className="text-slate-400 hover:text-red-500 dark:text-slate-300 dark:hover:text-red-400 p-0.5 transition"
                         title={tr('pos.removeLine')}
                       >
                         <Trash2 size={13} />
@@ -477,14 +477,14 @@ export default function PosPage() {
                   <div className="flex items-center justify-between gap-2 pt-0.5">
                     <div className="flex items-center gap-1 shrink-0">
                       <button
-                        className="h-6 w-6 rounded-md bg-white/15 text-white flex items-center justify-center hover:bg-white/25 transition"
+                        className="h-6 w-6 rounded-md bg-slate-200 dark:bg-white/15 text-slate-700 dark:text-white flex items-center justify-center hover:bg-slate-300 dark:hover:bg-white/25 transition"
                         onClick={() => updateQty(line.product_id, line.quantity - 1)}
                       >
                         <Minus size={11} />
                       </button>
-                      <span className="w-6 text-center text-xs font-bold text-white">{line.quantity}</span>
+                      <span className="w-6 text-center text-xs font-bold text-slate-900 dark:text-white">{line.quantity}</span>
                       <button
-                        className="h-6 w-6 rounded-md bg-white/15 text-white flex items-center justify-center hover:bg-white/25 transition"
+                        className="h-6 w-6 rounded-md bg-slate-200 dark:bg-white/15 text-slate-700 dark:text-white flex items-center justify-center hover:bg-slate-300 dark:hover:bg-white/25 transition"
                         onClick={() => updateQty(line.product_id, line.quantity + 1)}
                       >
                         <Plus size={11} />
@@ -505,14 +505,14 @@ export default function PosPage() {
             )}
           </div>
 
-          <div className="pos-cart-totals p-3 border-t border-white/15 space-y-1.5 text-xs shrink-0">
+          <div className="pos-cart-totals p-3 border-t border-slate-200 dark:border-white/15 space-y-1.5 text-xs shrink-0">
             <div className="pos-cart-row flex justify-between">
               <span>{tr('pos.subtotal')}</span>
-              <span className="font-semibold text-white">{money(t.subtotal)}</span>
+              <span className="font-semibold text-slate-900 dark:text-white">{money(t.subtotal)}</span>
             </div>
             <div className="pos-cart-row flex justify-between">
               <span>{tr('pos.tax')}</span>
-              <span className="font-semibold text-white">{money(t.tax)}</span>
+              <span className="font-semibold text-slate-900 dark:text-white">{money(t.tax)}</span>
             </div>
             <div className="pos-cart-row flex items-center justify-between gap-2">
               <span>{tr('pos.billDiscount')}</span>
@@ -523,7 +523,7 @@ export default function PosPage() {
                 onChange={(e) => setDiscountTotal(Number(e.target.value || 0))}
               />
             </div>
-            <div className="flex justify-between text-base font-black pt-1 text-white">
+            <div className="flex justify-between text-base font-black pt-1 text-slate-900 dark:text-white">
               <span>{tr('pos.total')}</span>
               <span className="pos-cart-total-value">{money(t.grand)}</span>
             </div>

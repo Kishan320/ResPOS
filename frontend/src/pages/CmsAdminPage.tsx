@@ -363,7 +363,7 @@ export default function CmsAdminPage() {
               setError('')
             }}
             className={`rounded-full px-4 py-2 text-sm font-bold border ${
-              tab === k ? 'bg-orange-600 text-white border-orange-600' : 'bg-white border-slate-200'
+              tab === k ? 'bg-orange-600 text-white border-orange-600' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700'
             }`}
           >
             {l}
@@ -511,7 +511,7 @@ export default function CmsAdminPage() {
                     <label className="text-xs font-bold text-slate-600">
                       {t('common.type')}
                       <select
-                        className="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold bg-white"
+                        className="mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 px-3 py-2 text-sm font-semibold bg-white dark:bg-slate-800"
                         value={f.type}
                         onChange={(e) => {
                           const next = [...contactFields]
@@ -611,7 +611,7 @@ export default function CmsAdminPage() {
                 key={f}
                 onClick={() => setContactFilter(f)}
                 className={`rounded-full px-4 py-2 text-sm font-bold border capitalize ${
-                  contactFilter === f ? 'bg-slate-900 text-white border-slate-900' : 'bg-white border-slate-200'
+                  contactFilter === f ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-700 dark:border-slate-600' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700'
                 }`}
               >
                 {f}
@@ -630,14 +630,15 @@ export default function CmsAdminPage() {
               <div className="space-y-3">
                 {(contacts.data || []).map((c) => (
                   <div
-                    key={c.id}
-                    className={`rounded-2xl border p-4 ${
-                      c.is_resolved ? 'border-slate-200 bg-slate-50' : 'border-emerald-200 bg-emerald-50/40'
-                    }`}
+                    key={c.id}                      className={`rounded-2xl border p-4 ${
+                        c.is_resolved
+                          ? 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60'
+                          : 'border-emerald-200 dark:border-emerald-800 bg-emerald-50/40 dark:bg-emerald-950/40'
+                      }`}
                   >
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
-                        <div className="font-bold text-slate-900">{c.name || t('cms.noName')} · {c.email}</div>
+                        <div className="font-bold text-slate-900 dark:text-white">{c.name || t('cms.noName')} · {c.email}</div>
                         <div className="text-xs font-semibold text-slate-500 mt-1">
                           {c.phone || t('cms.noPhone')} · {c.created_at ? new Date(c.created_at).toLocaleString() : ''} ·{' '}
                           <span className={c.is_resolved ? 'text-slate-500' : 'text-emerald-700'}>{c.status}</span>
@@ -679,7 +680,7 @@ export default function CmsAdminPage() {
                     {c.payload_json && (
                       <details className="mt-2 text-xs text-slate-500">
                         <summary className="cursor-pointer font-bold">{t('cms.allSubmittedFields')}</summary>
-                        <pre className="mt-2 overflow-auto rounded-xl bg-white border border-slate-100 p-2">
+                        <pre className="mt-2 overflow-auto rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-2">
                           {JSON.stringify(c.payload_json, null, 2)}
                         </pre>
                       </details>

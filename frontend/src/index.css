@@ -533,7 +533,7 @@ input:-webkit-autofill:focus {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #64748b;
+  color: var(--text-muted);
   padding: 12px 14px 6px;
 }
 
@@ -692,53 +692,101 @@ input:-webkit-autofill:focus {
   }
 }
 
-/* POS bill panel - always high contrast (dark panel, light text) */
+/* POS bill panel - theme aware: light surface in light theme, dark in dark theme */
 .pos-cart {
-  background: linear-gradient(180deg, #0f172a 0%, #020617 100%) !important;
-  color: #f8fafc !important;
+  background: var(--bg-elevated) !important;
+  color: var(--text) !important;
 }
 
 .pos-cart .pos-cart-muted {
-  color: #cbd5e1 !important;
+  color: var(--text-muted) !important;
 }
 
 .pos-cart .pos-cart-line {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  color: #f8fafc !important;
+  background: var(--bg) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
 }
 
 .pos-cart .pos-cart-line-title {
-  color: #ffffff !important;
+  color: var(--text) !important;
   font-weight: 600;
 }
 
 .pos-cart .pos-cart-line-meta {
-  color: #e2e8f0 !important;
+  color: var(--text-muted) !important;
 }
 
 .pos-cart .pos-cart-totals {
-  background: rgba(0, 0, 0, 0.35) !important;
-  color: #f1f5f9 !important;
+  background: var(--bg) !important;
+  color: var(--text) !important;
 }
 
 .pos-cart .pos-cart-totals .pos-cart-row {
-  color: #e2e8f0 !important;
+  color: var(--text-muted) !important;
 }
 
 .pos-cart .pos-cart-total-value {
-  color: #6ee7cb !important;
+  color: #047857 !important;
 }
 
 .pos-cart input,
 .pos-cart select,
 .pos-cart textarea {
+  color: var(--input-text) !important;
+  background-color: var(--input-bg) !important;
+  border: 1px solid var(--input-border) !important;
+}
+
+.pos-cart input::placeholder {
+  color: var(--input-placeholder) !important;
+}
+
+[data-theme="dark"] .pos-cart {
+  background: linear-gradient(180deg, #0f172a 0%, #020617 100%) !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .pos-cart .pos-cart-muted {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .pos-cart .pos-cart-line {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .pos-cart .pos-cart-line-title {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .pos-cart .pos-cart-line-meta {
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .pos-cart .pos-cart-totals {
+  background: rgba(0, 0, 0, 0.35) !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .pos-cart .pos-cart-totals .pos-cart-row {
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .pos-cart .pos-cart-total-value {
+  color: #6ee7cb !important;
+}
+
+[data-theme="dark"] .pos-cart input,
+[data-theme="dark"] .pos-cart select,
+[data-theme="dark"] .pos-cart textarea {
   color: #0f172a !important;
   background-color: #ffffff !important;
   border: 1px solid #cbd5e1 !important;
 }
 
-.pos-cart input::placeholder {
+[data-theme="dark"] .pos-cart input::placeholder {
   color: #64748b !important;
 }
 

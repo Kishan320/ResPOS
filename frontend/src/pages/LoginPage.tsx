@@ -67,7 +67,7 @@ export default function LoginPage() {
         </div>
       </div>
 
-      <div className="flex items-center justify-center p-4 sm:p-8 lg:p-12 bg-[#f6f7f9] safe-pt safe-pb">
+      <div className="flex items-center justify-center p-4 sm:p-8 lg:p-12 mesh-bg safe-pt safe-pb">
         <form onSubmit={onSubmit} className="w-full max-w-[400px] space-y-5 sm:space-y-6 animate-fade-up">
           <div>
             <div className="flex items-center justify-between mb-6">
@@ -81,13 +81,13 @@ export default function LoginPage() {
             <div className="hidden lg:flex justify-end">
               <LanguageSwitcher />
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-950 tracking-tight">{t('auth.welcomeBack')}</h2>
-            <p className="text-slate-500 font-medium mt-1 text-sm">{t('auth.signinSubtitle')}</p>
+          <h2 className="text-2xl font-extrabold text-slate-950 dark:text-white tracking-tight">{t('auth.welcomeBack')}</h2>
+          <p className="text-slate-500 dark:text-slate-400 font-medium mt-1 text-sm">{t('auth.signinSubtitle')}</p>
           </div>
 
           {error && <Alert tone="danger">{error}</Alert>}
 
-          <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-6 space-y-4">
+          <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-sm p-6 space-y-4">
             <label className="block">
               <span className="field-label">{t('auth.usernameOrEmail')}</span>
               <div className="relative">
