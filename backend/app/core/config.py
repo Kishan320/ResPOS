@@ -37,6 +37,8 @@ class Settings(BaseSettings):
     db_pool_size: int = 50
     db_max_overflow: int = 100
     db_pool_recycle: int = 1800
+    db_ssl: bool = False
+    db_ssl_ca: str = "/etc/ssl/certs/ca-certificates.crt"
 
     host: str = "0.0.0.0"
     port: int = 8000

@@ -20,6 +20,7 @@ sys.path.insert(0, str(ROOT))
 from sqlalchemy import create_engine, text
 
 from app.core.config import settings
+from app.database import get_engine_connect_args
 
 def main():
     print("=" * 70)
@@ -31,7 +32,11 @@ def main():
     user = quote_plus(settings.db_user)
     password = quote_plus(settings.db_password)
     url_without_db = f"mysql+pymysql://{user}:{password}@{settings.db_host}:{settings.db_port}/?charset=utf8mb4"
-    server_engine = create_engine(url_without_db, isolation_level="AUTOCOMMIT")
+    server_engine = create_engine(
+        url_without_db,
+        isolation_level="AUTOCOMMIT",
+        connect_args=get_engine_connect_args(),
+    )
     with server_engine.connect() as conn:
         conn.execute(text(f"DROP DATABASE IF EXISTS `{settings.db_name}`"))
         print(f"  Dropped database `{settings.db_name}`")

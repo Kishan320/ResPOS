@@ -1,9 +1,21 @@
-"""Database engine and session factory - tuned for high concurrency."""
-
+import os
 from sqlalchemy import create_engine, event, text
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 from app.core.config import settings
+
+
+def get_engine_connect_args() -> dict:
+    args = {
+        "connect_timeout": 10,
+        "charset": "utf8mb4",
+    }
+    if settings.db_ssl or "tidbcloud.com" in settings.db_host:
+        ssl_dict = {}
+        if settings.db_ssl_ca and os.path.exists(settings.db_ssl_ca):
+            ssl_dict["ca"] = settings.db_ssl_ca
+        args["ssl"] = ssl_dict
+    return args
 
 
 engine = create_engine(
@@ -15,10 +27,7 @@ engine = create_engine(
     pool_timeout=30,
     echo=False,
     future=True,
-    connect_args={
-        "connect_timeout": 10,
-        "charset": "utf8mb4",
-    },
+    connect_args=get_engine_connect_args(),
 )
 
 
@@ -50,7 +59,11 @@ def ensure_database_exists() -> None:
         f"mysql+pymysql://{user}:{password}"
         f"@{settings.db_host}:{settings.db_port}/?charset=utf8mb4"
     )
-    tmp_engine = create_engine(url_without_db, isolation_level="AUTOCOMMIT")
+    tmp_engine = create_engine(
+        url_without_db,
+        isolation_level="AUTOCOMMIT",
+        connect_args=get_engine_connect_args(),
+    )
     with tmp_engine.connect() as conn:
         conn.execute(
             text(
