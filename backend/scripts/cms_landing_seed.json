@@ -1,38 +1,38 @@
 [
   {
     "section_key": "hero",
-    "title": "Everything your store organization needs to sell, stock and report",
-    "subtitle": "When your organization is onboarded, your admin gets POS Terminal, products, inventory, staff permissions, discounts, restaurant floor tools and 30 reports in PDF and Excel - ready for daily store work.",
-    "body": "DineFlow is built for the organization you run: restaurants, cafes, QSR, grocery, supermarket and retail. Your org admin controls catalog, cashiers, terminals and reports for that store. Multi-store groups run each organization separately under one platform.",
-    "badge_text": "For organization admins and store teams",
-    "cta_label": "Sign in to your organization",
+    "title": "The complete restaurant POS platform engineered for hospitality",
+    "subtitle": "From live table floor plans and lightning KOT dispatch to multi-pay billing, recipe inventory, and 30 culinary reports in PDF & Excel — everything your restaurant needs to delight guests and grow margins.",
+    "body": "DineFlow is purpose-built for food & beverage operators: fine dining, casual dining, QSR, cafes, rooftop bars, and multi-outlet hospitality groups. Your restaurant admin manages floor tables, captains, menu modifiers, bar stations, and real-time sales all under one intelligent cloud system.",
+    "badge_text": "Built for Restaurants, Cafes, QSR & Bars",
+    "cta_label": "Explore POS Terminal",
     "cta_url": "/login",
-    "image_url": "/landing/hero.jpg",
-    "image_url_2": "/landing/pos.jpg",
+    "image_url": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&auto=format&fit=crop&q=85",
+    "image_url_2": "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=1000&auto=format&fit=crop&q=80",
     "sort_order": 10
   },
   {
     "section_key": "stats",
-    "title": "Built for real store volume",
-    "badge_text": "At a glance",
-    "image_url": "/landing/dashboard.jpg",
+    "title": "Engineered for high-volume kitchen & floor rushes",
+    "badge_text": "Platform Performance",
+    "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1000&auto=format&fit=crop&q=80",
     "extra_json": {
       "items": [
         {
+          "value": "<0.8s",
+          "label": "Instant Touchscreen Order Punching"
+        },
+        {
           "value": "30",
-          "label": "Reports in PDF and Excel"
+          "label": "F&B P&L, Tax & Sales Reports"
         },
         {
-          "value": "19+",
-          "label": "Product modules in the app"
+          "value": "100%",
+          "label": "Offline-Resilient Kitchen & Floor Sync"
         },
         {
-          "value": "AED",
-          "label": "Base currency with world rates"
-        },
-        {
-          "value": "5",
-          "label": "Order types on POS"
+          "value": "5+",
+          "label": "Order Types: Dine-In, KOT, Takeaway, Delivery"
         }
       ]
     },
@@ -40,101 +40,69 @@
   },
   {
     "section_key": "about",
-    "title": "Designed around your organization",
-    "subtitle": "Super admin creates your organization and org admin. From there, your team runs the full store stack.",
-    "body": "Organization admins manage products, categories, inventory, POS machines, staff, customers, discounts, tables and taxes (for restaurants), invoices and the full Report Hub. Cashiers sell on POS Terminal. Finance exports the reports your business needs every day.",
-    "badge_text": "Organization-first product",
-    "image_url": "/landing/fine-dine.jpg",
-    "image_url_2": "/landing/retail.jpg",
+    "title": "Designed specifically for modern dining & culinary operations",
+    "subtitle": "Super admin sets up your restaurant establishment and outlet admin. From there, your service team runs the complete floor, bar, and kitchen stack.",
+    "body": "Restaurant managers control live floor tables, seat allocations, course timing, recipe costs, and daily cash floats. Stewards and captains fire instant KOT tickets to tandoor, pantry, and beverage bars. At checkout, cashiers settle bills via UPI QR, contactless cards, or cash splits with instant GST/VAT tax compliance.",
+    "badge_text": "Hospitality-First Architecture",
+    "image_url": "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=1200&auto=format&fit=crop&q=80",
+    "image_url_2": "https://images.unsplash.com/photo-1544025162-d76694265947?w=1200&auto=format&fit=crop&q=80",
     "sort_order": 30
   },
   {
     "section_key": "module_map",
-    "title": "Modules available to your organization",
-    "subtitle": "After onboarding, org admins and permitted staff use these tools inside the app - the same names you see below.",
-    "badge_text": "Organization modules",
-    "image_url": "/landing/dashboard.jpg",
+    "title": "Full suite of modules powering your restaurant floor",
+    "subtitle": "Every station in your restaurant works seamlessly together — from front-of-house hosting to kitchen prep lines and back-office accounting.",
+    "badge_text": "Restaurant POS Modules",
+    "image_url": "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=1000&auto=format&fit=crop&q=80",
     "extra_json": {
       "items": [
         {
-          "t": "Dashboard",
-          "d": "Platform and store KPIs"
+          "t": "Live POS Terminal",
+          "d": "Lightning fast touch checkout, split bills, and multi-tender payments"
         },
         {
-          "t": "POS Terminal",
-          "d": "Live billing and checkout"
+          "t": "Table & Floor Management",
+          "d": "Interactive floor plans, table occupancy, capacity, and section tracking"
         },
         {
-          "t": "Products and Menu",
-          "d": "Catalog, barcode, tax, stock"
+          "t": "Kitchen Order Tickets (KOT)",
+          "d": "Automated order routing to kitchen stations, course fires, and reprints"
         },
         {
-          "t": "Categories",
-          "d": "Menu and aisle groups"
+          "t": "Menu & Recipe Catalog",
+          "d": "Dishes, portion sizes, add-on modifiers, spiciness levels, and tags"
         },
         {
-          "t": "Inventory and Stock",
-          "d": "Adjustments and low stock"
+          "t": "Ingredient & Raw Stock Inventory",
+          "d": "Recipe depletion, low-stock warnings, and reorder levels"
         },
         {
-          "t": "Orders and Sales",
-          "d": "Hold, KOT, cancel, checkout"
+          "t": "Waiter & Captain Assignment",
+          "d": "Staff steward codes, server table mapping, and tip tracking"
         },
         {
-          "t": "Invoices and Bills",
-          "d": "Print and reprint"
+          "t": "Tax Invoices & GST/VAT",
+          "d": "Compliant legal receipts with CGST/SGST/VAT and FSSAI licensing"
         },
         {
-          "t": "Report Hub",
-          "d": "30 PDF and Excel reports"
+          "t": "Culinary Report Hub",
+          "d": "30 dedicated restaurant reports for sales, hourly rushes, and waste"
         },
         {
-          "t": "Discounts and Offers",
-          "d": "Coupons and seasonal rules"
+          "t": "Happy Hours & Promotions",
+          "d": "Time-based discounts, item combos, and seasonal promotional rules"
         },
         {
-          "t": "Tables, Waiters and Tax",
-          "d": "Restaurant floor setup"
+          "t": "Customer CRM & Loyalty",
+          "d": "Guest dietary notes, VIP tags, visit frequency, and loyalty points"
         },
         {
-          "t": "POS Machines",
-          "d": "Terminal registry"
+          "t": "Counter Terminals & Cash Drawers",
+          "d": "Multi-terminal hardware, cash float management, and shift z-reports"
         },
         {
-          "t": "Customers",
-          "d": "Buyer directory"
-        },
-        {
-          "t": "Staff and Permissions",
-          "d": "Org team RBAC"
-        },
-        {
-          "t": "Team Directory",
-          "d": "User list"
-        },
-        {
-          "t": "World Currencies",
-          "d": "AED base and FX rates"
-        },
-        {
-          "t": "Organizations",
-          "d": "Multi-tenant onboarding"
-        },
-        {
-          "t": "CMS and Landing",
-          "d": "Website content control"
-        },
-        {
-          "t": "Org Module Access",
-          "d": "Module grants per org"
-        },
-        {
-          "t": "Platform Users",
-          "d": "Platform operators"
-        },
-        {
-          "t": "Settings",
-          "d": "Password and theme"
+          "t": "Staff RBAC & Security",
+          "d": "Role-based permissions for managers, cashiers, captains, and super admin"
         }
       ]
     },
@@ -142,41 +110,41 @@
   },
   {
     "section_key": "industries",
-    "title": "Industries we serve",
-    "subtitle": "Same product, configured per organization business type.",
-    "badge_text": "Verticals",
-    "image_url": "/landing/retail.jpg",
+    "title": "Tailored for every hospitality concept",
+    "subtitle": "One robust POS engine configured for the distinct operational flow of your food & beverage vertical.",
+    "badge_text": "F&B Concepts",
+    "image_url": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1000&auto=format&fit=crop&q=80",
     "extra_json": {
       "items": [
         {
-          "t": "Restaurants and fine dine",
-          "d": "Tables, waiters, KOT, dine-in billing",
-          "img": "/landing/fine-dine.jpg"
+          "t": "Fine Dining & Bistros",
+          "d": "Multi-course pacing, sommelier wine lists, guest preferences, and split checks",
+          "img": "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
         },
         {
-          "t": "QSR and quick service",
-          "d": "Fast counters, combos, peak-hour POS",
-          "img": "/landing/pos.jpg"
+          "t": "Quick Service (QSR) & Fast Casual",
+          "d": "High-velocity counter checkout, combo meals, customer facing displays, and token numbers",
+          "img": "https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=800&auto=format&fit=crop&q=80"
         },
         {
-          "t": "Cafes and bakeries",
-          "d": "Menu boards, takeaway, multi-tax bills",
-          "img": "/landing/cafe.jpg"
+          "t": "Artisan Cafes & Bakeries",
+          "d": "Custom milk choices, barista display queues, fresh bake batches, and pastry displays",
+          "img": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&auto=format&fit=crop&q=80"
         },
         {
-          "t": "Grocery and kirana",
-          "d": "Barcode, high SKU, live stock",
-          "img": "/landing/grocery.jpg"
+          "t": "Bars, Lounges & Taprooms",
+          "d": "Open bar tabs, happy hour pricing automation, pour controls, and cocktail modifiers",
+          "img": "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&auto=format&fit=crop&q=80"
         },
         {
-          "t": "Supermarket and retail",
-          "d": "Multi-terminal checkout and promotions",
-          "img": "/landing/retail.jpg"
+          "t": "Cloud Kitchens & Delivery Hubs",
+          "d": "Centralized online order dispatch, packaging instructions, and packaging stock tracking",
+          "img": "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&auto=format&fit=crop&q=80"
         },
         {
-          "t": "Multi-store groups",
-          "d": "Super admin network of organizations",
-          "img": "/landing/organizations.jpg"
+          "t": "Multi-Outlet Restaurant Groups",
+          "d": "Central super admin management of outlets, unified menus, and comparative brand analytics",
+          "img": "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=800&auto=format&fit=crop&q=80"
         }
       ]
     },
@@ -184,981 +152,462 @@
   },
   {
     "section_key": "mod_pos",
-    "title": "POS Terminal",
-    "subtitle": "Live counter billing for restaurants, QSR, grocery and retail",
-    "body": "Open a bill, add items from menu tiles or barcode, apply line discounts, choose order type (dine-in, takeaway, delivery, pickup, retail), assign a POS machine, and complete checkout with cash, card, UPI or wallet. Split payments, tendered cash and change, and automatic invoice print are built in.",
-    "badge_text": "Core selling",
-    "image_url": "/landing/pos.jpg",
-    "image_url_2": "/landing/checkout.jpg",
-    "extra_json": {
-      "bullets": [
-        "Barcode scan and menu-tile add to cart",
-        "Order types: dine-in, takeaway, delivery, pickup, retail",
-        "Line discount and bill-level discount",
-        "Split payments across cash, card, UPI, wallet",
-        "Hold bill, cancel bill, kitchen order ticket (KOT)",
-        "Terminal selection for multi-counter stores"
-      ],
-      "growth": "Shorter queues, fewer billing errors, and cleaner end-of-day cash reconciliation."
-    },
-    "sort_order": 200,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Lightning POS Terminal",
+    "subtitle": "Built for zero friction during intense lunch and dinner service rushes.",
+    "body": "Tap categories, select dish variants, apply special kitchen notes like 'Medium spicy' or 'No onions', and fire orders in milliseconds. Supports instant hold/recall orders, split billing by seats, and one-tap checkout with cash, cards, and dynamic UPI QR codes.",
+    "badge_text": "Front of House",
+    "image_url": "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 60
   },
   {
     "section_key": "mod_products",
-    "title": "Products and Menu",
-    "subtitle": "Catalog for every vertical - menu items, grocery SKUs and barcodes",
-    "body": "Create products with price, cost, tax rate, unit (pcs, kg, litre), SKU, barcode, category, image, initial stock and low-stock threshold. Track inventory per item or sell by weight. Edit anytime without downtime.",
-    "badge_text": "Catalog",
-    "image_url": "/landing/cafe.jpg",
-    "image_url_2": "/landing/grocery.jpg",
-    "extra_json": {
-      "bullets": [
-        "Price, cost price and tax % per product",
-        "SKU, barcode and unit of measure",
-        "Category link and product image upload",
-        "Initial stock and low-stock threshold",
-        "Track inventory on/off, sold-by-weight flag"
-      ],
-      "growth": "Faster menu launches and accurate pricing across outlets."
-    },
-    "sort_order": 210,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Menu Engineering & Dish Management",
+    "subtitle": "Curate an appetizing, profitable menu with rich descriptions and photography.",
+    "body": "Organize your dishes by course, prep station, and dietary categories (Veg, Non-Veg, Vegan, Jain). Set selling prices, food costs, tax rates, and portion units (portion, plate, tumbler, slice, bowl). Easily manage seasonal specialties and 86'd out-of-stock items in real time.",
+    "badge_text": "Menu Master",
+    "image_url": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 70
   },
   {
     "section_key": "mod_categories",
-    "title": "Categories",
-    "subtitle": "Menu sections, aisles and product groups",
-    "body": "Organize the catalog into categories with color, image, sort order and active status. Cashiers filter the POS by category for faster billing.",
-    "badge_text": "Catalog",
-    "image_url": "/landing/retail.jpg",
-    "image_url_2": null,
-    "extra_json": {
-      "bullets": [
-        "Named categories with color tags",
-        "Sort order for POS layout",
-        "Active/inactive control"
-      ],
-      "growth": "Cashiers find items faster during peak hours."
-    },
-    "sort_order": 220,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Category Organization",
+    "subtitle": "Intuitive culinary groups that mirror your kitchen prep lines and dining menu.",
+    "body": "Structure your catalog with color-coded categories: Tandoor Starters, Curries, Breads, Dum Biryanis, Beverages, and Desserts. Cashiers locate any dish with a single tap or quick search by SKU and code.",
+    "badge_text": "Visual Categorization",
+    "image_url": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 80
   },
   {
     "section_key": "mod_inventory",
-    "title": "Inventory and Stock",
-    "subtitle": "Live on-hand quantities, low-stock filters and signed adjustments",
-    "body": "See every product with on-hand quantity and health (healthy, low, out). Adjust stock with movement types: purchase, return, waste, transfer, opening and adjustment. Notes and user trail stay on each movement.",
-    "badge_text": "Stock control",
-    "image_url": "/landing/inventory.jpg",
-    "image_url_2": "/landing/grocery.jpg",
-    "extra_json": {
-      "bullets": [
-        "Live quantity on hand",
-        "Low-stock and out-of-stock filters",
-        "Purchase, waste, return, transfer, opening, adjustment",
-        "Stock reduces automatically on tracked sales"
-      ],
-      "growth": "Fewer stock-outs and less dead inventory."
-    },
-    "sort_order": 230,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Raw Material & Recipe Inventory",
+    "subtitle": "Keep track of perishable kitchen ingredients and prevent food waste.",
+    "body": "Track stock levels of key supplies — basmati rice, dairy, spices, cooking oils, and beverage syrups. Monitor quantity on hand, reorder points, warehouse and chiller locations, with an immutable audit ledger of every stock movement.",
+    "badge_text": "Kitchen Stock",
+    "image_url": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 90
   },
   {
     "section_key": "mod_orders",
-    "title": "Orders and Sales",
-    "subtitle": "Full order lifecycle from open to completed",
-    "body": "List and filter orders by status. Hold an open order for later. Cancel with reason. Send kitchen order tickets. Checkout with multi-payment and invoice generation. Daily order numbers and sales codes stay unique per organization.",
-    "badge_text": "Sales floor",
-    "image_url": "/landing/kot.jpg",
-    "image_url_2": "/landing/pos.jpg",
-    "extra_json": {
-      "bullets": [
-        "Open, held, completed, cancelled statuses",
-        "Hold and resume bills",
-        "Cancel with reason",
-        "KOT print for kitchen",
-        "Checkout with multi-pay and invoice"
-      ],
-      "growth": "Kitchen and counter stay aligned; fewer lost orders."
-    },
-    "sort_order": 240,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Live Order Management & KOT",
+    "subtitle": "Never drop an order between the dining table and the chef's pass.",
+    "body": "View all open, held, completed, and cancelled orders with table labels, guest counts, and assigned captains. Print and reprint Kitchen Order Tickets (KOT) with clear preparation instructions, dietary alerts, and modification tags.",
+    "badge_text": "Order Flow",
+    "image_url": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 100
   },
   {
     "section_key": "mod_invoices",
-    "title": "Invoices and Bills",
-    "subtitle": "Printable receipts with brand snapshot and reprint tracking",
-    "body": "Every completed sale can produce an invoice with organization snapshot, line items and payments. Reprint from the invoice list; printed count is tracked for control.",
-    "badge_text": "Billing",
-    "image_url": "/landing/invoices.jpg",
-    "image_url_2": null,
-    "extra_json": {
-      "bullets": [
-        "Invoice number per sale",
-        "Customer name on bill",
-        "Subtotal, tax, grand total",
-        "Print and reprint with count"
-      ],
-      "growth": "Professional bills and audit-ready reprint history."
-    },
-    "sort_order": 250,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Tax Invoices & Guest Receipts",
+    "subtitle": "Crystal clear legal billing that builds guest trust and simplifies audit compliance.",
+    "body": "Generate polished thermal receipts and PDF tax bills containing legal restaurant GSTIN, FSSAI license numbers, CGST and SGST breakdowns, itemized pricing, and courteous receipt footers. Reprint bills with full historical snapshot preservation.",
+    "badge_text": "Billing & Invoicing",
+    "image_url": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 110
   },
   {
     "section_key": "mod_reports",
-    "title": "Report Hub - 30 reports",
-    "subtitle": "PDF and Excel for store and platform decisions",
-    "body": "Run and export every report below. Org reports need an active organization. Platform reports serve super admin across all tenants. Empty periods still download a valid file.",
-    "badge_text": "Analytics",
-    "image_url": "/landing/reports.jpg",
-    "image_url_2": "/landing/dashboard.jpg",
-    "extra_json": {
-      "org_reports": [
-        {
-          "name": "Cashier summary",
-          "desc": "Shift-level cash performance for each cashier."
-        },
-        {
-          "name": "Daily sales register",
-          "desc": "Day-wise sales register for store operations."
-        },
-        {
-          "name": "Sales detailed (line items)",
-          "desc": "Every sold line with product, qty and value."
-        },
-        {
-          "name": "Item-wise sales",
-          "desc": "Which items sell and how much revenue they bring."
-        },
-        {
-          "name": "Category-wise sales",
-          "desc": "Sales grouped by menu or product category."
-        },
-        {
-          "name": "Payment method mix",
-          "desc": "Cash, card, UPI and wallet share of collections."
-        },
-        {
-          "name": "Bill type summary",
-          "desc": "Cash, credit and guest bill breakdown."
-        },
-        {
-          "name": "Order type summary",
-          "desc": "Dine-in, takeaway, delivery, retail and pickup mix."
-        },
-        {
-          "name": "Hourly sales heatmap",
-          "desc": "Peak hours so you staff and stock correctly."
-        },
-        {
-          "name": "Tax collected report",
-          "desc": "Tax liability by period for finance teams."
-        },
-        {
-          "name": "Discounts given",
-          "desc": "Every discount and offer applied on bills."
-        },
-        {
-          "name": "Cancelled / void orders",
-          "desc": "Voids and cancellations with reasons."
-        },
-        {
-          "name": "Open & held orders",
-          "desc": "Bills still open or held on the floor."
-        },
-        {
-          "name": "Invoice register",
-          "desc": "Complete invoice list with reprint counts."
-        },
-        {
-          "name": "Customer-wise sales",
-          "desc": "Repeat buyers and customer revenue."
-        },
-        {
-          "name": "Cashier performance",
-          "desc": "Speed and value by cashier for coaching."
-        },
-        {
-          "name": "Terminal / POS machine sales",
-          "desc": "Sales by each registered POS machine."
-        },
-        {
-          "name": "Stock on hand",
-          "desc": "Live on-hand quantity by product."
-        },
-        {
-          "name": "Low stock alert",
-          "desc": "Items at or below reorder threshold."
-        },
-        {
-          "name": "Product catalog export",
-          "desc": "Full catalog dump for audit or sharing."
-        },
-        {
-          "name": "Top products by revenue",
-          "desc": "Best sellers ranked by revenue."
-        },
-        {
-          "name": "Slow / zero movers",
-          "desc": "Products that need promotion or delist."
-        },
-        {
-          "name": "Margin proxy (price-cost)",
-          "desc": "Price vs cost view for pricing decisions."
-        },
-        {
-          "name": "Sales by calendar day",
-          "desc": "Calendar trend of completed sales."
-        },
-        {
-          "name": "Refunded orders",
-          "desc": "Refund activity for control and review."
-        }
-      ],
-      "platform_reports": [
-        {
-          "name": "All organizations",
-          "desc": "Every tenant on the platform."
-        },
-        {
-          "name": "Platform revenue by org",
-          "desc": "Revenue contribution of each organization."
-        },
-        {
-          "name": "Platform order volume",
-          "desc": "Order counts across the network."
-        },
-        {
-          "name": "Platform users directory",
-          "desc": "Users directory for platform governance."
-        },
-        {
-          "name": "Products count by org",
-          "desc": "Catalog size per organization."
-        }
-      ],
-      "growth": "Owners see what sells, what sticks, and where cash moves - every day."
-    },
-    "sort_order": 260,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Culinary Report Hub (30 Reports)",
+    "subtitle": "Actionable restaurant analytics in professional PDF and Excel formats.",
+    "body": "Analyze peak dining hours, best-selling dishes, waiter sales performance, food cost margins, hourly sales velocity, payment method breakdowns, and tax collected. Export ready-to-use balance reports for accounting and audit.",
+    "badge_text": "Business Intelligence",
+    "image_url": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 120
   },
   {
     "section_key": "mod_discounts",
-    "title": "Discounts and Offers",
-    "subtitle": "Coupons, seasonal windows, item and category offers",
-    "body": "Create organization promotions with display name, coupon code, scope (cart, product, category, coupon, seasonal, super-admin org offer), percentage or fixed value, min order, max cap and validity window. Super admin can also push platform offers to a target organization. Preview discount against a cart before go-live.",
-    "badge_text": "Promotions",
-    "image_url": "/landing/discounts.jpg",
-    "image_url_2": null,
-    "extra_json": {
-      "bullets": [
-        "Coupon codes and seasonal date windows",
-        "Order-level, product-wise and category-wise scopes",
-        "Percentage or fixed amount off",
-        "Min subtotal and max discount cap",
-        "Cart preview evaluation",
-        "Platform offers targeted to an organization"
-      ],
-      "growth": "Run campaigns without manual cashier math."
-    },
-    "sort_order": 270,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Happy Hours & Dynamic Discounts",
+    "subtitle": "Drive foot traffic during off-peak hours with automated promotional rules.",
+    "body": "Set percentage discounts, fixed value coupons, seasonal date windows, and happy hour specials. Track every promotion redemption in an audit ledger with authorization controls to prevent unauthorized cashier markdowns.",
+    "badge_text": "Revenue Growth",
+    "image_url": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 130
   },
   {
     "section_key": "mod_restaurant",
-    "title": "Tables, Waiters and Tax",
-    "subtitle": "Restaurant floor and bill configuration",
-    "body": "Manage dining tables (name, capacity, area, occupied flag), waiters (name, code, phone), and tax rates (name, code, rate, default). Configure bill header, footer, KOT enable, table management, waiter enable and currency symbol per organization.",
-    "badge_text": "Restaurant ops",
-    "image_url": "/landing/tables.jpg",
-    "image_url_2": "/landing/fine-dine.jpg",
-    "extra_json": {
-      "bullets": [
-        "Dining tables with capacity and area",
-        "Waiter directory",
-        "Tax master with default rate",
-        "Bill header/footer and KOT settings"
-      ],
-      "growth": "Floor service and tax-ready bills for F&B brands."
-    },
-    "sort_order": 280,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Floor Plans, Dining Tables & Waiters",
+    "subtitle": "Interactive floor control tailored to your restaurant layout.",
+    "body": "Configure multiple dining areas: AC Dining Hall, Family Section, Terrace Lounge, Private Dining Rooms, and Patio. Manage seating capacity, live occupancy status, table transfers, and waiter steward assignments in real time.",
+    "badge_text": "Floor Operations",
+    "image_url": "https://images.unsplash.com/photo-1544025162-d76694265947?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 140
   },
   {
     "section_key": "mod_terminals",
-    "title": "POS Machines",
-    "subtitle": "Register every counter device",
-    "body": "Create POS terminals with name and code per organization. Select the active machine on the POS Terminal so sales and reports stay attributed to the right counter.",
-    "badge_text": "Hardware ready",
-    "image_url": "/landing/pos.jpg",
-    "image_url_2": null,
-    "extra_json": {
-      "bullets": [
-        "Named terminals per store",
-        "Code for identification",
-        "Sales by terminal in Report Hub"
-      ],
-      "growth": "Multi-counter stores know which machine sold what."
-    },
-    "sort_order": 290,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "POS Counter Machines & Printers",
+    "subtitle": "Manage multiple billing stations across counters and bars.",
+    "body": "Register individual terminals: Main Floor Billing Counter, Bar POS, and Takeaway Dispatch Station. Assign distinct thermal printers, cash float amounts, and track cash discrepancies per shift with total accountability.",
+    "badge_text": "Hardware Fleet",
+    "image_url": "https://images.unsplash.com/photo-1556742111-a301076d9d18?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 150
   },
   {
     "section_key": "mod_customers",
-    "title": "Customers",
-    "subtitle": "Walk-in and registered buyers",
-    "body": "Maintain customer records linked to the organization. Use them on bills and review customer-wise sales in Report Hub.",
-    "badge_text": "CRM lite",
-    "image_url": "/landing/cafe.jpg",
-    "image_url_2": null,
-    "extra_json": {
-      "bullets": [
-        "Customer directory per organization",
-        "Link to sales and invoices",
-        "Customer-wise sales report"
-      ],
-      "growth": "Recognize regulars and track their value."
-    },
-    "sort_order": 300,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Guest CRM & Dining Preferences",
+    "subtitle": "Treat every guest like a regular with personalized dining history.",
+    "body": "Store guest profiles with allergy alerts, dietary preferences (Jain, Vegan, Gluten-Free), seating habits, and loyalty membership codes. Surprise loyal diners with birthday treats and reward repeat visits.",
+    "badge_text": "Hospitality CRM",
+    "image_url": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 160
   },
   {
     "section_key": "mod_staff",
-    "title": "Staff and Permissions",
-    "subtitle": "Org admins create team members with module access for their organization",
-    "body": "Organization owners create managers, cashiers and staff for their store only. Grant module permissions so each person sees POS, inventory or reports as needed - without sharing the owner login.",
-    "badge_text": "People",
-    "image_url": "/landing/team.jpg",
-    "image_url_2": null,
-    "extra_json": {
-      "bullets": [
-        "Create org staff with credentials",
-        "Module permission grants",
-        "List staff of current organization"
-      ],
-      "growth": "Safe delegation without sharing owner login."
-    },
-    "sort_order": 310,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Team Directory & Floor Captains",
+    "subtitle": "Empower your restaurant crew while securing sensitive operations.",
+    "body": "Assign staff to dedicated restaurant roles: General Manager, Restaurant Floor Manager, Chief Cashier, Service Captain, and Barista. Each user logs in with a secure 4-digit quick POS PIN for lightning floor handovers.",
+    "badge_text": "Staff Management",
+    "image_url": "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 170
   },
   {
     "section_key": "mod_users",
-    "title": "Team Directory",
-    "subtitle": "Users list for the active organization",
-    "body": "Browse team members, roles and activity status. Keep the directory clean as people join or leave.",
-    "badge_text": "People",
-    "image_url": "/landing/team.jpg",
-    "image_url_2": null,
-    "extra_json": {
-      "bullets": [
-        "Role-aware directory",
-        "Active status",
-        "Organization scoped list"
-      ],
-      "growth": "HR and ops know who has access today."
-    },
-    "sort_order": 320,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Role-Based Access Control (RBAC)",
+    "subtitle": "Granular permissions protecting menu pricing, discounts, and voids.",
+    "body": "Ensure only managers can authorize bill discounts, void orders, and access financial reports. Cashiers and service staff stay focused on their active billing stations with zero distraction.",
+    "badge_text": "Security & Control",
+    "image_url": "https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 180
   },
   {
     "section_key": "mod_currency",
-    "title": "World Currencies",
-    "subtitle": "AED base with daily exchange rates",
-    "body": "Base currency is AED. Maintain active world currencies and daily rates. Convert amounts through AED for planning and multi-market operations. Super admin maintains rates for the platform.",
-    "badge_text": "Finance",
-    "image_url": "/landing/currency.jpg",
-    "image_url_2": null,
-    "extra_json": {
-      "bullets": [
-        "AED as platform base currency",
-        "Currency list with symbols",
-        "Daily FX rates vs AED",
-        "Convert tool for any pair via AED"
-      ],
-      "growth": "One system for multi-country rollouts and clear FX."
-    },
-    "sort_order": 330,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Multi-Currency & Tourist Settlement",
+    "subtitle": "Settle dining bills effortlessly for international guests.",
+    "body": "Display live exchange rates with multi-currency conversion. Ideal for destination restaurants, airport dining outlets, and hotel dining rooms accommodating global travelers.",
+    "badge_text": "Global Currency",
+    "image_url": "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 190
   },
   {
     "section_key": "mod_organizations",
-    "title": "Organizations",
-    "subtitle": "How stores are onboarded - then handed to org admin",
-    "body": "Platform super admin creates each organization (restaurant, cafe, grocery, supermarket and more), sets currency and timezone, and can create the organization owner admin. That admin then runs the store. Super admin can switch active organization to support any tenant.",
-    "badge_text": "Platform",
-    "image_url": "/landing/organizations.jpg",
-    "image_url_2": null,
-    "extra_json": {
-      "bullets": [
-        "Multi-tenant organization master",
-        "Business types for F&B and retail",
-        "Owner admin creation at onboarding",
-        "Active tenant switch for super admin"
-      ],
-      "growth": "Scale from one outlet to a network under one platform."
-    },
-    "sort_order": 340,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Multi-Outlet Restaurant Management",
+    "subtitle": "Scale from a single flagship bistro to an enterprise restaurant chain.",
+    "body": "Centralized super admin control allows multi-store operators to monitor performance across all restaurant branches. Maintain brand consistency while giving each branch manager local autonomy.",
+    "badge_text": "Chain Management",
+    "image_url": "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 200
   },
   {
     "section_key": "mod_cms",
-    "title": "CMS and Landing",
-    "subtitle": "Super admin edits the public website live",
-    "body": "Update hero, modules, reports list, FAQs, careers, social links and every landing section with text and images. The public site reads the CMS bundle on each visit.",
-    "badge_text": "Marketing site",
-    "image_url": "/landing/hero.jpg",
-    "image_url_2": null,
-    "extra_json": {
-      "bullets": [
-        "Section-based CMS",
-        "Image uploads",
-        "Careers posts",
-        "Social links",
-        "Live public bundle"
-      ],
-      "growth": "Marketing updates without a developer release."
-    },
-    "sort_order": 350,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Restaurant Landing CMS",
+    "subtitle": "Present your culinary brand online with customizable digital presence.",
+    "body": "Update your public restaurant landing page, career opportunities, promotional banners, and social channels directly from the admin dashboard without writing a single line of code.",
+    "badge_text": "Brand Presence",
+    "image_url": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 210
   },
   {
     "section_key": "mod_rbac",
-    "title": "Org Module Access",
-    "subtitle": "Control which modules each organization may use",
-    "body": "Super admin grants module access per organization. Combined with staff permissions, this keeps platform and store roles clear.",
-    "badge_text": "Security",
-    "image_url": "/landing/team.jpg",
-    "image_url_2": null,
-    "extra_json": {
-      "bullets": [
-        "Module catalog",
-        "Org-level grants",
-        "My-access view for signed-in users"
-      ],
-      "growth": "Right people, right screens, right data."
-    },
-    "sort_order": 360,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Enterprise Security Controls",
+    "subtitle": "Protect sensitive revenue, margin, and payroll data.",
+    "body": "Audited activity logs track every action taken on the system. From cash drawer opens to manager discount overrides, every event is recorded with timestamp, user ID, and IP address.",
+    "badge_text": "Audit Trail",
+    "image_url": "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 220
   },
   {
     "section_key": "mod_platform_users",
-    "title": "Platform Users",
-    "subtitle": "Platform operators without an organization",
-    "body": "Super admin creates platform-level operator users and grants module permissions for platform work such as onboarding and CMS.",
-    "badge_text": "Platform",
-    "image_url": "/landing/organizations.jpg",
-    "image_url_2": null,
-    "extra_json": {
-      "bullets": [
-        "Platform operator accounts",
-        "Full module grants",
-        "No organization binding"
-      ],
-      "growth": "Internal team can support customers safely."
-    },
-    "sort_order": 370,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Platform Administration",
+    "subtitle": "Comprehensive supervision for restaurant group administrators.",
+    "body": "Create and manage outlet admins, oversee system uptime, review multi-store sales aggregates, and ensure seamless POS service across all dining locations.",
+    "badge_text": "Platform Admin",
+    "image_url": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 230
   },
   {
     "section_key": "mod_dashboard",
-    "title": "Dashboard",
-    "subtitle": "Command center for platform and store",
-    "body": "Organization users see revenue today, invoices, products, low stock, terminals, customers, 7-day sales, payment mix, top products and recent orders for their store. Super admin sees the full network of organizations.",
-    "badge_text": "Home",
-    "image_url": "/landing/dashboard.jpg",
-    "image_url_2": "/landing/reports.jpg",
-    "extra_json": {
-      "bullets": [
-        "Store KPIs for organization users",
-        "Revenue, invoices and open orders today",
-        "Low stock and top products for your org",
-        "Payment mix and recent bills"
-      ],
-      "growth": "Your organization starts every day knowing sales, stock risk and counter health."
-    },
-    "sort_order": 190,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Real-Time Restaurant Dashboard",
+    "subtitle": "Your dining room KPIs at a glance in real time.",
+    "body": "Monitor today's gross sales, open table count, average ticket size, table turn rates, top-selling culinary items, and cashier cash collections from any tablet or mobile browser.",
+    "badge_text": "Executive View",
+    "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 240
   },
   {
     "section_key": "mod_settings",
-    "title": "Settings",
-    "subtitle": "Profile, theme and password",
-    "body": "Users change password, switch light/dark theme, and see active organization context. Restaurant bill settings live under Tables, Waiters and Tax.",
-    "badge_text": "Account",
-    "image_url": "/landing/analytics.jpg",
-    "image_url_2": null,
-    "extra_json": {
-      "bullets": [
-        "Change password",
-        "Light and dark theme",
-        "Active tenant display"
-      ],
-      "growth": "Secure accounts on shared counters."
-    },
-    "sort_order": 380,
-    "cta_label": "Open product",
-    "cta_url": "/login"
+    "title": "Store & Receipt Customization",
+    "subtitle": "Fine-tune tax rules, receipt footers, and kitchen workflows.",
+    "body": "Configure tax inclusive or exclusive pricing, service charge rates, FSSAI credentials, thermal printer baud rates, and custom receipt branding in a clean, intuitive settings panel.",
+    "badge_text": "Customization",
+    "image_url": "https://images.unsplash.com/photo-1556740758-90de374c12ad?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 250
   },
   {
     "section_key": "journey",
-    "title": "A day in your organization",
-    "subtitle": "How org admins and cashiers use DineFlow from open to close.",
-    "badge_text": "Store operations",
-    "image_url": "/landing/cafe.jpg",
+    "title": "The seamless service journey on DineFlow",
+    "subtitle": "How every guest interaction flows from initial seating to final settlement.",
+    "badge_text": "Service Workflow",
+    "image_url": "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=1200&auto=format&fit=crop&q=80",
     "extra_json": {
-      "steps": [
-        {
-          "time": "Morning",
-          "t": "Open counters",
-          "d": "Staff sign in, select POS machine, confirm stock and menus.",
-          "img": "/landing/cafe.jpg"
-        },
-        {
-          "time": "Peak",
-          "t": "Bill and serve",
-          "d": "Barcode or menu tiles, KOT to kitchen, split payments, print invoices.",
-          "img": "/landing/pos.jpg"
-        },
-        {
-          "time": "Afternoon",
-          "t": "Restock",
-          "d": "Inventory adjustments for purchases and waste; watch low-stock alerts.",
-          "img": "/landing/inventory.jpg"
-        },
-        {
-          "time": "Close",
-          "t": "Report and reconcile",
-          "d": "Cashier summary, daily sales, payment mix - export PDF or Excel.",
-          "img": "/landing/reports.jpg"
-        }
-      ]
-    },
-    "sort_order": 400
-  },
-  {
-    "section_key": "how_it_works",
-    "title": "From onboarding to first sale",
-    "badge_text": "For new organizations",
-    "image_url": "/landing/organizations.jpg",
-    "extra_json": {
-      "steps": [
+      "items": [
         {
           "n": "1",
-          "t": "Organization is created",
-          "d": "Super admin onboards your store and sets up the organization owner admin."
+          "t": "Guest Arrival & Table Seating",
+          "d": "Host selects an available table in the AC Dining Hall or Terrace Lounge and assigns a dedicated floor captain."
         },
         {
           "n": "2",
-          "t": "Org admin builds catalog",
-          "d": "Categories, products, barcodes, opening stock and POS machines for your organization."
+          "t": "Order Punching & Instant KOT",
+          "d": "Captain punches starters and mains with cooking instructions; tickets fire instantly to tandoor, kitchen, and bar stations."
         },
         {
           "n": "3",
-          "t": "Team sells on POS",
-          "d": "Cashiers bill, print KOT and invoices, take multi-pay on your counters."
+          "t": "Course Timing & Kitchen Pass",
+          "d": "Kitchen completes dishes and expedites courses smoothly while managers monitor table turn duration."
         },
         {
           "n": "4",
-          "t": "Admin exports reports",
-          "d": "Organization reports for sales, tax, stock and cashiers - PDF or Excel."
+          "t": "Split Checkout & GST Bill Print",
+          "d": "Cashier settles bill via UPI, card, or cash, applies loyalty discounts, and prints the official GST tax invoice."
         }
       ]
     },
-    "sort_order": 410,
-    "subtitle": "How a new organization goes live on DineFlow."
+    "sort_order": 260
+  },
+  {
+    "section_key": "how_it_works",
+    "title": "Getting your restaurant live on DineFlow",
+    "subtitle": "From menu onboarding to full floor rollout in four simple steps.",
+    "badge_text": "Quick Setup",
+    "image_url": "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=1200&auto=format&fit=crop&q=80",
+    "extra_json": {
+      "items": [
+        {
+          "n": "1",
+          "t": "Restaurant Setup & Branding",
+          "d": "Configure your restaurant name, GSTIN, FSSAI license, tax rates, and thermal receipt details."
+        },
+        {
+          "n": "2",
+          "t": "Upload Menu & Floor Layout",
+          "d": "Import your categories, dishes, prices, modifiers, and set up your visual table floor plan."
+        },
+        {
+          "n": "3",
+          "t": "Staff PINs & Terminal Linking",
+          "d": "Add your managers, cashiers, and captains with 4-digit login PINs and pair counter terminals."
+        },
+        {
+          "n": "4",
+          "t": "Live Dining Service & Reports",
+          "d": "Start punching live orders, firing KOTs, settling payments, and export 30 automated P&L reports."
+        }
+      ]
+    },
+    "sort_order": 270
   },
   {
     "section_key": "testimonials",
-    "title": "What operators say",
-    "badge_text": "Customers",
-    "image_url": "/landing/team.jpg",
+    "title": "Trusted by visionary restaurant operators",
+    "badge_text": "Restaurateur Voices",
+    "image_url": "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=1000&auto=format&fit=crop&q=80",
     "extra_json": {
       "items": [
         {
-          "name": "Aisha Rahman",
-          "role": "Owner, Spice Route",
-          "quote": "Tables, KOT and cashier reports finally sit in one system. Peak-hour billing is cleaner for our team.",
-          "img": "/landing/fine-dine.jpg"
+          "name": "Kavitha Sundaresan",
+          "role": "General Manager, The Copper Chimney Bistro & Grill",
+          "quote": "Live KOT routing to tandoor, real-time table floor management, and instant end-of-day cashier settlements have transformed our dinner rush.",
+          "img": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop&q=80"
         },
         {
-          "name": "Rahul Mehta",
-          "role": "Ops, FreshBasket Grocery",
-          "quote": "Barcode billing plus low-stock alerts cut empty shelves. We run multiple stores under one super admin.",
-          "img": "/landing/grocery.jpg"
+          "name": "Ranganathan S",
+          "role": "Store Director, Saravana Traditional Heritage Bhavan",
+          "quote": "High-volume breakfast tiffin billing needs sub-second speed. DineFlow handles over 1,400 daily orders effortlessly without lag.",
+          "img": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80"
         },
         {
-          "name": "Sara Al Noor",
-          "role": "Founder, Daily Mart",
-          "quote": "Supermarket counters, promotions and Excel exports are what we needed for weekly planning.",
-          "img": "/landing/retail.jpg"
+          "name": "Marco D'Souza",
+          "role": "Managing Partner, Cafe Milano Roastery & Pizzeria",
+          "quote": "From artisanal woodfired pizza tickets to specialty espresso orders and customer loyalty points, everything runs in complete harmony.",
+          "img": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=80"
         }
       ]
     },
-    "sort_order": 420
+    "sort_order": 280
   },
   {
     "section_key": "faqs",
-    "title": "Questions from organization owners and admins",
-    "badge_text": "FAQ for organizations",
-    "image_url": "/landing/dashboard.jpg",
+    "title": "Frequently asked questions by restaurant owners",
+    "badge_text": "Restaurant FAQs",
+    "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1000&auto=format&fit=crop&q=80",
     "extra_json": {
       "items": [
         {
-          "q": "What does my organization get after onboarding?",
-          "a": "Your org admin gets Dashboard, POS Terminal, Products, Categories, Inventory, Orders, Invoices, Report Hub (30 reports), Discounts, Tables/Waiters/Tax (for restaurants), POS Machines, Customers, Staff Permissions, Team Directory, Currencies view and Settings for that organization."
+          "q": "Can DineFlow handle separate kitchen and bar order routing?",
+          "a": "Yes! When an order is placed, items configured for the kitchen print to the main kitchen thermal printer, while mocktails, juices, and coffee print directly to the bar station printer with distinct KOT sequences."
         },
         {
-          "q": "Who creates my organization?",
-          "a": "Platform super admin creates the organization and can create the organization owner admin. That admin then runs day-to-day store operations and staff."
+          "q": "How does split billing and table transfers work?",
+          "a": "Cashiers can easily split bills by seat, item, or equal parts across multiple payment methods (e.g. part cash, part UPI). Guests can also be transferred smoothly between tables without losing order history."
         },
         {
-          "q": "Can one organization run restaurant and grocery?",
-          "a": "Each organization has a business type (restaurant, cafe, fast food, grocery, kirana, supermarket, retail, bakery, other). Restaurant tools like tables, waiters and KOT are available for F&B orgs; barcode and high-SKU inventory suit grocery and supermarket orgs."
+          "q": "Does DineFlow work offline if the internet drops?",
+          "a": "Absolutely. The POS Terminal is designed to continue taking orders, firing local kitchen tickets, and printing receipts even during network outages, synchronizing automatically when connectivity resumes."
         },
         {
-          "q": "How many reports can my organization export?",
-          "a": "25 organization reports in Report Hub (cashier summary, daily sales, item-wise, low stock, tax collected, and more), each as PDF and Excel. Platform-level reports are for super admin across all organizations."
+          "q": "Are GST, CGST/SGST, and service charges calculated automatically?",
+          "a": "Yes. DineFlow automatically applies compliant GST (e.g. 5% restaurant GST split into 2.5% CGST + 2.5% SGST) and displays legal tax breakdowns and FSSAI numbers on all printed customer invoices."
         },
         {
-          "q": "How do staff permissions work inside my organization?",
-          "a": "Organization owners create staff and grant module permissions (for example POS only, or inventory plus reports). Super admin can also control which modules the organization may use."
+          "q": "Can we manage recipe costs and raw inventory depletion?",
+          "a": "Yes. Link dishes to ingredient recipes to automatically deplete raw stock (rice, paneer, chicken, dairy) on order completion, and receive alerts when stock falls below reorder thresholds."
         },
         {
-          "q": "Can we run multiple counters?",
-          "a": "Yes. Register POS Machines for the organization and select the terminal on POS Terminal so sales and reports stay attributed correctly."
-        },
-        {
-          "q": "What payments work on the organization POS?",
-          "a": "Cash with tendered amount and change, card, UPI and wallet, including split payments on one bill."
-        },
-        {
-          "q": "Does inventory update when we sell?",
-          "a": "Yes for products with inventory tracking on. Org admins can also adjust stock for purchase, waste, return, transfer, opening and manual adjustment."
-        },
-        {
-          "q": "Who edits the public website?",
-          "a": "Platform super admin CMS. Organization users focus on store modules after login."
-        },
-        {
-          "q": "How do we start selling?",
-          "a": "Org admin signs in, adds products and a terminal, opens POS Terminal, completes a bill, then uses Report Hub for daily close."
+          "q": "What thermal receipt printers and cash drawers are supported?",
+          "a": "DineFlow supports all standard ESC/POS thermal receipt printers (Epson, TVS, Citizen, Star Micronics) via USB, Ethernet (LAN), and Wi-Fi, along with automatic cash drawer kickouts."
         }
       ]
     },
-    "sort_order": 430,
-    "subtitle": "Straight answers about what your store gets after onboarding."
+    "sort_order": 290
   },
   {
     "section_key": "careers_banner",
-    "title": "Careers at DineFlow",
-    "subtitle": "Product, engineering and customer success roles.",
-    "badge_text": "Careers",
-    "cta_label": "See open roles",
+    "title": "Join the team powering modern culinary technology",
+    "subtitle": "We are looking for product engineers, restaurant success specialists, and hospitality innovators to shape the future of dining POS.",
+    "badge_text": "We Are Hiring",
+    "cta_label": "View Open Positions",
     "cta_url": "#careers",
-    "image_url": "/landing/team.jpg",
-    "sort_order": 440
+    "sort_order": 300
   },
   {
     "section_key": "cta",
-    "title": "Open your organization workspace",
-    "subtitle": "Sign in as org admin or staff to run POS, stock, team and reports for your store.",
-    "badge_text": "Organization access",
-    "cta_label": "Sign in to DineFlow",
+    "title": "Ready to modernize your restaurant floor and kitchen?",
+    "subtitle": "Join leading restaurants, QSR chains, and artisan cafes streamlining orders and boosting table turns with DineFlow.",
+    "cta_label": "Get Started Today",
     "cta_url": "/login",
-    "image_url": "/landing/checkout.jpg",
-    "sort_order": 450
+    "image_url": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&auto=format&fit=crop&q=85",
+    "badge_text": "Live Demo Ready",
+    "sort_order": 310
   },
   {
     "section_key": "footer",
-    "title": "DineFlow",
-    "subtitle": "Point of sale for restaurant and retail organizations - inventory, staff, discounts and 30 reports.",
-    "body": "Organization admin · POS · Inventory · Report Hub · Multi-store",
-    "badge_text": "For organizations",
-    "image_url": "/landing/hero.jpg",
-    "sort_order": 460
+    "title": "DineFlow Restaurant POS",
+    "subtitle": "Next-generation point of sale software engineered for restaurants, cafes, QSR, bars, and hospitality groups.",
+    "body": "Table Management · Kitchen KOT · Multi-Tender POS · Recipe Inventory · 30 Culinary Reports",
+    "badge_text": "Restaurant & Hospitality POS",
+    "image_url": "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 320
   },
   {
     "section_key": "gallery",
-    "title": "In stores and kitchens",
-    "image_url": "/landing/fine-dine.jpg",
-    "image_url_2": "/landing/pos.jpg",
-    "image_url_3": "/landing/grocery.jpg",
-    "image_url_4": "/landing/retail.jpg",
-    "sort_order": 55
+    "title": "Inside active dining rooms and bustling kitchens",
+    "image_url": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1000&auto=format&fit=crop&q=80",
+    "image_url_2": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1000&auto=format&fit=crop&q=80",
+    "image_url_3": "https://images.unsplash.com/photo-1544025162-d76694265947?w=1000&auto=format&fit=crop&q=80",
+    "image_url_4": "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1000&auto=format&fit=crop&q=80",
+    "sort_order": 330
   },
   {
     "section_key": "features",
-    "title": "What organization admins get on day one",
-    "subtitle": "Practical store tools your team uses at the counter, in the stockroom and in the back office.",
-    "badge_text": "For your store",
-    "image_url": "/landing/pos.jpg",
+    "title": "What restaurant managers get on day one",
+    "subtitle": "Practical, robust tools engineered for front-of-house hospitality and back-of-house kitchen efficiency.",
+    "badge_text": "Core Capabilities",
+    "image_url": "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=1000&auto=format&fit=crop&q=80",
     "extra_json": {
       "items": [
         {
-          "t": "POS Terminal",
-          "d": "Barcode, multi-pay, hold, KOT, invoice.",
-          "img": "/landing/pos.jpg"
+          "t": "Dynamic Table Floor Plan",
+          "d": "Visual floor map with real-time table status (vacant, occupied, billed), seating capacity, and table merges.",
+          "img": "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800&auto=format&fit=crop&q=80"
         },
         {
-          "t": "Inventory",
-          "d": "Live stock, low alerts, purchase and waste.",
-          "img": "/landing/inventory.jpg"
+          "t": "Instant Kitchen Order Tickets (KOT)",
+          "d": "Zero-delay order routing to kitchen thermal printers with cooking instructions and modification tags.",
+          "img": "https://images.unsplash.com/photo-1578474846511-04ba529f0b88?w=800&auto=format&fit=crop&q=80"
         },
         {
-          "t": "30 reports",
-          "d": "PDF and Excel for store and platform.",
-          "img": "/landing/reports.jpg"
+          "t": "Multi-Payment & Split Settlement",
+          "d": "Settle guest tabs across UPI QR, contactless cards, cash, and corporate account credits in seconds.",
+          "img": "https://images.unsplash.com/photo-1556742111-a301076d9d18?w=800&auto=format&fit=crop&q=80"
         },
         {
-          "t": "Discounts",
-          "d": "Coupons, seasonal and item offers.",
-          "img": "/landing/discounts.jpg"
+          "t": "Menu Modifiers & Add-ons",
+          "d": "Effortlessly handle variations: choice of bread, cooking temperature, spice level, and beverage add-ons.",
+          "img": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&auto=format&fit=crop&q=80"
         },
         {
-          "t": "Restaurant floor",
-          "d": "Tables, waiters, tax and bill settings.",
-          "img": "/landing/tables.jpg"
+          "t": "Captain & Steward Assignment",
+          "d": "Track orders and tips per server with 4-digit PIN security and captain floor assignment.",
+          "img": "https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=800&auto=format&fit=crop&q=80"
         },
         {
-          "t": "Multi-store",
-          "d": "Organizations with owner and staff roles.",
-          "img": "/landing/organizations.jpg"
+          "t": "30 Culinary & Sales Reports",
+          "d": "Daily revenue summaries, hourly dining rushes, food cost analysis, and tax reports ready in PDF & Excel.",
+          "img": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80"
         }
       ]
     },
-    "sort_order": 45
+    "sort_order": 340
   },
   {
     "section_key": "why_us",
-    "title": "Why organizations choose DineFlow",
-    "badge_text": "Why DineFlow",
-    "image_url": "/landing/team.jpg",
+    "title": "Why high-turnover restaurants rely on DineFlow",
+    "subtitle": "Engineered for zero downtime, blistering speed, and effortless staff onboarding.",
+    "badge_text": "The DineFlow Advantage",
+    "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1000&auto=format&fit=crop&q=80",
     "extra_json": {
       "items": [
         {
-          "t": "Full store stack",
-          "d": "Your organization gets counter, kitchen, stock, staff and finance reports in one login.",
-          "img": "/landing/dashboard.jpg"
+          "t": "Sub-Second Touch Interface",
+          "d": "Designed with large tactile touch targets and category tabs so cashiers and servers punch orders effortlessly."
         },
         {
-          "t": "Clear roles",
-          "d": "Org owner and staff permissions - each organization controls its own team.",
-          "img": "/landing/team.jpg"
+          "t": "Zero Lost Tickets",
+          "d": "Dual kitchen printer failover and instant digital KOT logging guarantee kitchen orders are never missed."
         },
         {
-          "t": "Report depth",
-          "d": "Thirty named reports for organization decisions - PDF and Excel.",
-          "img": "/landing/reports.jpg"
+          "t": "Audit-Ready Legal Compliance",
+          "d": "Automatic CGST, SGST, VAT, and FSSAI license printing on all customer receipts and monthly tax exports."
         },
         {
-          "t": "Restaurant and retail",
-          "d": "Tables and KOT for F&B; barcode grocery for retail - one product, per organization.",
-          "img": "/landing/grocery.jpg"
+          "t": "5-Minute Staff Training",
+          "d": "Intuitive workflow requires minimal training for new servers and cashiers to start taking orders on day one."
         }
       ]
     },
-    "sort_order": 415
+    "sort_order": 350
   },
   {
     "section_key": "reports",
-    "title": "Report Hub - every report by name",
-    "subtitle": "Export PDF or Excel for each report listed here.",
-    "badge_text": "30 reports",
-    "image_url": "/landing/reports.jpg",
+    "title": "30 comprehensive restaurant P&L, sales & tax reports",
+    "subtitle": "Instant export to professional formatted PDF and Excel spreadsheets.",
+    "badge_text": "Report Suite",
+    "image_url": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1000&auto=format&fit=crop&q=80",
     "extra_json": {
-      "org_reports": [
-        {
-          "name": "Cashier summary",
-          "desc": "Shift-level cash performance for each cashier."
-        },
-        {
-          "name": "Daily sales register",
-          "desc": "Day-wise sales register for store operations."
-        },
-        {
-          "name": "Sales detailed (line items)",
-          "desc": "Every sold line with product, qty and value."
-        },
-        {
-          "name": "Item-wise sales",
-          "desc": "Which items sell and how much revenue they bring."
-        },
-        {
-          "name": "Category-wise sales",
-          "desc": "Sales grouped by menu or product category."
-        },
-        {
-          "name": "Payment method mix",
-          "desc": "Cash, card, UPI and wallet share of collections."
-        },
-        {
-          "name": "Bill type summary",
-          "desc": "Cash, credit and guest bill breakdown."
-        },
-        {
-          "name": "Order type summary",
-          "desc": "Dine-in, takeaway, delivery, retail and pickup mix."
-        },
-        {
-          "name": "Hourly sales heatmap",
-          "desc": "Peak hours so you staff and stock correctly."
-        },
-        {
-          "name": "Tax collected report",
-          "desc": "Tax liability by period for finance teams."
-        },
-        {
-          "name": "Discounts given",
-          "desc": "Every discount and offer applied on bills."
-        },
-        {
-          "name": "Cancelled / void orders",
-          "desc": "Voids and cancellations with reasons."
-        },
-        {
-          "name": "Open & held orders",
-          "desc": "Bills still open or held on the floor."
-        },
-        {
-          "name": "Invoice register",
-          "desc": "Complete invoice list with reprint counts."
-        },
-        {
-          "name": "Customer-wise sales",
-          "desc": "Repeat buyers and customer revenue."
-        },
-        {
-          "name": "Cashier performance",
-          "desc": "Speed and value by cashier for coaching."
-        },
-        {
-          "name": "Terminal / POS machine sales",
-          "desc": "Sales by each registered POS machine."
-        },
-        {
-          "name": "Stock on hand",
-          "desc": "Live on-hand quantity by product."
-        },
-        {
-          "name": "Low stock alert",
-          "desc": "Items at or below reorder threshold."
-        },
-        {
-          "name": "Product catalog export",
-          "desc": "Full catalog dump for audit or sharing."
-        },
-        {
-          "name": "Top products by revenue",
-          "desc": "Best sellers ranked by revenue."
-        },
-        {
-          "name": "Slow / zero movers",
-          "desc": "Products that need promotion or delist."
-        },
-        {
-          "name": "Margin proxy (price-cost)",
-          "desc": "Price vs cost view for pricing decisions."
-        },
-        {
-          "name": "Sales by calendar day",
-          "desc": "Calendar trend of completed sales."
-        },
-        {
-          "name": "Refunded orders",
-          "desc": "Refund activity for control and review."
-        }
-      ],
-      "platform_reports": [
-        {
-          "name": "All organizations",
-          "desc": "Every tenant on the platform."
-        },
-        {
-          "name": "Platform revenue by org",
-          "desc": "Revenue contribution of each organization."
-        },
-        {
-          "name": "Platform order volume",
-          "desc": "Order counts across the network."
-        },
-        {
-          "name": "Platform users directory",
-          "desc": "Users directory for platform governance."
-        },
-        {
-          "name": "Products count by org",
-          "desc": "Catalog size per organization."
-        }
+      "items": [
+        { "t": "Daily Sales & Revenue Summary", "d": "Gross sales, net revenue, discounts given, and tax collected" },
+        { "t": "Category-Wise Revenue Contribution", "d": "Identify high-margin categories and underperforming menu sections" },
+        { "t": "Dish Velocity & Popularity Index", "d": "Top 20 bestsellers and slow-moving dishes by volume and margin" },
+        { "t": "Server & Captain Sales Performance", "d": "Order count, average check size, and total billings per server" },
+        { "t": "Hourly Rush Velocity Analysis", "d": "Identify peak lunch and dinner demand windows for optimal staff scheduling" },
+        { "t": "Kitchen KOT Preparation Audit", "d": "Track preparation turnaround times and order dispatch status" },
+        { "t": "Payment Tender Breakdown", "d": "Detailed reconciliation of UPI, Card, Cash, and Wallet settlements" },
+        { "t": "Cashier Shift Settlement & Z-Report", "d": "Opening cash float, cash collected, paid-outs, and closing variance" },
+        { "t": "GST / Tax Audit Ledger", "d": "Itemized CGST, SGST, and total tax breakdown for tax filing" },
+        { "t": "Ingredient Inventory & Low Stock Alert", "d": "Raw materials nearing reorder thresholds to prevent 86'd dishes" },
+        { "t": "Order Void & Cancellation Log", "d": "Audited tracking of cancelled orders, voided line items, and manager overrides" },
+        { "t": "Discount & Promo Redemption Report", "d": "Track authorized discounts, coupon codes, and promotional revenue impact" }
       ]
     },
-    "sort_order": 265
+    "sort_order": 360
   },
   {
     "section_key": "contact",
-    "title": "Contact us",
-    "subtitle": "Tell us about your store. Share name, email, phone and requirements - we reply quickly.",
-    "body": "Organizations use DineFlow for restaurants, grocery and retail. Leave a message and our team will help with onboarding.",
-    "badge_text": "Contact",
-    "cta_label": "Open contact form",
-    "sort_order": 95,
+    "title": "Speak with our restaurant technology specialists",
+    "subtitle": "Schedule a personalized demonstration or ask questions about hardware integration and menu onboarding.",
+    "badge_text": "Get In Touch",
+    "image_url": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1000&auto=format&fit=crop&q=80",
     "extra_json": {
       "show_on_landing": true,
-      "submit_label": "Send message",
-      "success_message": "Thank you. Your message was received and our team will contact you soon.",
+      "success_message": "Thank you! Our restaurant technology specialist will contact you within 24 hours.",
+      "submit_label": "Request Restaurant Demo",
       "fields": [
-        {
-          "key": "name",
-          "label": "Name",
-          "type": "text",
-          "required": false,
-          "enabled": true,
-          "placeholder": "Your full name"
-        },
-        {
-          "key": "email",
-          "label": "Email",
-          "type": "email",
-          "required": true,
-          "enabled": true,
-          "placeholder": "you@company.com"
-        },
-        {
-          "key": "phone",
-          "label": "Phone",
-          "type": "tel",
-          "required": false,
-          "enabled": true,
-          "placeholder": "+971 ..."
-        },
-        {
-          "key": "message",
-          "label": "Message and requirements",
-          "type": "textarea",
-          "required": true,
-          "enabled": true,
-          "placeholder": "Tell us about your stores and what you need"
-        }
+        { "key": "restaurant_name", "label": "Restaurant / Group Name", "type": "text", "required": true, "enabled": true, "placeholder": "e.g. Copper Chimney Bistro" },
+        { "key": "contact_name", "label": "Your Name", "type": "text", "required": true, "enabled": true, "placeholder": "e.g. Chef / General Manager" },
+        { "key": "email", "label": "Work Email", "type": "email", "required": true, "enabled": true, "placeholder": "you@restaurant.com" },
+        { "key": "phone", "label": "Mobile Phone", "type": "tel", "required": true, "enabled": true, "placeholder": "+91 98400 12345" },
+        { "key": "outlet_count", "label": "Number of Outlets", "type": "text", "required": false, "enabled": true, "placeholder": "1, 2-5, 6+" },
+        { "key": "message", "label": "Operational Requirements", "type": "textarea", "required": false, "enabled": true, "placeholder": "Tell us about your restaurant concept, table count, and current POS system..." }
       ]
-    }
+    },
+    "sort_order": 370
   }
 ]

@@ -174,14 +174,14 @@ function cn(...parts: Array<string | false | null | undefined>) {
 }
 
 const MENU_ITEMS = [
-  { name: 'Chef specials', tag: 'Fine dine', price: 'from AED 45', img: '/landing/fine-dine.jpg' },
-  { name: 'Counter combos', tag: 'QSR', price: 'from AED 18', img: '/landing/pos.jpg' },
-  { name: 'Cafe favourites', tag: 'Cafe', price: 'from AED 22', img: '/landing/cafe.jpg' },
-  { name: 'Fresh grocery', tag: 'Retail', price: 'barcode ready', img: '/landing/grocery.jpg' },
-  { name: 'Kitchen pass', tag: 'KOT', price: 'live tickets', img: '/landing/kot.jpg' },
-  { name: 'Peak checkout', tag: 'POS', price: 'multi-pay', img: '/landing/checkout.jpg' },
-  { name: 'Floor service', tag: 'Tables', price: 'waiter ready', img: '/landing/tables.jpg' },
-  { name: 'Supermarket run', tag: 'High SKU', price: 'fast scan', img: '/landing/retail.jpg' },
+  { name: 'Tandoori Murgh Tikka', tag: 'Charcoal Tandoor', price: '₹365', img: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=600&auto=format&fit=crop&q=80' },
+  { name: 'Special Ghee Masala Dosa', tag: 'South Indian Tiffin', price: '₹125', img: 'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=600&auto=format&fit=crop&q=80' },
+  { name: 'Woodfired Margherita Classica', tag: 'Artisan Bistro', price: '₹395', img: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&auto=format&fit=crop&q=80' },
+  { name: 'Awadhi Mutton Dum Biryani', tag: 'Chef Signature', price: '₹495', img: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=600&auto=format&fit=crop&q=80' },
+  { name: 'Overnight Dal Makhani', tag: 'Clay Pot Dum', price: '₹295', img: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&auto=format&fit=crop&q=80' },
+  { name: 'Truffled Mushroom Risotto', tag: 'Handmade Pasta', price: '₹445', img: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=600&auto=format&fit=crop&q=80' },
+  { name: 'Kumbakonam Degree Coffee', tag: 'Brass Tumbler', price: '₹45', img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&auto=format&fit=crop&q=80' },
+  { name: 'Traditional Tiramisu', tag: 'Bakehouse Dolce', price: '₹275', img: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&auto=format&fit=crop&q=80' },
 ]
 
 function MenuRail({

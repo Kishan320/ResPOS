@@ -71,6 +71,7 @@ export PATH="$VENV_BIN:$PATH"
 # ── Database migrate & seed ──────────────────────────────────────────────────
 info "Running migrations & seed (creates tables + super admin)..."
 "$PY" scripts/migrate_and_seed.py
+"$PY" scripts/cms_landing_seed.py
 
 # ── Start backend ────────────────────────────────────────────────────────────
 info "Starting API on http://127.0.0.1:8000 ..."
