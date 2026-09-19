@@ -6,6 +6,7 @@ import ImageUpload from '@/components/ImageUpload'
 import { useAuthStore } from '@/store/authStore'
 import { Navigate } from 'react-router-dom'
 import { CheckCircle2, Plus, Trash2 } from 'lucide-react'
+import { useT } from '@/i18n/useT'
 
 type Cms = {
   id?: number
@@ -142,6 +143,7 @@ function parseContactFields(extra: Record<string, unknown> | null | undefined): 
 
 export default function CmsAdminPage() {
   const user = useAuthStore((s) => s.user)
+  const t = useT()
   const [tab, setTab] = useState<'landing' | 'careers' | 'social' | 'contact_form' | 'contact_leads'>(
     'landing'
   )
@@ -227,14 +229,14 @@ export default function CmsAdminPage() {
       try {
         extra = extraJsonText.trim() ? JSON.parse(extraJsonText) : null
       } catch {
-        throw new Error('extra_json must be valid JSON (lists for FAQs, features, etc.)')
+        throw new Error(t('cms.extraJsonInvalid'))
       }
       return (await api.post('/cms/sections', { ...section, extra_json: extra })).data
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['cms-sections'] })
       qc.invalidateQueries({ queryKey: ['cms-public'] })
-      setMsg('Landing section saved - public site updates live')
+      setMsg(t('cms.sectionSaved'))
       setError('')
     },
     onError: (e) => setError(errMsg(e)),
@@ -248,7 +250,7 @@ export default function CmsAdminPage() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['cms-careers'] })
       setCareer({ title: '' })
-      setMsg('Career saved')
+      setMsg(t('cms.career.saved'))
     },
     onError: (e) => setError(errMsg(e)),
   })
@@ -261,7 +263,7 @@ export default function CmsAdminPage() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['cms-social'] })
       setSocial({ platform: 'linkedin', label: '', url: '' })
-      setMsg('Social link saved')
+      setMsg(t('cms.social.saved'))
     },
     onError: (e) => setError(errMsg(e)),
   })
@@ -277,7 +279,7 @@ export default function CmsAdminPage() {
         }))
         .filter((f) => f.key)
       if (!fields.some((f) => f.key === 'email' && f.enabled !== false)) {
-        throw new Error('Email field must exist and stay enabled (required for contact leads).')
+        throw new Error(t('cms.emailFieldRequired'))
       }
       const payload: Cms = {
         section_key: 'contact',
@@ -300,7 +302,7 @@ export default function CmsAdminPage() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['cms-sections'] })
       qc.invalidateQueries({ queryKey: ['cms-public'] })
-      setMsg('Contact form CMS saved - landing form updates live')
+      setMsg(t('cms.contactFormSaved'))
       setError('')
     },
     onError: (e) => setError(errMsg(e)),
@@ -316,7 +318,7 @@ export default function CmsAdminPage() {
       ).data,
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['cms-contacts'] })
-      setMsg('Contact updated')
+      setMsg(t('cms.contactUpdated'))
     },
     onError: (e) => setError(errMsg(e)),
   })
@@ -325,7 +327,7 @@ export default function CmsAdminPage() {
     mutationFn: async (id: number) => (await api.delete(`/cms/contacts/${id}`)).data,
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['cms-contacts'] })
-      setMsg('Contact deleted')
+      setMsg(t('cms.contactDeleted'))
     },
     onError: (e) => setError(errMsg(e)),
   })
@@ -338,19 +340,19 @@ export default function CmsAdminPage() {
   return (
     <div>
       <PageHeader
-        breadcrumb="Super admin · CMS"
-        title="CMS control center"
-        subtitle="Landing page, contact form fields, contact leads, careers and social - fully customizable."
+        breadcrumb={t('cms.breadcrumb')}
+        title={t('cms.title')}
+        subtitle={t('cms.subtitle')}
       />
 
       <div className="flex flex-wrap gap-2 mb-6">
         {(
           [
-            ['landing', 'Landing sections'],
-            ['contact_form', 'Contact form CMS'],
-            ['contact_leads', 'Contact leads'],
-            ['careers', 'Careers'],
-            ['social', 'Social media'],
+            ['landing', t('cms.tab.landing')],
+            ['contact_form', t('cms.tab.contactForm')],
+            ['contact_leads', t('cms.tab.contactLeads')],
+            ['careers', t('cms.tab.careers')],
+            ['social', t('cms.tab.social')],
           ] as const
         ).map(([k, l]) => (
           <button
@@ -382,7 +384,7 @@ export default function CmsAdminPage() {
 
       {tab === 'landing' && (
         <div className="grid lg:grid-cols-3 gap-4">
-          <Card title="Sections">
+          <Card title={t('cms.sectionsTitle')}>
             {sections.isLoading ? (
               <Spinner />
             ) : (
@@ -408,44 +410,44 @@ export default function CmsAdminPage() {
               </div>
             )}
           </Card>
-          <Card className="lg:col-span-2" title={`Edit · ${section.section_key}`} subtitle="All fields optional except key">
+          <Card className="lg:col-span-2" title={t('cms.editSection', { key: section.section_key })} subtitle={t('cms.editSectionSubtitle')}>
             <div className="grid sm:grid-cols-2 gap-3">
-              <Input label="Title" value={section.title || ''} onChange={(e) => setSection({ ...section, title: e.target.value })} />
-              <Input label="Badge" value={section.badge_text || ''} onChange={(e) => setSection({ ...section, badge_text: e.target.value })} />
+              <Input label={t('cms.field.title')} value={section.title || ''} onChange={(e) => setSection({ ...section, title: e.target.value })} />
+              <Input label={t('cms.field.badge')} value={section.badge_text || ''} onChange={(e) => setSection({ ...section, badge_text: e.target.value })} />
               <div className="sm:col-span-2">
-                <Input label="Subtitle" value={section.subtitle || ''} onChange={(e) => setSection({ ...section, subtitle: e.target.value })} />
+                <Input label={t('cms.field.subtitle')} value={section.subtitle || ''} onChange={(e) => setSection({ ...section, subtitle: e.target.value })} />
               </div>
               <div className="sm:col-span-2">
-                <Textarea label="Body" value={section.body || ''} onChange={(e) => setSection({ ...section, body: e.target.value })} />
+                <Textarea label={t('cms.field.body')} value={section.body || ''} onChange={(e) => setSection({ ...section, body: e.target.value })} />
               </div>
-              <Input label="CTA label" value={section.cta_label || ''} onChange={(e) => setSection({ ...section, cta_label: e.target.value })} />
-              <Input label="CTA URL" value={section.cta_url || ''} onChange={(e) => setSection({ ...section, cta_url: e.target.value })} />
+              <Input label={t('cms.field.ctaLabel')} value={section.cta_label || ''} onChange={(e) => setSection({ ...section, cta_label: e.target.value })} />
+              <Input label={t('cms.field.ctaUrl')} value={section.cta_url || ''} onChange={(e) => setSection({ ...section, cta_url: e.target.value })} />
               <div className="sm:col-span-2 grid sm:grid-cols-2 gap-3">
-                <ImageUpload label="Image 1" entity="cms" value={section.image_url} onChange={(u) => setSection({ ...section, image_url: u || undefined })} />
-                <ImageUpload label="Image 2" entity="cms" value={section.image_url_2} onChange={(u) => setSection({ ...section, image_url_2: u || undefined })} />
-                <ImageUpload label="Image 3" entity="cms" value={section.image_url_3} onChange={(u) => setSection({ ...section, image_url_3: u || undefined })} />
-                <ImageUpload label="Image 4" entity="cms" value={section.image_url_4} onChange={(u) => setSection({ ...section, image_url_4: u || undefined })} />
+                <ImageUpload label={t('cms.field.image1')} entity="cms" value={section.image_url} onChange={(u) => setSection({ ...section, image_url: u || undefined })} />
+                <ImageUpload label={t('cms.field.image2')} entity="cms" value={section.image_url_2} onChange={(u) => setSection({ ...section, image_url_2: u || undefined })} />
+                <ImageUpload label={t('cms.field.image3')} entity="cms" value={section.image_url_3} onChange={(u) => setSection({ ...section, image_url_3: u || undefined })} />
+                <ImageUpload label={t('cms.field.image4')} entity="cms" value={section.image_url_4} onChange={(u) => setSection({ ...section, image_url_4: u || undefined })} />
               </div>
               <div className="sm:col-span-2">
                 <Textarea
-                  label="Structured lists (JSON) - FAQs, features, industries, testimonials, steps, contact fields"
+                  label={t('cms.field.structuredLists')}
                   value={extraJsonText}
                   onChange={(e) => setExtraJsonText(e.target.value)}
                   className="min-h-[180px] font-mono text-xs"
                 />
                 <p className="text-xs text-slate-500 font-medium mt-1">
-                  Prefer the Contact form CMS tab for field labels, required flags and submit text.
+                  {t('cms.structuredHint')}
                 </p>
               </div>
               <Input
-                label="Sort order"
+                label={t('cms.field.sortOrder')}
                 type="number"
                 value={String(section.sort_order ?? 0)}
                 onChange={(e) => setSection({ ...section, sort_order: Number(e.target.value) || 0 })}
               />
             </div>
             <Button className="mt-4" disabled={saveSection.isPending} onClick={() => saveSection.mutate()}>
-              Save section
+              {t('cms.saveSection')}
             </Button>
           </Card>
         </div>
@@ -453,15 +455,15 @@ export default function CmsAdminPage() {
 
       {tab === 'contact_form' && (
         <div className="grid lg:grid-cols-2 gap-4">
-          <Card title="Contact section text" subtitle="Shown above the landing contact form">
+          <Card title={t('cms.contactSectionText')} subtitle={t('cms.contactSectionSubtitle')}>
             <div className="space-y-3">
-              <Input label="Badge" value={contactMeta.badge_text} onChange={(e) => setContactMeta({ ...contactMeta, badge_text: e.target.value })} />
-              <Input label="Title" value={contactMeta.title} onChange={(e) => setContactMeta({ ...contactMeta, title: e.target.value })} />
-              <Input label="Subtitle" value={contactMeta.subtitle} onChange={(e) => setContactMeta({ ...contactMeta, subtitle: e.target.value })} />
-              <Textarea label="Body" value={contactMeta.body} onChange={(e) => setContactMeta({ ...contactMeta, body: e.target.value })} />
-              <Input label="Open form button label" value={contactMeta.cta_label} onChange={(e) => setContactMeta({ ...contactMeta, cta_label: e.target.value })} />
-              <Input label="Submit button label" value={contactMeta.submit_label} onChange={(e) => setContactMeta({ ...contactMeta, submit_label: e.target.value })} />
-              <Textarea label="Success message" value={contactMeta.success_message} onChange={(e) => setContactMeta({ ...contactMeta, success_message: e.target.value })} />
+              <Input label={t('cms.field.badge')} value={contactMeta.badge_text} onChange={(e) => setContactMeta({ ...contactMeta, badge_text: e.target.value })} />
+              <Input label={t('cms.field.title')} value={contactMeta.title} onChange={(e) => setContactMeta({ ...contactMeta, title: e.target.value })} />
+              <Input label={t('cms.field.subtitle')} value={contactMeta.subtitle} onChange={(e) => setContactMeta({ ...contactMeta, subtitle: e.target.value })} />
+              <Textarea label={t('cms.field.body')} value={contactMeta.body} onChange={(e) => setContactMeta({ ...contactMeta, body: e.target.value })} />
+              <Input label={t('cms.contact.openFormLabel')} value={contactMeta.cta_label} onChange={(e) => setContactMeta({ ...contactMeta, cta_label: e.target.value })} />
+              <Input label={t('cms.contact.submitLabel')} value={contactMeta.submit_label} onChange={(e) => setContactMeta({ ...contactMeta, submit_label: e.target.value })} />
+              <Textarea label={t('cms.contact.successMessage')} value={contactMeta.success_message} onChange={(e) => setContactMeta({ ...contactMeta, success_message: e.target.value })} />
               <div className="flex flex-wrap gap-4 text-sm font-semibold">
                 <label className="inline-flex items-center gap-2">
                   <input
@@ -469,7 +471,7 @@ export default function CmsAdminPage() {
                     checked={contactMeta.show_on_landing}
                     onChange={(e) => setContactMeta({ ...contactMeta, show_on_landing: e.target.checked })}
                   />
-                  Show on landing page
+                  {t('cms.contact.showOnLanding')}
                 </label>
                 <label className="inline-flex items-center gap-2">
                   <input
@@ -477,19 +479,19 @@ export default function CmsAdminPage() {
                     checked={contactMeta.is_active}
                     onChange={(e) => setContactMeta({ ...contactMeta, is_active: e.target.checked })}
                   />
-                  Form active
+                  {t('cms.contact.formActive')}
                 </label>
               </div>
             </div>
           </Card>
 
-          <Card title="Dynamic form fields" subtitle="Enable, rename, require, reorder, add custom fields">
+          <Card title={t('cms.dynamicFieldsTitle')} subtitle={t('cms.dynamicFieldsSubtitle')}>
             <div className="space-y-3">
               {contactFields.map((f, idx) => (
                 <div key={`${f.key}-${idx}`} className="rounded-2xl border border-slate-200 p-3 space-y-2 bg-slate-50/60">
                   <div className="grid sm:grid-cols-2 gap-2">
                     <Input
-                      label="Field key"
+                      label={t('cms.field.fieldKey')}
                       value={f.key}
                       onChange={(e) => {
                         const next = [...contactFields]
@@ -498,7 +500,7 @@ export default function CmsAdminPage() {
                       }}
                     />
                     <Input
-                      label="Label"
+                      label={t('cms.field.label')}
                       value={f.label}
                       onChange={(e) => {
                         const next = [...contactFields]
@@ -507,7 +509,7 @@ export default function CmsAdminPage() {
                       }}
                     />
                     <label className="text-xs font-bold text-slate-600">
-                      Type
+                      {t('common.type')}
                       <select
                         className="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold bg-white"
                         value={f.type}
@@ -517,15 +519,15 @@ export default function CmsAdminPage() {
                           setContactFields(next)
                         }}
                       >
-                        <option value="text">Text</option>
-                        <option value="email">Email</option>
-                        <option value="tel">Phone</option>
-                        <option value="textarea">Textarea</option>
-                        <option value="number">Number</option>
+                        <option value="text">{t('cms.fieldType.text')}</option>
+                        <option value="email">{t('cms.fieldType.email')}</option>
+                        <option value="tel">{t('cms.fieldType.phone')}</option>
+                        <option value="textarea">{t('cms.fieldType.textarea')}</option>
+                        <option value="number">{t('cms.fieldType.number')}</option>
                       </select>
                     </label>
                     <Input
-                      label="Placeholder"
+                      label={t('cms.field.placeholder')}
                       value={f.placeholder}
                       onChange={(e) => {
                         const next = [...contactFields]
@@ -546,7 +548,7 @@ export default function CmsAdminPage() {
                           setContactFields(next)
                         }}
                       />
-                      Enabled
+                      {t('cms.field.enabled')}
                     </label>
                     <label className="inline-flex items-center gap-2">
                       <input
@@ -559,7 +561,7 @@ export default function CmsAdminPage() {
                           setContactFields(next)
                         }}
                       />
-                      Required {f.key === 'email' ? '(always)' : ''}
+                      {f.key === 'email' ? t('cms.field.requiredAlways') : t('cms.field.required')}
                     </label>
                     <button
                       type="button"
@@ -570,7 +572,7 @@ export default function CmsAdminPage() {
                       }}
                       disabled={f.key === 'email'}
                     >
-                      <Trash2 size={14} /> Remove
+                      <Trash2 size={14} /> {t('common.remove')}
                     </button>
                   </div>
                 </div>
@@ -582,7 +584,7 @@ export default function CmsAdminPage() {
                     ...contactFields,
                     {
                       key: `custom_${contactFields.length + 1}`,
-                      label: 'Custom field',
+                      label: t('cms.customField'),
                       type: 'text',
                       required: false,
                       enabled: true,
@@ -591,10 +593,10 @@ export default function CmsAdminPage() {
                   ])
                 }
               >
-                <Plus size={16} /> Add field
+                <Plus size={16} /> {t('cms.addField')}
               </Button>
               <Button className="w-full" disabled={saveContactForm.isPending} onClick={() => saveContactForm.mutate()}>
-                Save contact form CMS
+                {t('cms.saveContactForm')}
               </Button>
             </div>
           </Card>
@@ -616,14 +618,14 @@ export default function CmsAdminPage() {
               </button>
             ))}
             <span className="text-sm font-semibold text-slate-500 ml-2">
-              {contactFilter === 'open' ? `${openCount} open` : `${contacts.data?.length || 0} shown`}
+              {contactFilter === 'open' ? t('leads.openCount', { count: openCount }) : t('leads.shownCount', { count: contacts.data?.length || 0 })}
             </span>
           </div>
-          <Card title="Contact submissions" subtitle="Super admin only - mark resolved after follow-up">
+          <Card title={t('cms.contactSubmissions')} subtitle={t('cms.contactSubmissionsSubtitle')}>
             {contacts.isLoading ? (
               <Spinner />
             ) : (contacts.data || []).length === 0 ? (
-              <p className="text-sm font-medium text-slate-500">No contact messages yet.</p>
+              <p className="text-sm font-medium text-slate-500">{t('cms.noContactMessages')}</p>
             ) : (
               <div className="space-y-3">
                 {(contacts.data || []).map((c) => (
@@ -635,9 +637,9 @@ export default function CmsAdminPage() {
                   >
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
-                        <div className="font-bold text-slate-900">{c.name || 'No name'} · {c.email}</div>
+                        <div className="font-bold text-slate-900">{c.name || t('cms.noName')} · {c.email}</div>
                         <div className="text-xs font-semibold text-slate-500 mt-1">
-                          {c.phone || 'No phone'} · {c.created_at ? new Date(c.created_at).toLocaleString() : ''} ·{' '}
+                          {c.phone || t('cms.noPhone')} · {c.created_at ? new Date(c.created_at).toLocaleString() : ''} ·{' '}
                           <span className={c.is_resolved ? 'text-slate-500' : 'text-emerald-700'}>{c.status}</span>
                         </div>
                       </div>
@@ -648,7 +650,7 @@ export default function CmsAdminPage() {
                             onClick={() => resolveContact.mutate({ id: c.id, is_resolved: true })}
                             disabled={resolveContact.isPending}
                           >
-                            <CheckCircle2 size={14} /> Mark resolved
+                            <CheckCircle2 size={14} /> {t('cms.markResolved')}
                           </Button>
                         ) : (
                           <Button
@@ -657,17 +659,17 @@ export default function CmsAdminPage() {
                             onClick={() => resolveContact.mutate({ id: c.id, is_resolved: false })}
                             disabled={resolveContact.isPending}
                           >
-                            Reopen
+                            {t('cms.reopen')}
                           </Button>
                         )}
                         <Button
                           size="sm"
                           variant="danger"
                           onClick={() => {
-                            if (confirm('Delete this contact message?')) deleteContact.mutate(c.id)
+                            if (confirm(t('cms.deleteConfirm'))) deleteContact.mutate(c.id)
                           }}
                         >
-                          Delete
+                          {t('common.delete')}
                         </Button>
                       </div>
                     </div>
@@ -676,14 +678,14 @@ export default function CmsAdminPage() {
                     )}
                     {c.payload_json && (
                       <details className="mt-2 text-xs text-slate-500">
-                        <summary className="cursor-pointer font-bold">All submitted fields</summary>
+                        <summary className="cursor-pointer font-bold">{t('cms.allSubmittedFields')}</summary>
                         <pre className="mt-2 overflow-auto rounded-xl bg-white border border-slate-100 p-2">
                           {JSON.stringify(c.payload_json, null, 2)}
                         </pre>
                       </details>
                     )}
                     {c.admin_note && (
-                      <p className="mt-2 text-xs font-semibold text-slate-500">Note: {c.admin_note}</p>
+                      <p className="mt-2 text-xs font-semibold text-slate-500">{t('cms.adminNote')} {c.admin_note}</p>
                     )}
                   </div>
                 ))}
@@ -695,22 +697,22 @@ export default function CmsAdminPage() {
 
       {tab === 'careers' && (
         <div className="grid lg:grid-cols-2 gap-4">
-          <Card title="New / edit role">
+          <Card title={t('cms.newCareerTitle')}>
             <div className="space-y-3">
-              <Input label="Title *" value={career.title} onChange={(e) => setCareer({ ...career, title: e.target.value })} />
-              <Input label="Department" value={career.department || ''} onChange={(e) => setCareer({ ...career, department: e.target.value })} />
-              <Input label="Location" value={career.location || ''} onChange={(e) => setCareer({ ...career, location: e.target.value })} />
-              <Input label="Type" value={career.employment_type || ''} onChange={(e) => setCareer({ ...career, employment_type: e.target.value })} />
-              <Textarea label="Description" value={career.description || ''} onChange={(e) => setCareer({ ...career, description: e.target.value })} />
-              <Textarea label="Requirements" value={career.requirements || ''} onChange={(e) => setCareer({ ...career, requirements: e.target.value })} />
-              <Input label="Apply email" value={career.apply_email || ''} onChange={(e) => setCareer({ ...career, apply_email: e.target.value })} />
-              <ImageUpload label="Role image" entity="cms" value={career.image_url} onChange={(u) => setCareer({ ...career, image_url: u || undefined })} />
+              <Input label={t('cms.career.title')} value={career.title} onChange={(e) => setCareer({ ...career, title: e.target.value })} />
+              <Input label={t('cms.career.department')} value={career.department || ''} onChange={(e) => setCareer({ ...career, department: e.target.value })} />
+              <Input label={t('cms.career.location')} value={career.location || ''} onChange={(e) => setCareer({ ...career, location: e.target.value })} />
+              <Input label={t('cms.career.type')} value={career.employment_type || ''} onChange={(e) => setCareer({ ...career, employment_type: e.target.value })} />
+              <Textarea label={t('cms.career.description')} value={career.description || ''} onChange={(e) => setCareer({ ...career, description: e.target.value })} />
+              <Textarea label={t('cms.career.requirements')} value={career.requirements || ''} onChange={(e) => setCareer({ ...career, requirements: e.target.value })} />
+              <Input label={t('cms.career.applyEmail')} value={career.apply_email || ''} onChange={(e) => setCareer({ ...career, apply_email: e.target.value })} />
+              <ImageUpload label={t('cms.career.roleImage')} entity="cms" value={career.image_url} onChange={(u) => setCareer({ ...career, image_url: u || undefined })} />
               <Button disabled={!career.title || saveCareer.isPending} onClick={() => saveCareer.mutate()}>
-                Save career
+                {t('cms.saveCareer')}
               </Button>
             </div>
           </Card>
-          <Card title="Published roles">
+          <Card title={t('cms.publishedRoles')}>
             {careers.isLoading ? (
               <Spinner />
             ) : (
@@ -735,18 +737,18 @@ export default function CmsAdminPage() {
 
       {tab === 'social' && (
         <div className="grid lg:grid-cols-2 gap-4">
-          <Card title="Add / edit social">
+          <Card title={t('cms.social.newTitle')}>
             <div className="space-y-3">
-              <Input label="Platform" value={social.platform} onChange={(e) => setSocial({ ...social, platform: e.target.value })} />
-              <Input label="Label" value={social.label} onChange={(e) => setSocial({ ...social, label: e.target.value })} />
-              <Input label="URL" value={social.url} onChange={(e) => setSocial({ ...social, url: e.target.value })} />
-              <ImageUpload label="Icon/image" entity="cms" value={social.image_url} onChange={(u) => setSocial({ ...social, image_url: u || undefined })} />
+              <Input label={t('cms.social.platform')} value={social.platform} onChange={(e) => setSocial({ ...social, platform: e.target.value })} />
+              <Input label={t('cms.social.label')} value={social.label} onChange={(e) => setSocial({ ...social, label: e.target.value })} />
+              <Input label={t('cms.social.url')} value={social.url} onChange={(e) => setSocial({ ...social, url: e.target.value })} />
+              <ImageUpload label={t('cms.social.iconImage')} entity="cms" value={social.image_url} onChange={(u) => setSocial({ ...social, image_url: u || undefined })} />
               <Button disabled={!social.url || !social.label || saveSocial.isPending} onClick={() => saveSocial.mutate()}>
-                Save social
+                {t('cms.saveSocial')}
               </Button>
             </div>
           </Card>
-          <Card title="Links">
+          <Card title={t('cms.socialLinks')}>
             <div className="space-y-2">
               {(socials.data || []).map((s) => (
                 <button

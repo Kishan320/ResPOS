@@ -4,9 +4,11 @@ import { api, errMsg, type Customer, type Page } from '@/lib/api'
 import { Alert, Button, Card, EmptyState, Input, Modal, PageHeader, Spinner, Textarea } from '@/components/ui'
 import { Contact, Plus, Search } from 'lucide-react'
 import { useAuthStore } from '@/store/authStore'
+import { useT } from '@/i18n/useT'
 
 export default function CustomersPage() {
   const orgId = useAuthStore((s) => s.organizationId)
+  const t = useT()
   const [q, setQ] = useState('')
   const [open, setOpen] = useState(false)
   const [error, setError] = useState('')
@@ -32,23 +34,23 @@ export default function CustomersPage() {
   })
 
   if (!orgId) {
-    return <Card><EmptyState title="Select an organization first" /></Card>
+    return <Card><EmptyState title={t('empty.selectOrgFirst')} /></Card>
   }
 
   return (
     <div>
       <PageHeader
-        breadcrumb="CRM"
-        title="Customers"
-        subtitle="Walk-in loyalty profiles, phone lookup, and delivery addresses."
-        actions={<Button onClick={() => { setError(''); setOpen(true) }}><Plus size={16} /> Add customer</Button>}
+        breadcrumb={t('customers.breadcrumb')}
+        title={t('customers.title')}
+        subtitle={t('customers.subtitle')}
+        actions={<Button onClick={() => { setError(''); setOpen(true) }}><Plus size={16} /> {t('customers.add')}</Button>}
       />
 
       <div className="relative max-w-md mb-5">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" size={16} />
         <input
           className="w-full rounded-2xl border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-900 pl-9 pr-3 py-3 text-sm outline-none focus:ring-2 focus:ring-brand-500/40"
-          placeholder="Search name, phone, email…"
+          placeholder={t('customers.searchPlaceholder')}
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
@@ -58,7 +60,7 @@ export default function CustomersPage() {
         <div className="flex justify-center py-16"><Spinner className="h-8 w-8" /></div>
       ) : !data?.items?.length ? (
         <Card>
-          <EmptyState icon={<Contact size={24} />} title="No customers yet" action={<Button onClick={() => setOpen(true)}>Add customer</Button>} />
+          <EmptyState icon={<Contact size={24} />} title={t('customers.empty')} action={<Button onClick={() => setOpen(true)}>{t('customers.add')}</Button>} />
         </Card>
       ) : (
         <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -76,15 +78,15 @@ export default function CustomersPage() {
         </div>
       )}
 
-      <Modal open={open} onClose={() => setOpen(false)} title="New customer">
+      <Modal open={open} onClose={() => setOpen(false)} title={t('customers.newTitle')}>
         <div className="space-y-4">
-          <Input label="Name *" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-          <Input label="Phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-          <Input label="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-          <Textarea label="Address" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
-          <Textarea label="Notes" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
+          <Input label={t('customers.nameLabel')} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+          <Input label={t('customers.phoneLabel')} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+          <Input label={t('customers.emailLabel')} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+          <Textarea label={t('customers.addressLabel')} value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+          <Textarea label={t('customers.notesLabel')} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
           {error && <Alert tone="danger">{error}</Alert>}
-          <Button className="w-full" disabled={!form.name || createMut.isPending} onClick={() => { setError(''); createMut.mutate() }}>Save customer</Button>
+          <Button className="w-full" disabled={!form.name || createMut.isPending} onClick={() => { setError(''); createMut.mutate() }}>{t('customers.save')}</Button>
         </div>
       </Modal>
     </div>

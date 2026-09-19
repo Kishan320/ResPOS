@@ -5,7 +5,9 @@ import { api, errMsg } from '@/lib/api'
 import { mediaUrl } from '@/lib/media'
 import { Button, Input, Textarea } from '@/components/ui'
 import BrandLogo from '@/components/BrandLogo'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { useAuthStore } from '@/store/authStore'
+import { useT } from '@/i18n/useT'
 import {
   ArrowRight,
   CheckCircle2,
@@ -200,6 +202,7 @@ function MenuRail({
   sectionId?: string
 }) {
   const railRef = useRef<HTMLDivElement>(null)
+  const t = useT()
   function scrollByDir(dir: -1 | 1) {
     const el = railRef.current
     if (!el) return
@@ -211,7 +214,7 @@ function MenuRail({
         <div className="flex items-end justify-between gap-4 mb-5">
           <div>
             <p className={cn('text-xs font-bold uppercase tracking-[0.16em] mb-2', dark ? 'text-emerald-400' : 'text-emerald-700')}>
-              Menu style preview
+              {t('landing.menuStylePreview')}
             </p>
             <h2 className={cn('text-2xl sm:text-3xl font-extrabold tracking-tight', dark ? 'text-white' : 'text-slate-950')}>
               {title}
@@ -230,7 +233,7 @@ function MenuRail({
                 'h-10 w-10 rounded-full border font-bold text-lg leading-none',
                 dark ? 'border-white/15 text-white hover:bg-white/10' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
               )}
-              aria-label="Scroll left"
+              aria-label={t('landing.scrollLeft')}
             >
               ‹
             </button>
@@ -241,7 +244,7 @@ function MenuRail({
                 'h-10 w-10 rounded-full border font-bold text-lg leading-none',
                 dark ? 'border-white/15 text-white hover:bg-white/10' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
               )}
-              aria-label="Scroll right"
+              aria-label={t('landing.scrollRight')}
             >
               ›
             </button>
@@ -274,6 +277,7 @@ function VatCalculator() {
   const [amount, setAmount] = useState('100')
   const [rate, setRate] = useState('5')
   const [mode, setMode] = useState<'exclusive' | 'inclusive'>('exclusive')
+  const t = useT()
   const a = Math.max(0, Number(amount) || 0)
   const r = Math.max(0, Number(rate) || 0)
   const tax = mode === 'exclusive' ? (a * r) / 100 : a - a / (1 + r / 100)
@@ -282,15 +286,15 @@ function VatCalculator() {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="flex items-center gap-2 font-bold text-slate-900 mb-3">
-        <Calculator size={18} className="text-emerald-600" /> Tax / VAT calculator
+        <Calculator size={18} className="text-emerald-600" /> {t('landing.vatCalculator')}
       </div>
       <div className="grid grid-cols-2 gap-3">
         <label className="text-xs font-semibold text-slate-500">
-          Amount (AED)
+          {t('landing.vatAmount')}
           <input className="field-control mt-1" type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
         </label>
         <label className="text-xs font-semibold text-slate-500">
-          Rate %
+          {t('landing.vatRate')}
           <input className="field-control mt-1" type="number" value={rate} onChange={(e) => setRate(e.target.value)} />
         </label>
       </div>
@@ -304,21 +308,21 @@ function VatCalculator() {
               mode === m ? 'bg-emerald-600 text-white border-emerald-600' : 'border-slate-200 text-slate-600'
             }`}
           >
-            {m === 'exclusive' ? 'Tax exclusive' : 'Tax inclusive'}
+            {m === 'exclusive' ? t('landing.vatExclusive') : t('landing.vatInclusive')}
           </button>
         ))}
       </div>
       <div className="mt-4 grid grid-cols-3 gap-2 text-center">
         <div className="rounded-xl bg-slate-50 p-3">
-          <div className="text-[10px] font-bold uppercase text-slate-400">Base</div>
+          <div className="text-[10px] font-bold uppercase text-slate-400">{t('landing.vatBase')}</div>
           <div className="font-black text-slate-900">{base.toFixed(2)}</div>
         </div>
         <div className="rounded-xl bg-emerald-50 p-3">
-          <div className="text-[10px] font-bold uppercase text-emerald-700">Tax</div>
+          <div className="text-[10px] font-bold uppercase text-emerald-700">{t('landing.vatTax')}</div>
           <div className="font-black text-emerald-800">{tax.toFixed(2)}</div>
         </div>
         <div className="rounded-xl bg-slate-900 p-3 text-white">
-          <div className="text-[10px] font-bold uppercase text-slate-400">Total</div>
+          <div className="text-[10px] font-bold uppercase text-slate-400">{t('landing.vatTotal')}</div>
           <div className="font-black">{total.toFixed(2)}</div>
         </div>
       </div>
@@ -330,6 +334,7 @@ function RoiCalculator() {
   const [bills, setBills] = useState('120')
   const [avg, setAvg] = useState('45')
   const [margin, setMargin] = useState('18')
+  const t = useT()
   const b = Math.max(0, Number(bills) || 0)
   const a = Math.max(0, Number(avg) || 0)
   const m = Math.max(0, Number(margin) || 0)
@@ -338,33 +343,33 @@ function RoiCalculator() {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="flex items-center gap-2 font-bold text-slate-900 mb-3">
-        <TrendingUp size={18} className="text-emerald-600" /> Daily sales planner
+        <TrendingUp size={18} className="text-emerald-600" /> {t('landing.roiCalculator')}
       </div>
       <div className="grid grid-cols-3 gap-3">
         <label className="text-xs font-semibold text-slate-500">
-          Bills / day
+          {t('landing.roiBillsPerDay')}
           <input className="field-control mt-1" type="number" value={bills} onChange={(e) => setBills(e.target.value)} />
         </label>
         <label className="text-xs font-semibold text-slate-500">
-          Avg bill
+          {t('landing.roiAvgBill')}
           <input className="field-control mt-1" type="number" value={avg} onChange={(e) => setAvg(e.target.value)} />
         </label>
         <label className="text-xs font-semibold text-slate-500">
-          Margin %
+          {t('landing.roiMargin')}
           <input className="field-control mt-1" type="number" value={margin} onChange={(e) => setMargin(e.target.value)} />
         </label>
       </div>
       <div className="mt-4 space-y-2 text-sm font-semibold">
         <div className="flex justify-between">
-          <span className="text-slate-500">Daily revenue</span>
+          <span className="text-slate-500">{t('landing.roiDailyRevenue')}</span>
           <span>AED {revenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-slate-500">Daily profit est.</span>
+          <span className="text-slate-500">{t('landing.roiDailyProfit')}</span>
           <span className="text-emerald-700">AED {profit.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-slate-500">30-day revenue est.</span>
+          <span className="text-slate-500">{t('landing.roiMonthlyRevenue')}</span>
           <span>AED {(revenue * 30).toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
         </div>
       </div>
@@ -373,6 +378,7 @@ function RoiCalculator() {
 }
 
 function ModuleDeep({ sec, reverse }: { sec: CmsSection; reverse?: boolean }) {
+  const t = useT()
   const bullets = (sec.extra_json?.bullets as string[]) || []
   const growth = (sec.extra_json?.growth as string) || ''
   const orgReports = (sec.extra_json?.org_reports as Item[]) || []
@@ -417,13 +423,13 @@ function ModuleDeep({ sec, reverse }: { sec: CmsSection; reverse?: boolean }) {
             )}
             {growth && (
               <div className="mt-5 rounded-2xl bg-emerald-50 border border-emerald-100 px-4 py-3 text-sm font-semibold text-emerald-900 leading-relaxed">
-                Business impact: {growth}
+                {t('landing.businessImpact', { text: growth })}
               </div>
             )}
             <div className="mt-6">
               <Link to={sec.cta_url || '/login'}>
                 <Button>
-                  {sec.cta_label || 'Try this module'} <ArrowRight size={16} />
+                  {sec.cta_label || t('landing.tryThisModule')} <ArrowRight size={16} />
                 </Button>
               </Link>
             </div>
@@ -436,7 +442,7 @@ function ModuleDeep({ sec, reverse }: { sec: CmsSection; reverse?: boolean }) {
               <Reveal from="up">
                 <h3 className="text-xl font-extrabold text-slate-950 mb-4 flex items-center gap-2">
                   <FileSpreadsheet className="text-emerald-600" size={22} />
-                  Organization reports ({orgReports.length})
+                  {t('landing.orgReports', { count: orgReports.length })}
                 </h3>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {orgReports.map((r, i) => (
@@ -460,7 +466,7 @@ function ModuleDeep({ sec, reverse }: { sec: CmsSection; reverse?: boolean }) {
               <Reveal from="up" delay={60}>
                 <h3 className="text-xl font-extrabold text-slate-950 mb-4 flex items-center gap-2">
                   <FileSpreadsheet className="text-violet-600" size={22} />
-                  Platform reports ({platformReports.length})
+                  {t('landing.platformReports', { count: platformReports.length })}
                 </h3>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {platformReports.map((r, i) => (
@@ -476,7 +482,7 @@ function ModuleDeep({ sec, reverse }: { sec: CmsSection; reverse?: boolean }) {
               </Reveal>
             )}
             <p className="text-sm font-medium text-slate-500">
-              Each report exports as PDF and Excel from Report Hub. Empty periods still produce a downloadable file.
+              {t('landing.reportsExportHint')}
             </p>
           </div>
         )}
@@ -487,6 +493,7 @@ function ModuleDeep({ sec, reverse }: { sec: CmsSection; reverse?: boolean }) {
 
 export default function LandingPage() {
   const token = useAuthStore((s) => s.token)
+  const t = useT()
   const [openFaq, setOpenFaq] = useState<number | null>(0)
   const [mobileNav, setMobileNav] = useState(false)
 
@@ -540,6 +547,16 @@ export default function LandingPage() {
     return fields.filter((f) => f && f.enabled !== false && f.key)
   }, [contactCfg])
 
+  const nav = [
+    { href: '#modules', label: t('landing.nav.features') },
+    { href: '#industries', label: t('landing.nav.industries') },
+    { href: '#menu-preview', label: t('landing.nav.menu') },
+    { href: '#faq', label: t('landing.nav.faq') },
+    { href: '#tools', label: t('landing.nav.tools') },
+    { href: '#careers', label: t('landing.nav.careers') },
+    { href: '#contact', label: t('landing.nav.contact') },
+  ]
+
   const submitContact = useMutation({
     mutationFn: async () => {
       const body: Record<string, unknown> = { fields: { ...contactValues } }
@@ -549,7 +566,7 @@ export default function LandingPage() {
       return (await api.post('/cms/public/contact', body)).data as { message?: string }
     },
     onSuccess: (data) => {
-      setContactDone(data?.message || contactCfg?.success_message || 'Thank you. Message received.')
+      setContactDone(data?.message || contactCfg?.success_message || t('landing.contactSuccessFallback'))
       setContactFail('')
       setContactErrors({})
       setContactValues({})
@@ -559,22 +576,12 @@ export default function LandingPage() {
       const detail = (e as { response?: { data?: { detail?: unknown } } })?.response?.data?.detail
       if (detail && typeof detail === 'object' && detail !== null && 'fields' in (detail as object)) {
         setContactErrors((detail as { fields: Record<string, string> }).fields || {})
-        setContactFail('Please fix the highlighted fields.')
+        setContactFail(t('landing.contactFixFields'))
       } else {
         setContactFail(errMsg(e))
       }
     },
   })
-
-  const nav = [
-    { href: '#modules', label: 'Features' },
-    { href: '#industries', label: 'Industries' },
-    { href: '#menu-preview', label: 'Menu' },
-    { href: '#faq', label: 'FAQ' },
-    { href: '#tools', label: 'Tools' },
-    { href: '#careers', label: 'Careers' },
-    { href: '#contact', label: 'Contact' },
-  ]
 
   return (
     <div className="landing-root min-h-full overflow-x-hidden bg-white text-slate-900">
@@ -582,29 +589,30 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3 min-w-0">
             <BrandLogo to="/" imgClassName="h-8 sm:h-9 w-auto max-w-[150px]" />
-            <div className="hidden sm:block text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">
-              {footer?.badge_text || 'For organizations'}
+            <div className="hidden xl:block text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400 whitespace-nowrap">
+              {footer?.badge_text || t('landing.forOrganizations')}
             </div>
           </div>
-          <nav className="hidden lg:flex items-center gap-6 text-sm font-semibold text-slate-600">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-5 text-sm font-semibold text-slate-600 min-w-0">
             {nav.map((n) => (
               <a key={n.href} href={n.href} className="hover:text-emerald-700">
                 {n.label}
               </a>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
+            <LanguageSwitcher className="hidden sm:block" />
             {token ? (
               <Link to="/app">
-                <Button>Open app</Button>
+                <Button>{t('landing.openApp')}</Button>
               </Link>
             ) : (
               <>
                 <Link to="/login" className="hidden sm:block">
-                  <Button variant="ghost">Sign in</Button>
+                  <Button variant="ghost" className="whitespace-nowrap">{t('landing.signIn')}</Button>
                 </Link>
                 <Link to="/login">
-                  <Button>Get started</Button>
+                  <Button className="whitespace-nowrap">{t('landing.getStarted')}</Button>
                 </Link>
               </>
             )}
@@ -643,10 +651,10 @@ export default function LandingPage() {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-20 w-full grid lg:grid-cols-2 gap-10 items-center">
           <Reveal from="left">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3 py-1 text-xs font-bold text-emerald-200 mb-5">
-              {hero?.badge_text || 'Restaurant and retail POS'}
+              {hero?.badge_text || t('landing.heroFallbackBadge')}
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-[3.35rem] font-extrabold text-white tracking-tight leading-[1.08]">
-              {hero?.title || 'Restaurant and retail POS that runs the full store'}
+              {hero?.title || t('landing.heroFallbackTitle')}
             </h1>
             <p className="mt-5 text-lg text-slate-300 font-medium leading-relaxed max-w-xl">
               {hero?.subtitle}
@@ -655,12 +663,12 @@ export default function LandingPage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to={hero?.cta_url || '/login'}>
                 <Button size="xl" className="shadow-xl shadow-emerald-900/40">
-                  {hero?.cta_label || 'Start free trial'} <ArrowRight size={18} />
+                  {hero?.cta_label || t('landing.heroFallbackCta')} <ArrowRight size={18} />
                 </Button>
               </Link>
               <a href="#modules">
                 <Button size="xl" variant="secondary" className="!bg-white/10 !text-white !border-white/20 hover:!bg-white/15">
-                  See all modules
+                  {t('landing.seeAllModules')}
                 </Button>
               </a>
             </div>
@@ -737,8 +745,8 @@ export default function LandingPage() {
 
       <MenuRail
         sectionId="menu-preview"
-        title="Restaurant menu browsing on POS"
-        subtitle="Swipe categories and dishes like food apps - then complete the bill with DineFlow multi-pay checkout."
+        title={t('landing.menuPreviewTitle')}
+        subtitle={t('landing.menuPreviewSubtitle')}
       />
 
       {/* MODULE MAP */}
@@ -769,7 +777,7 @@ export default function LandingPage() {
           ))}
         </div>
         <p className="mt-4 text-xs font-medium text-slate-400">
-          Scroll for a full description of each module with examples and Full HD photography.
+          {t('landing.moduleMapScrollHint')}
         </p>
       </section>
 
@@ -802,7 +810,7 @@ export default function LandingPage() {
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <Reveal from="up">
-            <h2 className="text-2xl sm:text-3xl font-extrabold mb-6">{gallery?.title || 'In stores and kitchens'}</h2>
+            <h2 className="text-2xl sm:text-3xl font-extrabold mb-6">{gallery?.title || t('landing.galleryFallbackTitle')}</h2>
           </Reveal>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {[gallery?.image_url, gallery?.image_url_2, gallery?.image_url_3, gallery?.image_url_4].map((src, i) => (
@@ -820,12 +828,12 @@ export default function LandingPage() {
       <div className="bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-4">
           <Reveal from="up">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700 mb-2">Deep product tour</p>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700 mb-2">{t('landing.deepTourBadge')}</p>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950">
-              Every module - what it does and how it helps the business
+              {t('landing.deepTourTitle')}
             </h2>
             <p className="text-slate-500 font-medium mt-3 max-w-3xl">
-              These are the same modules available after sign-in. Content and images are editable from Super Admin CMS.
+              {t('landing.deepTourSubtitle')}
             </p>
           </Reveal>
         </div>
@@ -850,7 +858,7 @@ export default function LandingPage() {
                     <HdImage src={img(step.img || step.image)} alt={tOf(step)} zoom className="h-64 w-full" />
                   </div>
                   <div className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-sm">
-                    <div className="text-xs font-bold uppercase tracking-wider text-emerald-700">{step.time || `Step ${i + 1}`}</div>
+                    <div className="text-xs font-bold uppercase tracking-wider text-emerald-700">{step.time || t('landing.stepLabel', { n: i + 1 })}</div>
                     <h3 className="text-2xl font-extrabold mt-2">{tOf(step)}</h3>
                     <p className="text-slate-500 font-medium mt-3 leading-relaxed">{dOf(step)}</p>
                   </div>
@@ -867,10 +875,10 @@ export default function LandingPage() {
           <div className="min-w-0">
             <Reveal from="left">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700 mb-2">
-                {why?.badge_text || 'Why DineFlow'}
+                {why?.badge_text || t('landing.whyFallbackBadge')}
               </p>
               <h2 className="text-3xl font-extrabold text-slate-950 mb-6 leading-tight">
-                {why?.title || 'Why organizations choose DineFlow'}
+                {why?.title || t('landing.whyFallbackTitle')}
               </h2>
             </Reveal>
             <div className="space-y-3">
@@ -892,10 +900,10 @@ export default function LandingPage() {
           <div className="min-w-0">
             <Reveal from="right">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700 mb-2">
-                {steps?.badge_text || 'For new organizations'}
+                {steps?.badge_text || t('landing.stepsFallbackBadge')}
               </p>
               <h2 className="text-3xl font-extrabold text-slate-950 mb-6 leading-tight">
-                {steps?.title || 'From onboarding to first sale'}
+                {steps?.title || t('landing.stepsFallbackTitle')}
               </h2>
             </Reveal>
             <div className="space-y-3">
@@ -917,8 +925,8 @@ export default function LandingPage() {
 
       {/* Food / menu style horizontal rail (Swiggy-Zomato style) */}
       <MenuRail
-        title="Sell like a modern food menu"
-        subtitle="Horizontal menu rails for restaurants and QSR - browse categories the way guests know from food apps, then bill on DineFlow."
+        title={t('landing.sellLikeModernMenu')}
+        subtitle={t('landing.sellLikeModernMenuSubtitle')}
         large
       />
 
@@ -976,14 +984,14 @@ export default function LandingPage() {
       <section id="careers" className="bg-slate-50 py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <Reveal from="up">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700 mb-2">Careers</p>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700 mb-2">{t('landing.careersBadge')}</p>
             <h2 className="text-3xl font-extrabold text-slate-950">{careersBanner?.title}</h2>
             <p className="text-slate-500 font-medium mt-2">{careersBanner?.subtitle}</p>
           </Reveal>
           <div className="mt-8 grid md:grid-cols-2 gap-4">
             {careers.length === 0 ? (
               <div className="rounded-2xl border border-slate-200 bg-white p-6 text-sm font-medium text-slate-500">
-                Open roles appear when published in CMS.
+                {t('landing.careersEmpty')}
               </div>
             ) : (
               careers.map((c: { id: number; title: string; department?: string; location?: string; description?: string; image_url?: string; apply_email?: string }) => (
@@ -996,7 +1004,7 @@ export default function LandingPage() {
                       <p className="text-sm text-slate-500 mt-2 line-clamp-2 font-medium">{c.description}</p>
                       {c.apply_email && (
                         <a href={`mailto:${c.apply_email}`} className="text-sm font-bold text-emerald-700 mt-2 inline-block">
-                          Apply
+                          {t('landing.apply')}
                         </a>
                       )}
                     </div>
@@ -1010,12 +1018,11 @@ export default function LandingPage() {
 
       {/* TOOLS */}
       <section id="tools" className="max-w-6xl mx-auto px-4 sm:px-6 py-20">
-        <Reveal from="up">
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700 mb-2">Free tools</p>
-          <h2 className="text-3xl font-extrabold text-slate-950">Tax calculator and sales planner</h2>
-          <p className="text-slate-500 font-medium mt-2 max-w-2xl">
-            Estimate tax on a bill and project daily sales - practical tools for store owners.
-          </p>
+        <Reveal from="up">            <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700 mb-2">{t('landing.toolsBadge')}</p>
+            <h2 className="text-3xl font-extrabold text-slate-950">{t('landing.toolsTitle')}</h2>
+            <p className="text-slate-500 font-medium mt-2 max-w-2xl">
+              {t('landing.toolsSubtitle')}
+            </p>
         </Reveal>
         <div className="mt-8 grid lg:grid-cols-2 gap-5">
           <Reveal from="left">
@@ -1041,7 +1048,7 @@ export default function LandingPage() {
               </div>
               <Link to={cta?.cta_url || '/login'}>
                 <Button size="xl">
-                  {cta?.cta_label || 'Sign in'} <ArrowRight size={18} />
+                  {cta?.cta_label || t('landing.signIn')} <ArrowRight size={18} />
                 </Button>
               </Link>
             </div>
@@ -1057,9 +1064,9 @@ export default function LandingPage() {
               <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8">
                 <div className="max-w-2xl">
                   <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700 mb-2 flex items-center gap-2">
-                    <Mail size={14} /> {contactCfg?.badge_text || 'Contact'}
+                    <Mail size={14} /> {contactCfg?.badge_text || t('landing.contactBadgeFallback')}
                   </p>
-                  <h2 className="text-3xl font-extrabold text-slate-950">{contactCfg?.title || 'Contact us'}</h2>
+                  <h2 className="text-3xl font-extrabold text-slate-950">{contactCfg?.title || t('landing.contactTitleFallback')}</h2>
                   <p className="text-slate-500 font-medium mt-2">{contactCfg?.subtitle}</p>
                   {contactCfg?.body && (
                     <p className="text-sm text-slate-500 font-medium mt-3 leading-relaxed">{contactCfg.body}</p>
@@ -1075,7 +1082,7 @@ export default function LandingPage() {
                   }}
                 >
                   <MessageSquare size={18} />
-                  {contactOpen ? 'Close form' : contactCfg?.cta_label || 'Open contact form'}
+                  {contactOpen ? t('landing.closeForm') : contactCfg?.cta_label || t('landing.contactOpenFormFallback')}
                 </Button>
               </div>
             </Reveal>
@@ -1087,7 +1094,7 @@ export default function LandingPage() {
                     <div className="flex items-start gap-3 text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-2xl p-4">
                       <CheckCircle2 className="shrink-0 mt-0.5" size={20} />
                       <div>
-                        <div className="font-bold">Message sent</div>
+                        <div className="font-bold">{t('landing.contactSent')}</div>
                         <p className="text-sm font-medium mt-1 text-emerald-700">{contactDone}</p>
                         <button
                           type="button"
@@ -1097,7 +1104,7 @@ export default function LandingPage() {
                             setContactOpen(true)
                           }}
                         >
-                          Send another message
+                          {t('landing.contactSendAnother')}
                         </button>
                       </div>
                     </div>
@@ -1158,7 +1165,7 @@ export default function LandingPage() {
                         <p className="text-sm font-bold text-rose-600">{contactFail}</p>
                       )}
                       <Button type="submit" size="lg" disabled={submitContact.isPending} className="w-full sm:w-auto">
-                        {submitContact.isPending ? 'Sending…' : contactCfg?.submit_label || 'Send message'}
+                        {submitContact.isPending ? t('landing.contactSending') : contactCfg?.submit_label || t('landing.contactSubmitFallback')}
                       </Button>
                     </form>
                   )}
@@ -1179,28 +1186,28 @@ export default function LandingPage() {
               <p className="text-xs font-medium mt-3 text-slate-500">{footer?.body}</p>
             </div>
             <div>
-              <div className="font-bold text-white mb-3">Product</div>
+              <div className="font-bold text-white mb-3">{t('landing.footer.product')}</div>
               <div className="space-y-2 text-sm font-semibold">
-                <a href="#modules" className="block hover:text-emerald-400">Features</a>
-                <a href="#industries" className="block hover:text-emerald-400">Industries</a>
-                <a href="#menu-preview" className="block hover:text-emerald-400">Menu preview</a>
-                <a href="#mod_pos" className="block hover:text-emerald-400">POS Terminal</a>
-                <a href="#mod_inventory" className="block hover:text-emerald-400">Inventory</a>
-                <a href="#contact" className="block hover:text-emerald-400">Contact</a>
-                <Link to="/login" className="block hover:text-emerald-400">Sign in</Link>
+                <a href="#modules" className="block hover:text-emerald-400">{t('landing.footer.features')}</a>
+                <a href="#industries" className="block hover:text-emerald-400">{t('landing.footer.industries')}</a>
+                <a href="#menu-preview" className="block hover:text-emerald-400">{t('landing.footer.menuPreview')}</a>
+                <a href="#mod_pos" className="block hover:text-emerald-400">{t('landing.footer.posTerminal')}</a>
+                <a href="#mod_inventory" className="block hover:text-emerald-400">{t('landing.footer.inventory')}</a>
+                <a href="#contact" className="block hover:text-emerald-400">{t('landing.footer.contact')}</a>
+                <Link to="/login" className="block hover:text-emerald-400">{t('landing.footer.signIn')}</Link>
               </div>
             </div>
             <div>
-              <div className="font-bold text-white mb-3">Industries</div>
+              <div className="font-bold text-white mb-3">{t('landing.footer.industriesTitle')}</div>
               <div className="space-y-2 text-sm font-semibold text-slate-400">
-                <div>Restaurants and fine dine</div>
-                <div>QSR and cafe</div>
-                <div>Grocery and kirana</div>
-                <div>Supermarket and retail</div>
+                <div>{t('landing.footer.indRestaurants')}</div>
+                <div>{t('landing.footer.indQsr')}</div>
+                <div>{t('landing.footer.indGrocery')}</div>
+                <div>{t('landing.footer.indSupermarket')}</div>
               </div>
             </div>
             <div>
-              <div className="font-bold text-white mb-3">Social</div>
+              <div className="font-bold text-white mb-3">{t('landing.footer.social')}</div>
               <div className="flex flex-wrap gap-3 text-sm font-semibold">
                 {social.map((s: { id: number; label: string; url: string }) => (
                   <a key={s.id} href={s.url} target="_blank" rel="noreferrer" className="hover:text-emerald-400">
@@ -1211,8 +1218,8 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="mt-10 text-xs font-medium text-slate-500 flex flex-col sm:flex-row sm:justify-between gap-2">
-            <span>© {new Date().getFullYear()} {footer?.title || 'DineFlow'}. All rights reserved.</span>
-            <span>Website content managed in Super Admin CMS.</span>
+            <span>{t('landing.footer.rights', { year: new Date().getFullYear(), brand: footer?.title || 'DineFlow' })}</span>
+            <span>{t('landing.footer.cmsNote')}</span>
           </div>
         </div>
       </footer>

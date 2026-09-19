@@ -4,9 +4,12 @@ import { api, errMsg, type Page, type Product } from '@/lib/api'
 import { Alert, Badge, Button, Card, EmptyState, Input, Modal, PageHeader, Select, Spinner } from '@/components/ui'
 import { useAuthStore } from '@/store/authStore'
 import { Warehouse } from 'lucide-react'
+import { useT, useTEnum } from '@/i18n/useT'
 
 export default function InventoryPage() {
   const orgId = useAuthStore((s) => s.organizationId)
+  const t = useT()
+  const tEnum = useTEnum()
   const [selected, setSelected] = useState<Product | null>(null)
   const [delta, setDelta] = useState('10')
   const [movement, setMovement] = useState('adjustment')
@@ -40,7 +43,7 @@ export default function InventoryPage() {
         await api.post('/catalog/inventory/adjust', {
           product_id: selected!.id,
           quantity_delta: Number(delta),
-          notes: notes || 'Manual adjustment',
+          notes: notes || t('inventory.notesDefault'),
           movement_type: movement,
         })
       ).data,
@@ -56,15 +59,15 @@ export default function InventoryPage() {
   })
 
   if (!orgId) {
-    return <Card><EmptyState title="Select an organization first" /></Card>
+    return <Card><EmptyState title={t('empty.selectOrgFirst')} /></Card>
   }
 
   return (
     <div>
       <PageHeader
-        breadcrumb="Operations"
-        title="Inventory & stock"
-        subtitle="Live on-hand quantities, low-stock filters, and precise adjustments."
+        breadcrumb={t('inventory.breadcrumb')}
+        title={t('inventory.title')}
+        subtitle={t('inventory.subtitle')}
       />
 
       <div className="flex flex-wrap gap-2 mb-5">
@@ -76,7 +79,7 @@ export default function InventoryPage() {
               filter === f ? 'bg-brand-600 text-white border-brand-600' : 'border-ink-200 dark:border-ink-700'
             }`}
           >
-            {f === 'all' ? 'All stock' : f === 'low' ? 'Low stock' : 'Out of stock'}
+            {f === 'all' ? t('inventory.filter.all') : f === 'low' ? t('inventory.filter.low') : t('inventory.filter.out')}
           </button>
         ))}
       </div>
@@ -85,7 +88,7 @@ export default function InventoryPage() {
         <div className="flex justify-center py-16"><Spinner className="h-8 w-8" /></div>
       ) : !rows.length ? (
         <Card>
-          <EmptyState icon={<Warehouse size={24} />} title="No matching stock rows" />
+          <EmptyState icon={<Warehouse size={24} />} title={t('inventory.empty')} />
         </Card>
       ) : (
         <div className="premium-card overflow-hidden">
@@ -93,12 +96,12 @@ export default function InventoryPage() {
             <table className="w-full text-sm table-row-hover">
               <thead className="bg-ink-50 dark:bg-ink-950 text-ink-500">
                 <tr>
-                  <th className="text-left px-4 py-3">Product</th>
-                  <th className="text-left px-4 py-3">SKU</th>
-                  <th className="text-right px-4 py-3">On hand</th>
-                  <th className="text-right px-4 py-3">Threshold</th>
-                  <th className="text-left px-4 py-3">Health</th>
-                  <th className="text-right px-4 py-3">Action</th>
+                  <th className="text-left px-4 py-3">{t('inventory.table.product')}</th>
+                  <th className="text-left px-4 py-3">{t('inventory.table.sku')}</th>
+                  <th className="text-right px-4 py-3">{t('inventory.table.onHand')}</th>
+                  <th className="text-right px-4 py-3">{t('inventory.table.threshold')}</th>
+                  <th className="text-left px-4 py-3">{t('inventory.table.health')}</th>
+                  <th className="text-right px-4 py-3">{t('inventory.table.action')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -114,11 +117,11 @@ export default function InventoryPage() {
                       <td className="px-4 py-3 text-right text-ink-500">{thr ?? '-'}</td>
                       <td className="px-4 py-3">
                         <Badge tone={health === 'ok' ? 'success' : health === 'low' ? 'warning' : 'danger'}>
-                          {health === 'ok' ? 'Healthy' : health === 'low' ? 'Low' : 'Out'}
+                          {health === 'ok' ? t('inventory.health.ok') : health === 'low' ? t('inventory.health.low') : t('inventory.health.out')}
                         </Badge>
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <Button size="sm" variant="secondary" onClick={() => { setSelected(p); setError('') }}>Adjust</Button>
+                        <Button size="sm" variant="secondary" onClick={() => { setSelected(p); setError('') }}>{t('inventory.adjust')}</Button>
                       </td>
                     </tr>
                   )
@@ -129,27 +132,27 @@ export default function InventoryPage() {
         </div>
       )}
 
-      <Modal open={!!selected} onClose={() => setSelected(null)} title={`Adjust · ${selected?.name || ''}`} subtitle="Signed quantity delta (+ add / − remove)">
+      <Modal open={!!selected} onClose={() => setSelected(null)} title={t('inventory.adjustTitle', { name: selected?.name || '' })} subtitle={t('inventory.adjustSubtitle')}>
         <div className="space-y-4">
           <p className="text-sm text-ink-500">
-            Current: <span className="font-bold text-ink-800 dark:text-ink-100">{Number(selected?.inventory?.quantity_on_hand ?? 0)} {selected?.unit}</span>
+            {t('inventory.current')} <span className="font-bold text-ink-800 dark:text-ink-100">{Number(selected?.inventory?.quantity_on_hand ?? 0)} {selected?.unit}</span>
           </p>
-          <Input label="Quantity delta" type="number" value={delta} onChange={(e) => setDelta(e.target.value)} />
-          <Select label="Movement type" value={movement} onChange={(e) => setMovement(e.target.value)}>
-            <option value="adjustment">Adjustment</option>
-            <option value="purchase">Purchase / restock</option>
-            <option value="return">Return</option>
-            <option value="waste">Waste</option>
-            <option value="transfer">Transfer</option>
-            <option value="opening">Opening balance</option>
+          <Input label={t('inventory.deltaLabel')} type="number" value={delta} onChange={(e) => setDelta(e.target.value)} />
+          <Select label={t('inventory.movementLabel')} value={movement} onChange={(e) => setMovement(e.target.value)}>
+            <option value="adjustment">{tEnum('movementTypes', 'adjustment', 'Adjustment')}</option>
+            <option value="purchase">{tEnum('movementTypes', 'purchase', 'Purchase / restock')}</option>
+            <option value="return">{tEnum('movementTypes', 'return', 'Return')}</option>
+            <option value="waste">{tEnum('movementTypes', 'waste', 'Waste')}</option>
+            <option value="transfer">{tEnum('movementTypes', 'transfer', 'Transfer')}</option>
+            <option value="opening">{tEnum('movementTypes', 'opening', 'Opening balance')}</option>
           </Select>
-          <Input label="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
+          <Input label={t('inventory.notesLabel')} value={notes} onChange={(e) => setNotes(e.target.value)} />
           {error && <Alert tone="danger">{error}</Alert>}
           <div className="flex gap-2">
-            <Button variant="secondary" className="flex-1" onClick={() => setDelta(String(-Math.abs(Number(delta) || 1)))}>− Remove</Button>
-            <Button variant="secondary" className="flex-1" onClick={() => setDelta(String(Math.abs(Number(delta) || 1)))}>+ Add</Button>
+            <Button variant="secondary" className="flex-1" onClick={() => setDelta(String(-Math.abs(Number(delta) || 1)))}>{t('inventory.remove')}</Button>
+            <Button variant="secondary" className="flex-1" onClick={() => setDelta(String(Math.abs(Number(delta) || 1)))}>{t('inventory.add')}</Button>
           </div>
-          <Button className="w-full" disabled={adjustMut.isPending} onClick={() => { setError(''); adjustMut.mutate() }}>Apply adjustment</Button>
+          <Button className="w-full" disabled={adjustMut.isPending} onClick={() => { setError(''); adjustMut.mutate() }}>{t('inventory.apply')}</Button>
         </div>
       </Modal>
     </div>

@@ -48,6 +48,7 @@ def ensure_columns() -> None:
         ("tax_rates", "jurisdiction", "`jurisdiction` VARCHAR(120) NULL"),
         ("tax_rates", "is_compound", "`is_compound` TINYINT(1) NOT NULL DEFAULT 0"),
         ("tax_rates", "is_inclusive", "`is_inclusive` TINYINT(1) NOT NULL DEFAULT 0"),
+        ("users", "language", "`language` VARCHAR(5) NULL"),
     ]
     for table, col, ddl in upgrades:
         try:

@@ -4,6 +4,7 @@ import { api, errMsg, type Category, type Page } from '@/lib/api'
 import { Alert, Badge, Button, Card, EmptyState, Input, Modal, PageHeader, Spinner, Textarea } from '@/components/ui'
 import { Plus, Tags } from 'lucide-react'
 import { useAuthStore } from '@/store/authStore'
+import { useT } from '@/i18n/useT'
 
 export default function CategoriesPage() {
   const orgId = useAuthStore((s) => s.organizationId)
@@ -13,6 +14,7 @@ export default function CategoriesPage() {
   const [description, setDescription] = useState('')
   const [error, setError] = useState('')
   const qc = useQueryClient()
+  const t = useT()
 
   const { data, isLoading } = useQuery({
     queryKey: ['categories', orgId],
@@ -32,23 +34,23 @@ export default function CategoriesPage() {
   })
 
   if (!orgId) {
-    return <Card><EmptyState title="Select an organization first" /></Card>
+    return <Card><EmptyState title={t('empty.selectOrgFirst')} /></Card>
   }
 
   return (
     <div>
       <PageHeader
-        breadcrumb="Catalog"
-        title="Categories"
-        subtitle="Menu sections, grocery aisles, product groups - entirely your structure."
-        actions={<Button onClick={() => { setError(''); setOpen(true) }}><Plus size={16} /> Add category</Button>}
+        breadcrumb={t('categories.breadcrumb')}
+        title={t('categories.title')}
+        subtitle={t('categories.subtitle')}
+        actions={<Button onClick={() => { setError(''); setOpen(true) }}><Plus size={16} /> {t('categories.add')}</Button>}
       />
 
       {isLoading ? (
         <div className="flex justify-center py-16"><Spinner className="h-8 w-8" /></div>
       ) : !data?.items?.length ? (
         <Card>
-          <EmptyState icon={<Tags size={24} />} title="No categories" action={<Button onClick={() => setOpen(true)}>Create one</Button>} />
+          <EmptyState icon={<Tags size={24} />} title={t('categories.empty')} action={<Button onClick={() => setOpen(true)}>{t('categories.createOne')}</Button>} />
         </Card>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -59,20 +61,20 @@ export default function CategoriesPage() {
                 <div className="font-bold truncate">{c.name}</div>
                 <div className="text-xs text-ink-400 mt-0.5 truncate">{c.slug}</div>
                 {c.description && <p className="text-xs text-ink-500 mt-2 line-clamp-2">{c.description}</p>}
-                <div className="mt-2"><Badge tone={c.is_active ? 'success' : 'neutral'}>{c.is_active ? 'Active' : 'Off'}</Badge></div>
+                <div className="mt-2"><Badge tone={c.is_active ? 'success' : 'neutral'}>{c.is_active ? t('common.active') : t('common.off')}</Badge></div>
               </div>
             </div>
           ))}
         </div>
       )}
 
-      <Modal open={open} onClose={() => setOpen(false)} title="New category">
+      <Modal open={open} onClose={() => setOpen(false)} title={t('categories.newTitle')}>
         <div className="space-y-4">
-          <Input label="Name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Beverages / Snacks / Dairy" />
-          <Input label="Color" type="color" value={color} onChange={(e) => setColor(e.target.value)} />
-          <Textarea label="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+          <Input label={t('categories.nameLabel')} value={name} onChange={(e) => setName(e.target.value)} placeholder={t('categories.namePlaceholder')} />
+          <Input label={t('categories.colorLabel')} type="color" value={color} onChange={(e) => setColor(e.target.value)} />
+          <Textarea label={t('categories.descriptionLabel')} value={description} onChange={(e) => setDescription(e.target.value)} />
           {error && <Alert tone="danger">{error}</Alert>}
-          <Button className="w-full" disabled={!name || createMut.isPending} onClick={() => { setError(''); createMut.mutate() }}>Create category</Button>
+          <Button className="w-full" disabled={!name || createMut.isPending} onClick={() => { setError(''); createMut.mutate() }}>{t('categories.create')}</Button>
         </div>
       </Modal>
     </div>

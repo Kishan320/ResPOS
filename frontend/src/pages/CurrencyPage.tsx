@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { api, errMsg } from '@/lib/api'
 import { Alert, Badge, Button, Card, Input, PageHeader, Spinner } from '@/components/ui'
 import { useAuthStore } from '@/store/authStore'
+import { useT } from '@/i18n/useT'
 
 type Currency = {
   id: number
@@ -17,6 +18,7 @@ type Rate = { id: number; base_code: string; quote_code: string; rate: string; r
 export default function CurrencyPage() {
   const user = useAuthStore((s) => s.user)
   const isSuper = user?.role === 'super_admin'
+  const t = useT()
   const [quote, setQuote] = useState('USD')
   const [rate, setRate] = useState('0.2723')
   const [amount, setAmount] = useState('100')
@@ -44,7 +46,7 @@ export default function CurrencyPage() {
       (await api.post('/currency/rates', { quote_code: quote, rate: Number(rate), base_code: 'AED' })).data,
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['fx-rates'] })
-      setMsg('Daily rate saved (base AED)')
+      setMsg(t('currency.rateSaved'))
       setError('')
     },
     onError: (e) => setError(errMsg(e)),
@@ -53,23 +55,23 @@ export default function CurrencyPage() {
   return (
     <div>
       <PageHeader
-        breadcrumb="Finance"
-        title="Multi-currency"
-        subtitle="Base currency is AED. Super admin maintains daily rates for the world. Conversion is AED-centric and indexed."
+        breadcrumb={t('currency.breadcrumb')}
+        title={t('currency.title')}
+        subtitle={t('currency.subtitle')}
       />
 
       <div className="grid sm:grid-cols-3 gap-4 mb-6">
         <Card>
-          <div className="text-xs font-bold uppercase text-slate-500">Base currency</div>
+          <div className="text-xs font-bold uppercase text-slate-500">{t('currency.baseCurrency')}</div>
           <div className="text-3xl font-black text-orange-600 mt-1">AED</div>
-          <div className="text-sm font-medium text-slate-600 mt-1">UAE Dirham</div>
+          <div className="text-sm font-medium text-slate-600 mt-1">{t('currency.baseName')}</div>
         </Card>
         <Card>
-          <div className="text-xs font-bold uppercase text-slate-500">Active currencies</div>
+          <div className="text-xs font-bold uppercase text-slate-500">{t('currency.activeCurrencies')}</div>
           <div className="text-3xl font-black mt-1">{list.data?.length ?? '-'}</div>
         </Card>
         <Card>
-          <div className="text-xs font-bold uppercase text-slate-500">Convert {amount} AED → {toCode}</div>
+          <div className="text-xs font-bold uppercase text-slate-500">{t('currency.convertTitle', { amount, code: toCode })}</div>
           <div className="text-2xl font-black mt-1 text-slate-900 dark:text-white">
             {convert.data?.amount ? Number(convert.data.amount).toFixed(4) : '-'}
           </div>
@@ -80,7 +82,7 @@ export default function CurrencyPage() {
       {error && <div className="mb-3"><Alert tone="danger">{error}</Alert></div>}
 
       <div className="grid lg:grid-cols-2 gap-4">
-        <Card title="World currencies" subtitle="Dynamic list">
+        <Card title={t('currency.worldCurrencies')} subtitle={t('currency.worldSubtitle')}>
           {list.isLoading ? (
             <Spinner />
           ) : (
@@ -93,14 +95,14 @@ export default function CurrencyPage() {
                     </div>
                     <div className="text-xs text-slate-500">{c.name}</div>
                   </div>
-                  {c.is_base && <Badge tone="success">BASE</Badge>}
+                  {c.is_base && <Badge tone="success">{t('currency.base')}</Badge>}
                 </div>
               ))}
             </div>
           )}
         </Card>
 
-        <Card title="Daily rates (1 AED = ?)" subtitle="Latest per quote">
+        <Card title={t('currency.dailyRates')} subtitle={t('currency.dailyRatesSubtitle')}>
           {rates.isLoading ? (
             <Spinner />
           ) : (
@@ -118,16 +120,16 @@ export default function CurrencyPage() {
           )}
           {isSuper && (
             <div className="grid grid-cols-3 gap-2 items-end border-t border-slate-100 pt-3">
-              <Input label="Quote" value={quote} onChange={(e) => setQuote(e.target.value.toUpperCase())} />
-              <Input label="Rate" value={rate} onChange={(e) => setRate(e.target.value)} />
+              <Input label={t('currency.quoteLabel')} value={quote} onChange={(e) => setQuote(e.target.value.toUpperCase())} />
+              <Input label={t('currency.rateLabel')} value={rate} onChange={(e) => setRate(e.target.value)} />
               <Button disabled={saveRate.isPending} onClick={() => saveRate.mutate()}>
-                Save rate
+                {t('currency.saveRate')}
               </Button>
             </div>
           )}
           <div className="grid grid-cols-2 gap-2 mt-4">
-            <Input label="Amount AED" value={amount} onChange={(e) => setAmount(e.target.value)} />
-            <Input label="To code" value={toCode} onChange={(e) => setToCode(e.target.value.toUpperCase())} />
+            <Input label={t('currency.amountLabel')} value={amount} onChange={(e) => setAmount(e.target.value)} />
+            <Input label={t('currency.toCodeLabel')} value={toCode} onChange={(e) => setToCode(e.target.value.toUpperCase())} />
           </div>
         </Card>
       </div>

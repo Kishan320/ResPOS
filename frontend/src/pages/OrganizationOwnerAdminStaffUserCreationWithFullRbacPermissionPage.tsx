@@ -7,6 +7,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { api, errMsg } from '@/lib/api'
 import { Alert, Button, Card, EmptyState, Input, PageHeader, Select, Spinner } from '@/components/ui'
 import { useAuthStore } from '@/store/authStore'
+import { useT, useTEnum } from '@/i18n/useT'
 
 type Module = { id: number; code: string; name: string; super_only: boolean }
 type StaffUser = {
@@ -24,6 +25,8 @@ export default function OrganizationOwnerAdminStaffUserCreationWithFullRbacPermi
   const orgId = useAuthStore((s) => s.organizationId)
   const user = useAuthStore((s) => s.user)
   const qc = useQueryClient()
+  const t = useT()
+  const tEnum = useTEnum()
   const [form, setForm] = useState({
     email: '',
     username: '',
@@ -83,7 +86,7 @@ export default function OrganizationOwnerAdminStaffUserCreationWithFullRbacPermi
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['org-staff-users'] })
-      setMsg('Staff user created with RBAC')
+      setMsg(t('staffRbac.created'))
       setError('')
       setForm({ email: '', username: '', full_name: '', password: '', phone: '', role: 'cashier', pin_code: '' })
     },
@@ -94,8 +97,8 @@ export default function OrganizationOwnerAdminStaffUserCreationWithFullRbacPermi
     return (
       <Card>
         <EmptyState
-          title="Organization context required"
-          description="Select active tenant (super admin) or login as organization owner."
+          title={t('staffRbac.contextRequired')}
+          description={t('staffRbac.contextHint')}
         />
       </Card>
     )
@@ -104,9 +107,9 @@ export default function OrganizationOwnerAdminStaffUserCreationWithFullRbacPermi
   return (
     <div>
       <PageHeader
-        breadcrumb="Organization owner"
-        title="Staff users with full RBAC"
-        subtitle="Create managers, cashiers and staff. Each user receives module-level view/create/edit/delete/export grants."
+        breadcrumb={t('staffRbac.breadcrumb')}
+        title={t('staffRbac.title')}
+        subtitle={t('staffRbac.subtitle')}
       />
       {msg && (
         <div className="mb-3">
@@ -120,23 +123,23 @@ export default function OrganizationOwnerAdminStaffUserCreationWithFullRbacPermi
       )}
 
       <div className="grid lg:grid-cols-2 gap-4">
-        <Card title="Create staff user">
+        <Card title={t('staffRbac.createTitle')}>
           <div className="space-y-3">
-            <Input label="Full name" value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} />
-            <Input label="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-            <Input label="Username" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
-            <Input label="Password" type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
-            <Input label="Phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-            <Input label="POS PIN" value={form.pin_code} onChange={(e) => setForm({ ...form, pin_code: e.target.value })} />
-            <Select label="Role" value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}>
+            <Input label={t('users.fullNameLabel')} value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} />
+            <Input label={t('users.emailLabel')} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+            <Input label={t('users.usernameLabel')} value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
+            <Input label={t('users.passwordLabel')} type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+            <Input label={t('users.phoneLabel')} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+            <Input label={t('users.pinLabel')} value={form.pin_code} onChange={(e) => setForm({ ...form, pin_code: e.target.value })} />
+            <Select label={t('users.roleLabel')} value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}>
               {ORG_ROLES.map((r) => (
                 <option key={r} value={r}>
-                  {r}
+                  {tEnum('roles', r, r)}
                 </option>
               ))}
             </Select>
             <div>
-              <div className="text-sm font-bold mb-2">Module access</div>
+              <div className="text-sm font-bold mb-2">{t('staffRbac.moduleAccess')}</div>
               <div className="max-h-52 overflow-y-auto space-y-1 border border-slate-200 rounded-xl p-3">
                 {(modules.data || [])
                   .filter((m) => !m.super_only)
@@ -156,11 +159,11 @@ export default function OrganizationOwnerAdminStaffUserCreationWithFullRbacPermi
               disabled={createMut.isPending || !form.email || !form.password}
               onClick={() => createMut.mutate()}
             >
-              Create staff with permissions
+              {t('staffRbac.create')}
             </Button>
           </div>
         </Card>
-        <Card title="Organization users">
+        <Card title={t('staffRbac.usersTitle')}>
           {staff.isLoading ? (
             <Spinner />
           ) : (

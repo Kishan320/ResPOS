@@ -3,6 +3,7 @@ import { ImagePlus, Loader2, X } from 'lucide-react'
 import { errMsg } from '@/lib/api'
 import { mediaUrl, uploadImage } from '@/lib/media'
 import { Button } from '@/components/ui'
+import { useT } from '@/i18n/useT'
 
 type Props = {
   value?: string | null
@@ -11,10 +12,11 @@ type Props = {
   label?: string
 }
 
-export default function ImageUpload({ value, onChange, entity = 'products', label = 'Image' }: Props) {
+export default function ImageUpload({ value, onChange, entity = 'products', label }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const t = useT()
   const preview = mediaUrl(value)
 
   async function onFile(file?: File | null) {
@@ -56,15 +58,15 @@ export default function ImageUpload({ value, onChange, entity = 'products', labe
             onChange={(e) => onFile(e.target.files?.[0])}
           />
           <Button type="button" size="sm" variant="secondary" disabled={loading} onClick={() => inputRef.current?.click()}>
-            {preview ? 'Change image' : 'Upload image'}
+            {preview ? t('imageUpload.changeImage') : t('imageUpload.uploadImage')}
           </Button>
           {preview && (
             <Button type="button" size="sm" variant="ghost" onClick={() => onChange(null)}>
-              <X size={14} /> Remove
+              <X size={14} /> {t('imageUpload.remove')}
             </Button>
           )}
           <p className="text-xs font-medium text-slate-500 max-w-[220px]">
-            JPG, PNG, WEBP up to 8MB. Stored in nested org folders.
+            {t('imageUpload.hint')}
           </p>
           {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
         </div>

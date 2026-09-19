@@ -4,6 +4,7 @@ import { api, errMsg, type Organization, type Page } from '@/lib/api'
 import { Alert, Button, Card, PageHeader, Select, Spinner } from '@/components/ui'
 import { useAuthStore } from '@/store/authStore'
 import { Navigate } from 'react-router-dom'
+import { useT } from '@/i18n/useT'
 
 type Module = { id: number; code: string; name: string; super_only: boolean }
 type Access = {
@@ -28,6 +29,7 @@ const emptyFlags = (module_id: number): Access => ({
 
 export default function RbacPage() {
   const user = useAuthStore((s) => s.user)
+  const t = useT()
   const [orgId, setOrgId] = useState<string>('')
   const [matrix, setMatrix] = useState<Record<number, Access>>({})
   const [msg, setMsg] = useState('')
@@ -72,7 +74,7 @@ export default function RbacPage() {
       ).data,
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['org-access', orgId] })
-      setMsg('Module access saved for restaurant')
+      setMsg(t('rbac.saved'))
       setError('')
     },
     onError: (e) => setError(errMsg(e)),
@@ -93,14 +95,14 @@ export default function RbacPage() {
   return (
     <div>
       <PageHeader
-        breadcrumb="Super admin · Malik"
-        title="Access control (RBAC)"
-        subtitle="Assign modules & permissions when onboarding restaurants. Super admin owns the platform."
+        breadcrumb={t('rbac.breadcrumb')}
+        title={t('rbac.title')}
+        subtitle={t('rbac.subtitle')}
       />
 
-      <Card className="mb-4" title="Organization">
-        <Select label="Select restaurant / shop" value={orgId} onChange={(e) => setOrgId(e.target.value)}>
-          <option value="">- Choose -</option>
+      <Card className="mb-4" title={t('rbac.selectOrg')}>
+        <Select label={t('rbac.selectRestaurant')} value={orgId} onChange={(e) => setOrgId(e.target.value)}>
+          <option value="">{t('common.select')}</option>
           {(orgs.data?.items || []).map((o) => (
             <option key={o.id} value={o.id}>
               {o.name} (#{o.id})
@@ -113,7 +115,7 @@ export default function RbacPage() {
       {error && <div className="mb-3"><Alert tone="danger">{error}</Alert></div>}
 
       {!orgId ? (
-        <Card><p className="text-sm font-medium text-slate-600">Select an organization to edit its module matrix.</p></Card>
+        <Card><p className="text-sm font-medium text-slate-600">{t('rbac.pickOrgHint')}</p></Card>
       ) : modules.isLoading || access.isLoading ? (
         <Spinner />
       ) : (
@@ -121,12 +123,12 @@ export default function RbacPage() {
           <table className="w-full text-sm">
             <thead className="bg-slate-50 text-slate-600">
               <tr>
-                <th className="text-left px-3 py-3">Module</th>
-                <th className="px-2 py-3">View</th>
-                <th className="px-2 py-3">Create</th>
-                <th className="px-2 py-3">Edit</th>
-                <th className="px-2 py-3">Delete</th>
-                <th className="px-2 py-3">Export</th>
+                <th className="text-left px-3 py-3">{t('rbac.table.module')}</th>
+                <th className="px-2 py-3">{t('rbac.table.view')}</th>
+                <th className="px-2 py-3">{t('rbac.table.create')}</th>
+                <th className="px-2 py-3">{t('rbac.table.edit')}</th>
+                <th className="px-2 py-3">{t('rbac.table.delete')}</th>
+                <th className="px-2 py-3">{t('rbac.table.export')}</th>
               </tr>
             </thead>
             <tbody>
@@ -150,7 +152,7 @@ export default function RbacPage() {
           </table>
           <div className="p-4 border-t border-slate-100">
             <Button disabled={save.isPending} onClick={() => save.mutate()}>
-              Save access for org #{orgId}
+              {t('rbac.saveForOrg', { id: orgId })}
             </Button>
           </div>
         </div>

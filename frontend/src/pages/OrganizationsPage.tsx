@@ -4,6 +4,7 @@ import { api, errMsg, labelize, type Organization, type Page } from '@/lib/api'
 import { useAuthStore } from '@/store/authStore'
 import { Alert, Badge, Button, Card, EmptyState, Input, Modal, PageHeader, Select, Spinner, Textarea } from '@/components/ui'
 import { Building2, CheckCircle2, Plus, Search } from 'lucide-react'
+import { useT, useTEnum } from '@/i18n/useT'
 
 const BUSINESS_TYPES = [
   'restaurant', 'cafe', 'fast_food', 'grocery', 'kirana', 'supermarket', 'retail', 'bakery', 'other',
@@ -28,6 +29,8 @@ const emptyForm = {
 }
 
 export default function OrganizationsPage() {
+  const t = useT()
+  const tEnum = useTEnum()
   const [open, setOpen] = useState(false)
   const [detail, setDetail] = useState<Organization | null>(null)
   const [q, setQ] = useState('')
@@ -95,7 +98,7 @@ export default function OrganizationsPage() {
   if (user?.role !== 'super_admin') {
     return (
       <Card>
-        <EmptyState title="Super admin only" description="Organization onboarding is restricted to platform super admins." />
+        <EmptyState title={t('empty.superAdminOnly')} description={t('empty.superAdminOnlyHint')} />
       </Card>
     )
   }
@@ -103,12 +106,12 @@ export default function OrganizationsPage() {
   return (
     <div>
       <PageHeader
-        breadcrumb="Platform"
-        title="Organizations"
-        subtitle="Onboard restaurants, cafes, grocery, kirana, supermarkets - each fully isolated."
+        breadcrumb={t('orgs.breadcrumb')}
+        title={t('orgs.title')}
+        subtitle={t('orgs.subtitle')}
         actions={
           <Button onClick={() => { setError(''); setOpen(true) }}>
-            <Plus size={16} /> New organization
+            <Plus size={16} /> {t('orgs.new')}
           </Button>
         }
       />
@@ -118,15 +121,15 @@ export default function OrganizationsPage() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" size={16} />
           <input
             className="w-full rounded-2xl border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-900 pl-9 pr-3 py-3 text-sm outline-none focus:ring-2 focus:ring-brand-500/40"
-            placeholder="Search name, city, slug…"
+            placeholder={t('orgs.searchPlaceholder')}
             value={q}
             onChange={(e) => setQ(e.target.value)}
           />
         </div>
         <Select className="sm:w-48" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
-          <option value="">All types</option>
-          {BUSINESS_TYPES.map((t) => (
-            <option key={t} value={t}>{labelize(t)}</option>
+          <option value="">{t('orgs.filter.all')}</option>
+          {BUSINESS_TYPES.map((bt) => (
+            <option key={bt} value={bt}>{tEnum('businessTypes', bt, labelize(bt))}</option>
           ))}
         </Select>
       </div>
@@ -137,9 +140,9 @@ export default function OrganizationsPage() {
         <Card>
           <EmptyState
             icon={<Building2 size={24} />}
-            title="No organizations yet"
-            description="Create your first tenant to start selling."
-            action={<Button onClick={() => setOpen(true)}><Plus size={16} /> Create organization</Button>}
+            title={t('orgs.empty')}
+            description={t('orgs.emptyHint')}
+            action={<Button onClick={() => setOpen(true)}><Plus size={16} /> {t('orgs.createAction')}</Button>}
           />
         </Card>
       ) : (
@@ -159,12 +162,12 @@ export default function OrganizationsPage() {
                       {org.city ? ` · ${org.city}` : ''}
                     </p>
                   </div>
-                  <Badge tone={org.is_active ? 'success' : 'neutral'}>{org.is_active ? 'Active' : 'Inactive'}</Badge>
+                  <Badge tone={org.is_active ? 'success' : 'neutral'}>{org.is_active ? t('common.active') : t('common.inactive')}</Badge>
                 </div>
                 <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-ink-500">
-                  <div>Currency: <span className="text-ink-800 dark:text-ink-200 font-medium">{org.currency_code}</span></div>
-                  <div>TZ: <span className="text-ink-800 dark:text-ink-200 font-medium truncate">{org.timezone}</span></div>
-                  <div className="col-span-2 truncate">Slug: {org.slug}</div>
+                  <div>{t('orgs.currency')} <span className="text-ink-800 dark:text-ink-200 font-medium">{org.currency_code}</span></div>
+                  <div>{t('orgs.timezone')} <span className="text-ink-800 dark:text-ink-200 font-medium truncate">{org.timezone}</span></div>
+                  <div className="col-span-2 truncate">{t('orgs.slug')} {org.slug}</div>
                 </div>
                 <div className="mt-5 flex flex-wrap gap-2">
                   <Button
@@ -172,10 +175,10 @@ export default function OrganizationsPage() {
                     variant={active ? 'success' : 'primary'}
                     onClick={() => setOrganization(org.id, org.name)}
                   >
-                    {active ? <><CheckCircle2 size={14} /> Active tenant</> : 'Use as active tenant'}
+                    {active ? <><CheckCircle2 size={14} /> {t('orgs.activeTenant')}</> : t('orgs.useAsActiveTenant')}
                   </Button>
                   <Button size="sm" variant="secondary" onClick={() => { setDetail(org); setError('') }}>
-                    Details
+                    {t('common.details')}
                   </Button>
                 </div>
               </div>
@@ -184,64 +187,64 @@ export default function OrganizationsPage() {
         </div>
       )}
 
-      <Modal open={open} onClose={() => setOpen(false)} title="Create organization" subtitle="Fully dynamic - any business brand" xwide>
+      <Modal open={open} onClose={() => setOpen(false)} title={t('orgs.createTitle')} subtitle={t('orgs.createSubtitle')} xwide>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <Input label="Business name *" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Sunrise Cafe / Patel Kirana / Metro Mart" />
-          <Select label="Business type" value={form.business_type} onChange={(e) => setForm({ ...form, business_type: e.target.value })}>
-            {BUSINESS_TYPES.map((t) => <option key={t} value={t}>{labelize(t)}</option>)}
+          <Input label={t('orgs.businessName')} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder={t('orgs.businessNamePlaceholder')} />
+          <Select label={t('orgs.businessType')} value={form.business_type} onChange={(e) => setForm({ ...form, business_type: e.target.value })}>
+            {BUSINESS_TYPES.map((bt) => <option key={bt} value={bt}>{tEnum('businessTypes', bt, labelize(bt))}</option>)}
           </Select>
-          <Input label="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-          <Input label="Phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-          <Input label="City" value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
-          <Input label="State" value={form.state} onChange={(e) => setForm({ ...form, state: e.target.value })} />
-          <Input label="Country" value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })} />
-          <Input label="Address" value={form.address_line1} onChange={(e) => setForm({ ...form, address_line1: e.target.value })} />
-          <Input label="Tax ID / GSTIN" value={form.tax_id} onChange={(e) => setForm({ ...form, tax_id: e.target.value })} />
-          <Input label="Currency" value={form.currency_code} onChange={(e) => setForm({ ...form, currency_code: e.target.value })} />
-          <Input label="Timezone" value={form.timezone} onChange={(e) => setForm({ ...form, timezone: e.target.value })} />
+          <Input label={t('orgs.emailLabel')} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+          <Input label={t('orgs.phoneLabel')} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+          <Input label={t('orgs.cityLabel')} value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
+          <Input label={t('orgs.stateLabel')} value={form.state} onChange={(e) => setForm({ ...form, state: e.target.value })} />
+          <Input label={t('orgs.countryLabel')} value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })} />
+          <Input label={t('orgs.addressLabel')} value={form.address_line1} onChange={(e) => setForm({ ...form, address_line1: e.target.value })} />
+          <Input label={t('orgs.taxIdLabel')} value={form.tax_id} onChange={(e) => setForm({ ...form, tax_id: e.target.value })} />
+          <Input label={t('orgs.currencyLabel')} value={form.currency_code} onChange={(e) => setForm({ ...form, currency_code: e.target.value })} />
+          <Input label={t('orgs.timezoneLabel')} value={form.timezone} onChange={(e) => setForm({ ...form, timezone: e.target.value })} />
           <div className="sm:col-span-2 lg:col-span-3">
-            <Textarea label="Notes" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
+            <Textarea label={t('orgs.notesLabel')} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
           </div>
         </div>
         <div className="mt-6 border-t border-ink-100 dark:border-ink-800 pt-5">
-          <h4 className="font-semibold mb-1">Organization owner (admin)</h4>
+          <h4 className="font-semibold mb-1">{t('orgs.ownerSection')}</h4>
           <p className="text-xs font-medium text-slate-500 mb-3">
-            This user becomes the store owner - they can create managers, cashiers and staff with RBAC.
+            {t('orgs.ownerHint')}
           </p>
           <div className="grid sm:grid-cols-3 gap-4">
-            <Input label="Admin name" value={form.admin_name} onChange={(e) => setForm({ ...form, admin_name: e.target.value })} />
-            <Input label="Admin email" value={form.admin_email} onChange={(e) => setForm({ ...form, admin_email: e.target.value })} />
-            <Input label="Admin password" type="password" value={form.admin_password} onChange={(e) => setForm({ ...form, admin_password: e.target.value })} />
+            <Input label={t('orgs.adminName')} value={form.admin_name} onChange={(e) => setForm({ ...form, admin_name: e.target.value })} />
+            <Input label={t('orgs.adminEmail')} value={form.admin_email} onChange={(e) => setForm({ ...form, admin_email: e.target.value })} />
+            <Input label={t('orgs.adminPassword')} type="password" value={form.admin_password} onChange={(e) => setForm({ ...form, admin_password: e.target.value })} />
           </div>
         </div>
         {error && <div className="mt-4"><Alert tone="danger">{error}</Alert></div>}
         <div className="mt-6 flex justify-end gap-2">
-          <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
+          <Button variant="secondary" onClick={() => setOpen(false)}>{t('common.cancel')}</Button>
           <Button disabled={!form.name || createMut.isPending} onClick={() => { setError(''); createMut.mutate() }}>
-            {createMut.isPending ? 'Creating…' : 'Create & activate'}
+            {createMut.isPending ? t('orgs.creating') : t('orgs.createActivate')}
           </Button>
         </div>
       </Modal>
 
-      <Modal open={!!detail} onClose={() => setDetail(null)} title={detail?.name || 'Organization'} subtitle="Tenant profile" wide>
+      <Modal open={!!detail} onClose={() => setDetail(null)} title={detail?.name || t('orgs.detailTitle')} subtitle={t('orgs.detailSubtitle')} wide>
         {detail && (
           <div className="space-y-4">
             <div className="grid sm:grid-cols-2 gap-3 text-sm">
-              <div><span className="text-ink-500">Type</span><div className="font-medium capitalize">{labelize(detail.business_type)}</div></div>
-              <div><span className="text-ink-500">City</span><div className="font-medium">{detail.city || '-'}</div></div>
-              <div><span className="text-ink-500">Phone</span><div className="font-medium">{detail.phone || '-'}</div></div>
-              <div><span className="text-ink-500">Tax ID</span><div className="font-medium">{detail.tax_id || '-'}</div></div>
-              <div className="sm:col-span-2"><span className="text-ink-500">Address</span><div className="font-medium">{detail.address_line1 || '-'}</div></div>
+              <div><span className="text-ink-500">{t('orgs.field.type')}</span><div className="font-medium capitalize">{tEnum('businessTypes', detail.business_type, labelize(detail.business_type))}</div></div>
+              <div><span className="text-ink-500">{t('orgs.field.city')}</span><div className="font-medium">{detail.city || '-'}</div></div>
+              <div><span className="text-ink-500">{t('orgs.field.phone')}</span><div className="font-medium">{detail.phone || '-'}</div></div>
+              <div><span className="text-ink-500">{t('orgs.field.taxId')}</span><div className="font-medium">{detail.tax_id || '-'}</div></div>
+              <div className="sm:col-span-2"><span className="text-ink-500">{t('orgs.field.address')}</span><div className="font-medium">{detail.address_line1 || '-'}</div></div>
             </div>
             {error && <Alert tone="danger">{error}</Alert>}
             <div className="flex flex-wrap gap-2">
-              <Button onClick={() => { setOrganization(detail.id, detail.name); setDetail(null) }}>Set active</Button>
+              <Button onClick={() => { setOrganization(detail.id, detail.name); setDetail(null) }}>{t('orgs.setActive')}</Button>
               <Button
                 variant="secondary"
                 disabled={updateMut.isPending}
                 onClick={() => updateMut.mutate({ is_active: !detail.is_active })}
               >
-                {detail.is_active ? 'Deactivate' : 'Activate'}
+                {detail.is_active ? t('orgs.deactivate') : t('orgs.activate')}
               </Button>
             </div>
           </div>

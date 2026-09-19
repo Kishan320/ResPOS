@@ -4,6 +4,7 @@ import { api, errMsg, type Page } from '@/lib/api'
 import { Alert, Button, Card, EmptyState, Input, Modal, PageHeader, Spinner, Badge } from '@/components/ui'
 import { useAuthStore } from '@/store/authStore'
 import { Plus } from 'lucide-react'
+import { useT } from '@/i18n/useT'
 
 type Waiter = { id: number; name: string; code?: string; phone?: string; is_active: boolean }
 type Table = { id: number; name: string; code?: string; capacity: number; area?: string; is_active: boolean; is_occupied: boolean }
@@ -11,6 +12,7 @@ type Tax = { id: number; name: string; code: string; rate: string | number; is_d
 
 export default function RestaurantOpsPage() {
   const orgId = useAuthStore((s) => s.organizationId)
+  const t = useT()
   const [tab, setTab] = useState<'tables' | 'waiters' | 'taxes' | 'settings'>('tables')
   const [open, setOpen] = useState(false)
   const [error, setError] = useState('')
@@ -79,26 +81,28 @@ export default function RestaurantOpsPage() {
   })
 
   if (!orgId) {
-    return <Card><EmptyState title="Select an organization first" description="Restaurant module is tenant-scoped." /></Card>
+    return <Card><EmptyState title={t('empty.selectOrgFirst')} description={t('restaurant.selectOrgHint')} /></Card>
   }
 
   const tabs = [
-    ['tables', 'Tables'],
-    ['waiters', 'Waiters'],
-    ['taxes', 'Taxes'],
-    ['settings', 'Bill settings'],
+    ['tables', t('restaurant.tab.tables')],
+    ['waiters', t('restaurant.tab.waiters')],
+    ['taxes', t('restaurant.tab.taxes')],
+    ['settings', t('restaurant.tab.settings')],
   ] as const
+
+  const addLabels = { tables: t('restaurant.addTable'), waiters: t('restaurant.addWaiter'), taxes: t('restaurant.addTax') } as const
 
   return (
     <div>
       <PageHeader
-        breadcrumb="Restaurant"
-        title="Floor & settings"
-        subtitle="Tables, waiters, taxes and POS bill configuration - from the restaurant module PDF."
+        breadcrumb={t('restaurant.breadcrumb')}
+        title={t('restaurant.title')}
+        subtitle={t('restaurant.subtitle')}
         actions={
           tab !== 'settings' ? (
             <Button onClick={() => { setError(''); setForm({}); setOpen(true) }}>
-              <Plus size={16} /> Add {tab.slice(0, -1)}
+              <Plus size={16} /> {addLabels[tab]}
             </Button>
           ) : (
             <Button onClick={() => {
@@ -114,7 +118,7 @@ export default function RestaurantOpsPage() {
               setError('')
               setOpen(true)
             }}>
-              Edit settings
+              {t('restaurant.editSettings')}
             </Button>
           )
         }
@@ -136,19 +140,19 @@ export default function RestaurantOpsPage() {
 
       {tab === 'tables' && (
         tables.isLoading ? <Spinner /> : !tables.data?.items?.length ? (
-          <Card><EmptyState title="No tables" description="Add dining tables for dine-in POS." /></Card>
+          <Card><EmptyState title={t('restaurant.empty.tables')} description={t('restaurant.empty.tablesHint')} /></Card>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-            {tables.data.items.map((t) => (
-              <div key={t.id} className="premium-card p-4">
+            {tables.data.items.map((tb) => (
+              <div key={tb.id} className="premium-card p-4">
                 <div className="flex justify-between items-start">
-                  <div className="font-black text-lg text-slate-900 dark:text-white">{t.name}</div>
-                  <Badge tone={t.is_occupied ? 'warning' : 'success'}>{t.is_occupied ? 'Occupied' : 'Free'}</Badge>
+                  <div className="font-black text-lg text-slate-900 dark:text-white">{tb.name}</div>
+                  <Badge tone={tb.is_occupied ? 'warning' : 'success'}>{tb.is_occupied ? t('restaurant.occupied') : t('restaurant.free')}</Badge>
                 </div>
                 <div className="text-sm font-medium text-slate-600 dark:text-slate-300 mt-2">
-                  Capacity {t.capacity} · {t.area || 'Main floor'}
+                  {t('restaurant.capacity', { capacity: tb.capacity, area: tb.area || t('restaurant.mainFloor') })}
                 </div>
-                <div className="text-xs font-mono text-slate-400 mt-1">{t.code}</div>
+                <div className="text-xs font-mono text-slate-400 mt-1">{tb.code}</div>
               </div>
             ))}
           </div>
@@ -157,16 +161,16 @@ export default function RestaurantOpsPage() {
 
       {tab === 'waiters' && (
         waiters.isLoading ? <Spinner /> : !waiters.data?.items?.length ? (
-          <Card><EmptyState title="No waiters" /></Card>
+          <Card><EmptyState title={t('restaurant.empty.waiters')} /></Card>
         ) : (
           <div className="premium-card overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-slate-50 dark:bg-slate-900 text-slate-600">
                 <tr>
-                  <th className="text-left px-4 py-3">Name</th>
-                  <th className="text-left px-4 py-3">Code</th>
-                  <th className="text-left px-4 py-3">Phone</th>
-                  <th className="text-left px-4 py-3">Status</th>
+                  <th className="text-left px-4 py-3">{t('restaurant.table.name')}</th>
+                  <th className="text-left px-4 py-3">{t('restaurant.table.code')}</th>
+                  <th className="text-left px-4 py-3">{t('restaurant.table.phone')}</th>
+                  <th className="text-left px-4 py-3">{t('restaurant.table.status')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -175,7 +179,7 @@ export default function RestaurantOpsPage() {
                     <td className="px-4 py-3 font-bold">{w.name}</td>
                     <td className="px-4 py-3 font-mono text-xs">{w.code}</td>
                     <td className="px-4 py-3">{w.phone || '-'}</td>
-                    <td className="px-4 py-3"><Badge tone={w.is_active ? 'success' : 'neutral'}>{w.is_active ? 'Active' : 'Off'}</Badge></td>
+                    <td className="px-4 py-3"><Badge tone={w.is_active ? 'success' : 'neutral'}>{w.is_active ? t('common.active') : t('common.off')}</Badge></td>
                   </tr>
                 ))}
               </tbody>
@@ -186,7 +190,7 @@ export default function RestaurantOpsPage() {
 
       {tab === 'taxes' && (
         taxes.isLoading ? <Spinner /> : !taxes.data?.items?.length ? (
-          <Card><EmptyState title="No tax rates" description="Add GST/VAT rates used on menu items." /></Card>
+          <Card><EmptyState title={t('restaurant.empty.taxes')} description={t('restaurant.empty.taxesHint')} /></Card>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {taxes.data.items.map((t) => (
@@ -202,7 +206,7 @@ export default function RestaurantOpsPage() {
 
       {tab === 'settings' && (
         settings.isLoading ? <Spinner /> : (
-          <Card title="Restaurant / POS bill settings" subtitle={settings.data?.name}>
+          <Card title={t('restaurant.settingsTitle')} subtitle={settings.data?.name}>
             <dl className="grid sm:grid-cols-2 gap-4 text-sm">
               {Object.entries(settings.data?.settings || {}).map(([k, v]) => (
                 <div key={k} className="rounded-2xl border border-slate-200 dark:border-slate-700 p-3">
@@ -215,38 +219,38 @@ export default function RestaurantOpsPage() {
         )
       )}
 
-      <Modal open={open} onClose={() => setOpen(false)} title={tab === 'settings' ? 'Edit bill settings' : `Add ${tab.slice(0, -1)}`}>
+      <Modal open={open} onClose={() => setOpen(false)} title={tab === 'settings' ? t('restaurant.editSettings') : addLabels[tab]}>
         <div className="space-y-3">
           {tab === 'tables' && (
             <>
-              <Input label="Table name *" value={form.name || ''} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="T1 / Table 5" />
-              <Input label="Capacity" type="number" value={form.capacity || '4'} onChange={(e) => setForm({ ...form, capacity: e.target.value })} />
-              <Input label="Area" value={form.area || ''} onChange={(e) => setForm({ ...form, area: e.target.value })} placeholder="AC Hall" />
+              <Input label={t('restaurant.form.tableName')} value={form.name || ''} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder={t('restaurant.form.tableNamePlaceholder')} />
+              <Input label={t('restaurant.form.capacity')} type="number" value={form.capacity || '4'} onChange={(e) => setForm({ ...form, capacity: e.target.value })} />
+              <Input label={t('restaurant.form.area')} value={form.area || ''} onChange={(e) => setForm({ ...form, area: e.target.value })} placeholder={t('restaurant.form.areaPlaceholder')} />
             </>
           )}
           {tab === 'waiters' && (
             <>
-              <Input label="Name *" value={form.name || ''} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-              <Input label="Phone" value={form.phone || ''} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+              <Input label={t('restaurant.form.name')} value={form.name || ''} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+              <Input label={t('restaurant.form.phone')} value={form.phone || ''} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
             </>
           )}
           {tab === 'taxes' && (
             <>
-              <Input label="Tax name *" value={form.name || ''} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="GST 5%" />
-              <Input label="Code" value={form.code || ''} onChange={(e) => setForm({ ...form, code: e.target.value })} placeholder="GST5" />
-              <Input label="Rate %" type="number" value={form.rate || '5'} onChange={(e) => setForm({ ...form, rate: e.target.value })} />
+              <Input label={t('restaurant.form.taxName')} value={form.name || ''} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder={t('restaurant.form.taxNamePlaceholder')} />
+              <Input label={t('restaurant.form.code')} value={form.code || ''} onChange={(e) => setForm({ ...form, code: e.target.value })} placeholder={t('restaurant.form.codePlaceholder')} />
+              <Input label={t('restaurant.form.rate')} type="number" value={form.rate || '5'} onChange={(e) => setForm({ ...form, rate: e.target.value })} />
             </>
           )}
           {tab === 'settings' && (
             <>
-              <Input label="Bill header" value={form.bill_header || ''} onChange={(e) => setForm({ ...form, bill_header: e.target.value })} />
-              <Input label="Bill footer" value={form.bill_footer || ''} onChange={(e) => setForm({ ...form, bill_footer: e.target.value })} />
-              <Input label="Currency symbol" value={form.currency_symbol || '₹'} onChange={(e) => setForm({ ...form, currency_symbol: e.target.value })} />
+              <Input label={t('restaurant.form.billHeader')} value={form.bill_header || ''} onChange={(e) => setForm({ ...form, bill_header: e.target.value })} />
+              <Input label={t('restaurant.form.billFooter')} value={form.bill_footer || ''} onChange={(e) => setForm({ ...form, bill_footer: e.target.value })} />
+              <Input label={t('restaurant.form.currencySymbol')} value={form.currency_symbol || '₹'} onChange={(e) => setForm({ ...form, currency_symbol: e.target.value })} />
             </>
           )}
           {error && <Alert tone="danger">{error}</Alert>}
           <Button className="w-full" disabled={createMut.isPending} onClick={() => createMut.mutate()}>
-            Save
+            {t('restaurant.save')}
           </Button>
         </div>
       </Modal>

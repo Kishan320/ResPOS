@@ -6,6 +6,7 @@ import type {
   SelectHTMLAttributes,
   TextareaHTMLAttributes,
 } from 'react'
+import { useT } from '@/i18n/useT'
 
 export function cn(...parts: Array<string | false | null | undefined>) {
   return clsx(parts)
@@ -228,6 +229,7 @@ export function Modal({
   wide?: boolean
   xwide?: boolean
 }) {
+  const t = useT()
   if (!open) return null
   return (
     <div className="fixed inset-0 z-[80] flex items-end sm:items-center justify-center p-0 sm:p-4">
@@ -246,7 +248,7 @@ export function Modal({
           <button
             onClick={onClose}
             className="h-10 w-10 shrink-0 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 text-xl leading-none"
-            aria-label="Close"
+            aria-label={t('common.close')}
           >
             ×
           </button>

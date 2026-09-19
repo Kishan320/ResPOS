@@ -6,6 +6,7 @@ import { Package, Plus, Search } from 'lucide-react'
 import { useAuthStore } from '@/store/authStore'
 import ImageUpload from '@/components/ImageUpload'
 import { mediaUrl } from '@/lib/media'
+import { useT } from '@/i18n/useT'
 
 const empty = {
   name: '',
@@ -26,6 +27,7 @@ const empty = {
 
 export default function ProductsPage() {
   const orgId = useAuthStore((s) => s.organizationId)
+  const t = useT()
   const [q, setQ] = useState('')
   const [categoryId, setCategoryId] = useState('')
   const [open, setOpen] = useState(false)
@@ -110,7 +112,7 @@ export default function ProductsPage() {
   if (!orgId) {
     return (
       <Card>
-        <EmptyState title="Select an organization" description="Super admin: set an active tenant first." />
+        <EmptyState title={t('empty.selectOrg')} description={t('empty.selectOrgHint')} />
       </Card>
     )
   }
@@ -140,33 +142,33 @@ export default function ProductsPage() {
     <div className="grid sm:grid-cols-2 gap-4">
       <div className="sm:col-span-2">
         <ImageUpload
-          label="Product image"
+          label={t('products.imageLabel')}
           entity="products"
           value={form.image_url}
           onChange={(url) => setForm({ ...form, image_url: url })}
         />
       </div>
-      <Input label="Name *" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-      <Input label="Price *" type="number" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
-      <Input label="Cost price" type="number" value={form.cost_price} onChange={(e) => setForm({ ...form, cost_price: e.target.value })} />
-      <Input label="Tax %" type="number" value={form.tax_rate} onChange={(e) => setForm({ ...form, tax_rate: e.target.value })} />
-      <Select label="Category" value={form.category_id} onChange={(e) => setForm({ ...form, category_id: e.target.value })}>
-        <option value="">- None -</option>
+      <Input label={t('products.nameLabel')} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+      <Input label={t('products.priceLabel')} type="number" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
+      <Input label={t('products.costPriceLabel')} type="number" value={form.cost_price} onChange={(e) => setForm({ ...form, cost_price: e.target.value })} />
+      <Input label={t('products.taxLabel')} type="number" value={form.tax_rate} onChange={(e) => setForm({ ...form, tax_rate: e.target.value })} />
+      <Select label={t('products.categoryLabel')} value={form.category_id} onChange={(e) => setForm({ ...form, category_id: e.target.value })}>
+        <option value="">{t('common.none')}</option>
         {cats?.items.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
       </Select>
-      <Input label="Unit" value={form.unit} onChange={(e) => setForm({ ...form, unit: e.target.value })} placeholder="pcs / kg / litre" />
-      <Input label="SKU" value={form.sku} onChange={(e) => setForm({ ...form, sku: e.target.value })} />
-      <Input label="Barcode" value={form.barcode} onChange={(e) => setForm({ ...form, barcode: e.target.value })} />
+      <Input label={t('products.unitLabel')} value={form.unit} onChange={(e) => setForm({ ...form, unit: e.target.value })} placeholder={t('products.unitPlaceholder')} />
+      <Input label={t('products.skuLabel')} value={form.sku} onChange={(e) => setForm({ ...form, sku: e.target.value })} />
+      <Input label={t('products.barcodeLabel')} value={form.barcode} onChange={(e) => setForm({ ...form, barcode: e.target.value })} />
       {!edit && (
-        <Input label="Initial stock" type="number" value={form.initial_stock} onChange={(e) => setForm({ ...form, initial_stock: e.target.value })} />
+        <Input label={t('products.initialStockLabel')} type="number" value={form.initial_stock} onChange={(e) => setForm({ ...form, initial_stock: e.target.value })} />
       )}
-      <Input label="Low stock threshold" type="number" value={form.low_stock_threshold} onChange={(e) => setForm({ ...form, low_stock_threshold: e.target.value })} />
+      <Input label={t('products.lowStockLabel')} type="number" value={form.low_stock_threshold} onChange={(e) => setForm({ ...form, low_stock_threshold: e.target.value })} />
       <div className="sm:col-span-2 flex flex-wrap gap-4 text-sm">
-        <label className="flex items-center gap-2"><input type="checkbox" checked={form.is_track_inventory} onChange={(e) => setForm({ ...form, is_track_inventory: e.target.checked })} /> Track inventory</label>
-        <label className="flex items-center gap-2"><input type="checkbox" checked={form.is_sold_by_weight} onChange={(e) => setForm({ ...form, is_sold_by_weight: e.target.checked })} /> Sold by weight</label>
+        <label className="flex items-center gap-2"><input type="checkbox" checked={form.is_track_inventory} onChange={(e) => setForm({ ...form, is_track_inventory: e.target.checked })} /> {t('products.trackInventory')}</label>
+        <label className="flex items-center gap-2"><input type="checkbox" checked={form.is_sold_by_weight} onChange={(e) => setForm({ ...form, is_sold_by_weight: e.target.checked })} /> {t('products.soldByWeight')}</label>
       </div>
       <div className="sm:col-span-2">
-        <Textarea label="Description" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+        <Textarea label={t('products.descriptionLabel')} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
       </div>
     </div>
   )
@@ -174,19 +176,19 @@ export default function ProductsPage() {
   return (
     <div>
       <PageHeader
-        breadcrumb="Catalog"
-        title="Products"
-        subtitle="Menu items, grocery SKUs, barcodes - fully dynamic per tenant."
-        actions={<Button onClick={() => { setForm(empty); setError(''); setOpen(true) }}><Plus size={16} /> Add product</Button>}
+        breadcrumb={t('products.breadcrumb')}
+        title={t('products.title')}
+        subtitle={t('products.subtitle')}
+        actions={<Button onClick={() => { setForm(empty); setError(''); setOpen(true) }}><Plus size={16} /> {t('products.add')}</Button>}
       />
 
       <div className="flex flex-col sm:flex-row gap-3 mb-5">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" size={16} />
-          <input className="w-full rounded-2xl border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-900 pl-9 pr-3 py-3 text-sm outline-none focus:ring-2 focus:ring-brand-500/40" placeholder="Search name, SKU, barcode…" value={q} onChange={(e) => setQ(e.target.value)} />
+          <input className="w-full rounded-2xl border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-900 pl-9 pr-3 py-3 text-sm outline-none focus:ring-2 focus:ring-brand-500/40" placeholder={t('products.searchPlaceholder')} value={q} onChange={(e) => setQ(e.target.value)} />
         </div>
         <Select className="sm:w-56" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
-          <option value="">All categories</option>
+          <option value="">{t('products.allCategories')}</option>
           {cats?.items.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
         </Select>
       </div>
@@ -195,7 +197,7 @@ export default function ProductsPage() {
         <div className="flex justify-center py-16"><Spinner className="h-8 w-8" /></div>
       ) : !data?.items?.length ? (
         <Card>
-          <EmptyState icon={<Package size={24} />} title="No products" description="Add your first product for this business." action={<Button onClick={() => setOpen(true)}>Add product</Button>} />
+          <EmptyState icon={<Package size={24} />} title={t('products.empty')} description={t('products.emptyHint')} action={<Button onClick={() => setOpen(true)}>{t('products.add')}</Button>} />
         </Card>
       ) : (
         <div className="premium-card overflow-hidden">
@@ -203,12 +205,12 @@ export default function ProductsPage() {
             <table className="w-full text-sm table-row-hover">
               <thead className="bg-ink-50 dark:bg-ink-950 text-ink-500">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold">Product</th>
-                  <th className="text-left px-4 py-3 font-semibold">SKU</th>
-                  <th className="text-right px-4 py-3 font-semibold">Price</th>
-                  <th className="text-right px-4 py-3 font-semibold">Tax</th>
-                  <th className="text-right px-4 py-3 font-semibold">Stock</th>
-                  <th className="text-left px-4 py-3 font-semibold">Status</th>
+                  <th className="text-left px-4 py-3 font-semibold">{t('products.table.product')}</th>
+                  <th className="text-left px-4 py-3 font-semibold">{t('products.table.sku')}</th>
+                  <th className="text-right px-4 py-3 font-semibold">{t('products.table.price')}</th>
+                  <th className="text-right px-4 py-3 font-semibold">{t('products.table.tax')}</th>
+                  <th className="text-right px-4 py-3 font-semibold">{t('products.table.stock')}</th>
+                  <th className="text-left px-4 py-3 font-semibold">{t('products.table.status')}</th>
                   <th className="text-right px-4 py-3 font-semibold"></th>
                 </tr>
               </thead>
@@ -239,9 +241,9 @@ export default function ProductsPage() {
                       <td className={`px-4 py-3 text-right font-medium ${low ? 'text-amber-600' : ''}`}>
                         {stock == null ? '-' : `${stock} ${p.unit}`}
                       </td>
-                      <td className="px-4 py-3"><Badge tone={p.is_active ? 'success' : 'neutral'}>{p.is_active ? 'Active' : 'Off'}</Badge></td>
+                      <td className="px-4 py-3"><Badge tone={p.is_active ? 'success' : 'neutral'}>{p.is_active ? t('common.active') : t('common.off')}</Badge></td>
                       <td className="px-4 py-3 text-right">
-                        <Button size="sm" variant="secondary" onClick={() => openEdit(p)}>Edit</Button>
+                        <Button size="sm" variant="secondary" onClick={() => openEdit(p)}>{t('common.edit')}</Button>
                       </td>
                     </tr>
                   )
@@ -250,26 +252,26 @@ export default function ProductsPage() {
             </table>
           </div>
           <div className="px-4 py-3 border-t border-ink-100 dark:border-ink-800 text-xs text-ink-500">
-            {data.meta.total} products
+            {t('products.countLabel', { count: data.meta.total })}
           </div>
         </div>
       )}
 
-      <Modal open={open} onClose={() => setOpen(false)} title="Add product" subtitle="Catalog item for active tenant" wide>
+      <Modal open={open} onClose={() => setOpen(false)} title={t('products.addTitle')} subtitle={t('products.addSubtitle')} wide>
         {formFields}
         {error && <div className="mt-4"><Alert tone="danger">{error}</Alert></div>}
         <div className="mt-5 flex justify-end gap-2">
-          <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
-          <Button disabled={!form.name || !form.price || createMut.isPending} onClick={() => { setError(''); createMut.mutate() }}>Save product</Button>
+          <Button variant="secondary" onClick={() => setOpen(false)}>{t('common.cancel')}</Button>
+          <Button disabled={!form.name || !form.price || createMut.isPending} onClick={() => { setError(''); createMut.mutate() }}>{t('products.save')}</Button>
         </div>
       </Modal>
 
-      <Modal open={!!edit} onClose={() => setEdit(null)} title="Edit product" subtitle={edit?.name} wide>
+      <Modal open={!!edit} onClose={() => setEdit(null)} title={t('products.editTitle')} subtitle={edit?.name} wide>
         {formFields}
         {error && <div className="mt-4"><Alert tone="danger">{error}</Alert></div>}
         <div className="mt-5 flex justify-end gap-2">
-          <Button variant="secondary" onClick={() => setEdit(null)}>Cancel</Button>
-          <Button disabled={updateMut.isPending} onClick={() => { setError(''); updateMut.mutate() }}>Update</Button>
+          <Button variant="secondary" onClick={() => setEdit(null)}>{t('common.cancel')}</Button>
+          <Button disabled={updateMut.isPending} onClick={() => { setError(''); updateMut.mutate() }}>{t('products.update')}</Button>
         </div>
       </Modal>
     </div>

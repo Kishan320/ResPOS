@@ -1,4 +1,5 @@
 import { money } from '@/lib/api'
+import { useT } from '@/i18n/useT'
 
 export type InvoiceSnapshot = {
   organization?: {
@@ -119,6 +120,7 @@ export default function InvoiceReceipt({
   tableLabel,
   notes,
 }: Props) {
+  const t = useT()
   const org = snapshot?.organization
   const items =
     snapshot?.items && snapshot.items.length > 0
@@ -140,7 +142,7 @@ export default function InvoiceReceipt({
   const m = (v: string | number | null | undefined) => money(v, currency)
   const when = fmtDate(snapshot?.served_at || servedAt)
   const addr = fullAddress(org)
-  const cust = customerName || snapshot?.customer_name || 'Walk-in customer'
+  const cust = customerName || snapshot?.customer_name || t('receipt.walkInCustomer')
   const custPhone = customerPhone || snapshot?.customer_phone
   const invNo = invoiceNumber || snapshot?.invoice_number || '—'
   const ordNo = orderNumber || snapshot?.order_number
@@ -156,10 +158,10 @@ export default function InvoiceReceipt({
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <div className="text-[10px] uppercase tracking-[0.2em] font-semibold opacity-90">
-              Tax invoice · DineFlow
+              {t('receipt.taxInvoiceBand')}
             </div>
             <div className="text-2xl sm:text-3xl font-black mt-1 leading-tight">
-              {org?.name || 'Store invoice'}
+              {org?.name || t('receipt.storeInvoice')}
             </div>
             {org?.business_type && (
               <div className="text-xs mt-1 capitalize opacity-90">{org.business_type.replace(/_/g, ' ')}</div>
@@ -179,39 +181,39 @@ export default function InvoiceReceipt({
       <div className="grid sm:grid-cols-2 gap-4 px-5 py-4 bg-slate-50 border-b border-slate-200 text-sm">
         <div className="space-y-1 text-slate-700">
           {addr && <div>{addr}</div>}
-          {org?.phone && <div>Phone: {org.phone}</div>}
-          {org?.email && <div>Email: {org.email}</div>}
+          {org?.phone && <div>{t('receipt.phone')} {org.phone}</div>}
+          {org?.email && <div>{t('receipt.email')} {org.email}</div>}
           {org?.tax_id && (
-            <div className="font-semibold text-teal-800">Tax / TRN: {org.tax_id}</div>
+            <div className="font-semibold text-teal-800">{t('receipt.taxTrn')} {org.tax_id}</div>
           )}
         </div>
         <div className="space-y-1 text-slate-700 sm:text-right">
           {ordNo && (
             <div>
-              <span className="text-slate-500">Order #:</span> <strong>{ordNo}</strong>
+              <span className="text-slate-500">{t('receipt.orderNo')}</span> <strong>{ordNo}</strong>
             </div>
           )}
           {oType && (
             <div className="capitalize">
-              <span className="text-slate-500">Service:</span> <strong>{oType}</strong>
+              <span className="text-slate-500">{t('receipt.service')}</span> <strong>{oType}</strong>
             </div>
           )}
           {table && (
             <div>
-              <span className="text-slate-500">Table / counter:</span> <strong>{table}</strong>
+              <span className="text-slate-500">{t('receipt.tableCounter')}</span> <strong>{table}</strong>
             </div>
           )}
           {cashier && (
             <div>
-              <span className="text-slate-500">Cashier:</span> <strong>{cashier}</strong>
+              <span className="text-slate-500">{t('receipt.cashier')}</span> <strong>{cashier}</strong>
             </div>
           )}
           <div>
-            <span className="text-slate-500">Customer:</span> <strong>{cust}</strong>
+            <span className="text-slate-500">{t('receipt.customer')}</span> <strong>{cust}</strong>
             {custPhone ? ` · ${custPhone}` : ''}
           </div>
           <div>
-            <span className="text-slate-500">Service time:</span> <strong>{when}</strong>
+            <span className="text-slate-500">{t('receipt.serviceTime')}</span> <strong>{when}</strong>
           </div>
         </div>
       </div>
@@ -222,18 +224,18 @@ export default function InvoiceReceipt({
           <thead>
             <tr>
               <th className="text-left w-8">#</th>
-              <th className="text-left">Item</th>
-              <th className="text-right">Qty</th>
-              <th className="text-right">Unit</th>
-              <th className="text-right">Tax</th>
-              <th className="text-right">Amount</th>
+              <th className="text-left">{t('receipt.col.item')}</th>
+              <th className="text-right">{t('receipt.col.qty')}</th>
+              <th className="text-right">{t('receipt.col.unit')}</th>
+              <th className="text-right">{t('receipt.col.tax')}</th>
+              <th className="text-right">{t('receipt.col.amount')}</th>
             </tr>
           </thead>
           <tbody>
             {items.length === 0 ? (
               <tr>
                 <td colSpan={6} className="text-center text-slate-500 py-6">
-                  No line items on this invoice
+                  {t('receipt.noLineItems')}
                 </td>
               </tr>
             ) : (
@@ -258,15 +260,15 @@ export default function InvoiceReceipt({
       {/* Totals + payments */}
       <div className="px-5 pb-5 grid sm:grid-cols-2 gap-4">
         <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm space-y-2">
-          <div className="text-xs font-bold uppercase tracking-wider text-teal-700">Payments</div>
+          <div className="text-xs font-bold uppercase tracking-wider text-teal-700">{t('receipt.payments')}</div>
           {payments.length === 0 ? (
-            <div className="text-slate-500">Recorded at sale</div>
+            <div className="text-slate-500">{t('receipt.recordedAtSale')}</div>
           ) : (
             payments.map((p, idx) => (
               <div key={idx} className="flex justify-between gap-2 capitalize">
                 <span>
                   {p.method}
-                  {p.change != null && Number(p.change) > 0 ? ` · change ${m(p.change)}` : ''}
+                  {p.change != null && Number(p.change) > 0 ? ` · ${t('receipt.change', { amount: m(p.change) })}` : ''}
                 </span>
                 <strong>{m(p.amount)}</strong>
               </div>
@@ -274,33 +276,33 @@ export default function InvoiceReceipt({
           )}
           {billNotes && (
             <div className="pt-2 border-t border-slate-100 text-slate-600">
-              <span className="font-semibold">Notes:</span> {billNotes}
+              <span className="font-semibold">{t('receipt.notesLabel')}</span> {billNotes}
             </div>
           )}
         </div>
 
         <div className="rounded-xl border border-teal-200 bg-gradient-to-br from-teal-50 to-emerald-50 p-4 text-sm space-y-2">
           <div className="flex justify-between text-slate-700">
-            <span>Subtotal</span>
+            <span>{t('receipt.subtotal')}</span>
             <span>{m(snapshot?.subtotal ?? subtotal)}</span>
           </div>
           <div className="flex justify-between text-slate-700">
-            <span>Discount</span>
+            <span>{t('receipt.discount')}</span>
             <span>- {m(snapshot?.discount_total ?? discountTotal)}</span>
           </div>
           <div className="flex justify-between text-slate-700">
-            <span>Tax / VAT</span>
+            <span>{t('receipt.taxVat')}</span>
             <span>{m(snapshot?.tax_total ?? taxTotal)}</span>
           </div>
           <div className="flex justify-between items-center pt-2 border-t border-teal-200 text-base font-black text-teal-900">
-            <span>Grand total</span>
+            <span>{t('receipt.grandTotal')}</span>
             <span className="text-xl">{m(snapshot?.grand_total ?? grandTotal)}</span>
           </div>
         </div>
       </div>
 
       <div className="px-5 py-3 bg-slate-900 text-slate-200 text-center text-xs">
-        Thank you for your visit · Powered by DineFlow · Invoice {invNo}
+        {t('receipt.footer', { invoiceNo: invNo })}
       </div>
     </div>
   )

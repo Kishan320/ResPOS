@@ -27,6 +27,7 @@ import SuperAdminPlatformOperationsUserAndFullRbacManagementPage from '@/pages/S
 import OrganizationOwnerAdminStaffUserCreationWithFullRbacPermissionPage from '@/pages/OrganizationOwnerAdminStaffUserCreationWithFullRbacPermissionPage'
 import SuperAdminContactLeadsPage from '@/pages/SuperAdminContactLeadsPage'
 import { Component, type ErrorInfo, type ReactNode } from 'react'
+import { tStatic } from '@/i18n/i18nStore'
 
 const qc = new QueryClient({
   defaultOptions: {
@@ -42,7 +43,7 @@ class AppErrorBoundary extends Component<{ children: ReactNode }, { error: strin
   state = { error: null as string | null }
 
   static getDerivedStateFromError(err: Error) {
-    return { error: err?.message || 'Unexpected UI error' }
+    return { error: err?.message || tStatic('errors.somethingWentWrong') }
   }
 
   componentDidCatch(err: Error, info: ErrorInfo) {
@@ -53,7 +54,7 @@ class AppErrorBoundary extends Component<{ children: ReactNode }, { error: strin
     if (this.state.error) {
       return (
         <div style={{ padding: 32, fontFamily: 'system-ui', maxWidth: 560, margin: '40px auto' }}>
-          <h1 style={{ fontSize: 20, fontWeight: 800 }}>Something went wrong</h1>
+          <h1 style={{ fontSize: 20, fontWeight: 800 }}>{tStatic('errors.boundaryTitle')}</h1>
           <p style={{ color: '#64748b', marginTop: 8 }}>{this.state.error}</p>
           <button
             type="button"
@@ -72,7 +73,7 @@ class AppErrorBoundary extends Component<{ children: ReactNode }, { error: strin
               window.location.assign('/app')
             }}
           >
-            Reload app
+            {tStatic('errors.reloadApp')}
           </button>
         </div>
       )

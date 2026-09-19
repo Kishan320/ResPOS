@@ -28,62 +28,64 @@ import {
 import { useAuthStore } from '@/store/authStore'
 import { cn } from '@/components/ui'
 import BrandLogo from '@/components/BrandLogo'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
+import { useT, useTEnum } from '@/i18n/useT'
 import { useEffect, useState } from 'react'
 
 type NavItem = {
   to: string
-  label: string
+  labelKey: Parameters<ReturnType<typeof useT>>[0]
   icon: typeof LayoutDashboard
   end?: boolean
   accent?: boolean
   superOnly?: boolean
-  group?: string
+  groupKey: Parameters<ReturnType<typeof useT>>[0]
 }
 
 const nav: NavItem[] = [
-  { to: '/app', label: 'Dashboard', icon: LayoutDashboard, end: true, group: 'Main' },
-  { to: '/app/pos', label: 'POS Terminal', icon: ShoppingCart, accent: true, group: 'Main' },
-  { to: '/app/products', label: 'Products & Menu', icon: Package, group: 'Catalog' },
-  { to: '/app/categories', label: 'Categories', icon: Tags, group: 'Catalog' },
-  { to: '/app/inventory', label: 'Inventory & Stock', icon: Warehouse, group: 'Catalog' },
-  { to: '/app/orders', label: 'Orders & Sales', icon: Receipt, group: 'Sales' },
-  { to: '/app/invoices', label: 'Invoices & Bills', icon: Receipt, group: 'Sales' },
-  { to: '/app/reports', label: 'Report Hub', icon: BarChart3, group: 'Sales' },
+  { to: '/app', labelKey: 'nav.dashboard', icon: LayoutDashboard, end: true, groupKey: 'nav.group.main' },
+  { to: '/app/pos', labelKey: 'nav.posTerminal', icon: ShoppingCart, accent: true, groupKey: 'nav.group.main' },
+  { to: '/app/products', labelKey: 'nav.productsMenu', icon: Package, groupKey: 'nav.group.catalog' },
+  { to: '/app/categories', labelKey: 'nav.categories', icon: Tags, groupKey: 'nav.group.catalog' },
+  { to: '/app/inventory', labelKey: 'nav.inventoryStock', icon: Warehouse, groupKey: 'nav.group.catalog' },
+  { to: '/app/orders', labelKey: 'nav.ordersSales', icon: Receipt, groupKey: 'nav.group.sales' },
+  { to: '/app/invoices', labelKey: 'nav.invoicesBills', icon: Receipt, groupKey: 'nav.group.sales' },
+  { to: '/app/reports', labelKey: 'nav.reportHub', icon: BarChart3, groupKey: 'nav.group.sales' },
   {
     to: '/app/dynamic-discount-promotion-coupon-seasonal-and-item-offer-management',
-    label: 'Discounts & Offers',
+    labelKey: 'nav.discountsOffers',
     icon: Percent,
-    group: 'Sales',
+    groupKey: 'nav.group.sales',
   },
-  { to: '/app/restaurant', label: 'Tables · Waiters · Tax', icon: Monitor, group: 'Restaurant' },
-  { to: '/app/terminals', label: 'POS Machines', icon: Monitor, group: 'Restaurant' },
-  { to: '/app/customers', label: 'Customers', icon: Contact, group: 'People' },
+  { to: '/app/restaurant', labelKey: 'nav.tablesWaitersTax', icon: Monitor, groupKey: 'nav.group.restaurant' },
+  { to: '/app/terminals', labelKey: 'nav.posMachines', icon: Monitor, groupKey: 'nav.group.restaurant' },
+  { to: '/app/customers', labelKey: 'nav.customers', icon: Contact, groupKey: 'nav.group.people' },
   {
     to: '/app/contact-messages',
-    label: 'Contact messages',
+    labelKey: 'nav.contactMessages',
     icon: Mail,
     superOnly: true,
-    group: 'People',
+    groupKey: 'nav.group.people',
   },
   {
     to: '/app/organization-owner-admin-staff-user-creation-with-full-rbac-permission',
-    label: 'Staff & Permissions',
+    labelKey: 'nav.staffPermissions',
     icon: Users,
-    group: 'People',
+    groupKey: 'nav.group.people',
   },
-  { to: '/app/users', label: 'Team Directory', icon: Users, group: 'People' },
-  { to: '/app/currency', label: 'World Currencies', icon: Coins, group: 'Finance' },
-  { to: '/app/organizations', label: 'Organizations', icon: Building2, superOnly: true, group: 'Platform' },
-  { to: '/app/cms', label: 'CMS & Landing', icon: Globe2, superOnly: true, group: 'Platform' },
-  { to: '/app/rbac', label: 'Org Module Access', icon: Shield, superOnly: true, group: 'Platform' },
+  { to: '/app/users', labelKey: 'nav.teamDirectory', icon: Users, groupKey: 'nav.group.people' },
+  { to: '/app/currency', labelKey: 'nav.worldCurrencies', icon: Coins, groupKey: 'nav.group.finance' },
+  { to: '/app/organizations', labelKey: 'nav.organizations', icon: Building2, superOnly: true, groupKey: 'nav.group.platform' },
+  { to: '/app/cms', labelKey: 'nav.cmsLanding', icon: Globe2, superOnly: true, groupKey: 'nav.group.platform' },
+  { to: '/app/rbac', labelKey: 'nav.orgModuleAccess', icon: Shield, superOnly: true, groupKey: 'nav.group.platform' },
   {
     to: '/app/super-admin-platform-operations-user-and-full-rbac-management',
-    label: 'Platform Users',
+    labelKey: 'nav.platformUsers',
     icon: Shield,
     superOnly: true,
-    group: 'Platform',
+    groupKey: 'nav.group.platform',
   },
-  { to: '/app/settings', label: 'Settings', icon: Settings2, group: 'Account' },
+  { to: '/app/settings', labelKey: 'nav.settings', icon: Settings2, groupKey: 'nav.group.account' },
 ]
 
 export default function Layout() {
@@ -99,13 +101,15 @@ export default function Layout() {
   } = useAuthStore()
   const navigate = useNavigate()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const t = useT()
+  const tEnum = useTEnum()
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme || 'light')
   }, [theme])
 
   const links = nav.filter((n) => !n.superOnly || user?.role === 'super_admin')
-  const groups = Array.from(new Set(links.map((l) => l.group || 'Main')))
+  const groups = Array.from(new Set(links.map((l) => l.groupKey)))
 
   const SidebarBody = (
     <>
@@ -123,7 +127,7 @@ export default function Layout() {
         </div>
         {!sidebarCollapsed && (
           <div className="mt-2 text-[10px] text-slate-400 uppercase tracking-[0.16em] font-semibold px-0.5">
-            Store operations platform
+            {t('nav.storeOpsPlatform')}
           </div>
         )}
       </div>
@@ -131,17 +135,17 @@ export default function Layout() {
       <nav className="flex-1 overflow-y-auto px-2 py-3">
         {groups.map((g) => (
           <div key={g} className="mb-2">
-            {!sidebarCollapsed && <div className="nav-group-label">{g}</div>}
+            {!sidebarCollapsed && <div className="nav-group-label">{t(g)}</div>}
             <div className="space-y-0.5">
               {links
-                .filter((i) => (i.group || 'Main') === g)
+                .filter((i) => i.groupKey === g)
                 .map((item) => (
                   <NavLink
                     key={item.to}
                     to={item.to}
                     end={item.end}
                     onClick={() => setMobileOpen(false)}
-                    title={item.label}
+                    title={t(item.labelKey)}
                     className={({ isActive }) =>
                       cn(
                         'flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition',
@@ -155,7 +159,7 @@ export default function Layout() {
                     }
                   >
                     <item.icon size={18} className="shrink-0 opacity-90" />
-                    {!sidebarCollapsed && <span className="truncate">{item.label}</span>}
+                    {!sidebarCollapsed && <span className="truncate">{t(item.labelKey)}</span>}
                   </NavLink>
                 ))}
             </div>
@@ -168,11 +172,11 @@ export default function Layout() {
           <div className="rounded-xl bg-white/[0.04] border border-white/5 px-3 py-3 text-xs">
             <div className="text-white font-semibold truncate">{user?.full_name}</div>
             <div className="text-slate-400 capitalize mt-0.5 font-medium">
-              {String(user?.role || '').replace(/_/g, ' ')}
+              {tEnum('roles', user?.role, String(user?.role || '').replace(/_/g, ' '))}
             </div>
             {(organizationName || organizationId) && (
               <div className="mt-2 text-emerald-300/90 truncate font-medium" title={organizationName || undefined}>
-                {organizationName || `Org #${organizationId}`}
+                {organizationName || t('nav.orgNumber', { id: organizationId ?? '' })}
               </div>
             )}
           </div>
@@ -188,7 +192,7 @@ export default function Layout() {
           )}
         >
           <LogOut size={16} />
-          {!sidebarCollapsed && 'Sign out'}
+          {!sidebarCollapsed && t('nav.signOut')}
         </button>
       </div>
     </>
@@ -239,19 +243,20 @@ export default function Layout() {
               <div className="min-w-0">
                 <div className="text-sm font-bold text-slate-900 dark:text-white truncate">
                   {organizationName ||
-                    (user?.role === 'super_admin' ? 'Platform control center' : 'Your workspace')}
+                    (user?.role === 'super_admin' ? t('nav.platformControlCenter') : t('nav.yourWorkspace'))}
                 </div>
                 <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate">
-                  Multi-tenant · multi-currency · restaurant & retail
+                  {t('nav.headerTagline')}
                 </div>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <NavLink to="/app/pos">
                 <span className="hidden sm:inline-flex items-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3.5 py-2 shadow-md shadow-emerald-600/20 transition">
-                  <ShoppingCart size={14} /> Open POS
+                  <ShoppingCart size={14} /> {t('nav.openPos')}
                 </span>
               </NavLink>
+              <LanguageSwitcher />
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                 className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200"

@@ -5,7 +5,14 @@ from sqlalchemy.orm import Session
 from app.core.deps import get_current_user, get_db
 from app.core.security import create_access_token, create_refresh_token, hash_password, verify_password
 from app.models.user import User
-from app.schemas.auth import ChangePasswordRequest, LoginRequest, LoginResponse, TokenResponse, UserOut
+from app.schemas.auth import (
+    ChangePasswordRequest,
+    LanguageUpdateRequest,
+    LoginRequest,
+    LoginResponse,
+    TokenResponse,
+    UserOut,
+)
 
 router = APIRouter()
 
@@ -39,6 +46,20 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)):
 
 @router.get("/me", response_model=UserOut)
 def me(user: User = Depends(get_current_user)):
+    return UserOut.model_validate(user)
+
+
+ALLOWED_LANGUAGES = {"en", "de"}
+
+
+@router.patch("/language", response_model=UserOut)
+def update_language(payload: LanguageUpdateRequest, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if payload.language not in ALLOWED_LANGUAGES:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Unsupported language")
+    user.language = payload.language
+    db.add(user)
+    db.commit()
+    db.refresh(user)
     return UserOut.model_validate(user)
 
 

@@ -28,9 +28,12 @@ import {
 } from 'lucide-react'
 import { mediaUrl } from '@/lib/media'
 import InvoiceReceipt from '@/components/InvoiceReceipt'
+import { useT, useTEnum } from '@/i18n/useT'
 
 export default function PosPage() {
   const orgId = useAuthStore((s) => s.organizationId)
+  const tr = useT()
+  const trEnum = useTEnum()
   const [q, setQ] = useState('')
   const [categoryId, setCategoryId] = useState<string>('')
   const [payOpen, setPayOpen] = useState(false)
@@ -180,7 +183,7 @@ export default function PosPage() {
         addProduct(data.items[0])
         setBarcode('')
       } else {
-        setError(`No product for barcode ${code}`)
+        setError(tr('pos.noProductForBarcode', { code }))
       }
     } catch (e) {
       setError(errMsg(e))
@@ -191,8 +194,8 @@ export default function PosPage() {
     return (
       <div className="premium-card p-8">
         <EmptyState
-          title="Select an organization first"
-          description="Super admin: open Organizations and set an active tenant before using POS."
+          title={tr('empty.selectOrgFirst')}
+          description={tr('empty.selectOrgPosHint')}
         />
       </div>
     )
@@ -202,12 +205,12 @@ export default function PosPage() {
     <div className="pos-shell animate-fade-up">
       <div className="flex flex-wrap items-center justify-between gap-2 shrink-0">
         <div className="min-w-0">
-          <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-brand-600 font-semibold">Point of sale</div>
-          <h1 className="text-lg sm:text-xl md:text-2xl font-black tracking-tight">Live terminal</h1>
+          <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-brand-600 font-semibold">{tr('pos.kicker')}</div>
+          <h1 className="text-lg sm:text-xl md:text-2xl font-black tracking-tight">{tr('pos.liveTerminal')}</h1>
         </div>
         <div className="flex flex-wrap gap-1.5 sm:gap-2 text-xs">
-          <Badge tone="info">{t.lines} lines</Badge>
-          <Badge tone="purple">{t.items} items</Badge>
+          <Badge tone="info">{tr('pos.badge.lines', { count: totals().lines })}</Badge>
+          <Badge tone="purple">{tr('pos.badge.items', { count: totals().items })}</Badge>
           <Badge tone="success">{money(t.grand)}</Badge>
         </div>
       </div>
@@ -225,7 +228,7 @@ export default function PosPage() {
           )}
         >
           <LayoutGrid size={14} />
-          <span>Products</span>
+          <span>{tr('pos.tab.products')}</span>
         </button>
         <button
           type="button"
@@ -238,7 +241,7 @@ export default function PosPage() {
           )}
         >
           <ShoppingCart size={14} />
-          <span>Retail Checkout</span>
+          <span>{tr('pos.tab.checkout')}</span>
           {t.items > 0 && (
             <span className="rounded-full bg-emerald-600 px-1.5 py-0.5 text-[10px] font-black text-white">
               {t.items}
@@ -261,7 +264,7 @@ export default function PosPage() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" size={15} />
                 <input
                   className="field-control has-icon-left !bg-slate-50 dark:!bg-slate-950 !py-1.5 text-xs"
-                  placeholder="Search name, SKU…"
+                  placeholder={tr('pos.searchPlaceholder')}
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
                 />
@@ -270,7 +273,7 @@ export default function PosPage() {
                 <Keyboard className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={15} />
                 <input
                   className="field-control has-icon-left !bg-slate-50 dark:!bg-slate-950 !py-1.5 text-xs"
-                  placeholder="Scan barcode + Enter"
+                  placeholder={tr('pos.scanPlaceholder')}
                   value={barcode}
                   onChange={(e) => setBarcode(e.target.value)}
                   onKeyDown={(e) => {
@@ -284,18 +287,18 @@ export default function PosPage() {
             </div>
             <div className="grid grid-cols-2 gap-2">
               <Select value={orderType} onChange={(e) => setOrderType(e.target.value)} className="w-full !py-1.5 text-xs">
-                <option value="retail">Retail</option>
-                <option value="dine_in">Dine in</option>
-                <option value="takeaway">Takeaway</option>
-                <option value="delivery">Delivery</option>
-                <option value="pickup">Pickup</option>
+                <option value="retail">{trEnum('orderType', 'retail', 'Retail')}</option>
+                <option value="dine_in">{trEnum('orderType', 'dine_in', 'Dine in')}</option>
+                <option value="takeaway">{trEnum('orderType', 'takeaway', 'Takeaway')}</option>
+                <option value="delivery">{trEnum('orderType', 'delivery', 'Delivery')}</option>
+                <option value="pickup">{trEnum('orderType', 'pickup', 'Pickup')}</option>
               </Select>
               <Select
                 value={terminalId ?? ''}
                 onChange={(e) => setTerminalId(e.target.value ? Number(e.target.value) : null)}
                 className="w-full !py-1.5 text-xs"
               >
-                <option value="">No terminal</option>
+                <option value="">{tr('pos.noTerminal')}</option>
                 {terminals?.items.map((term) => (
                   <option key={term.id} value={term.id}>
                     {term.name}
@@ -311,7 +314,7 @@ export default function PosPage() {
                   : 'border-ink-200 dark:border-ink-700 text-ink-600'
                   }`}
               >
-                <LayoutGrid size={11} className="inline mr-1" /> All
+                <LayoutGrid size={11} className="inline mr-1" /> {tr('pos.allCategories')}
               </button>
               {categories?.items.map((c) => (
                 <button
@@ -339,7 +342,7 @@ export default function PosPage() {
                 <Spinner className="h-8 w-8" />
               </div>
             ) : !products?.items?.length ? (
-              <EmptyState title="No products" description="Add products or clear filters." />
+              <EmptyState title={tr('pos.empty.products')} description={tr('pos.empty.productsHint')} />
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-2.5">
                 {products.items.map((p) => (
@@ -388,7 +391,7 @@ export default function PosPage() {
                   {t.items}
                 </span>
                 <div className="text-xs font-bold text-slate-200">
-                  Total: <span className="text-white font-extrabold">{money(t.grand)}</span>
+                  {tr('pos.cartTotal', { amount: money(t.grand) })}
                 </div>
               </div>
               <Button
@@ -396,7 +399,7 @@ export default function PosPage() {
                 className="!py-1.5 !px-3 text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white"
                 onClick={() => setMobileTab('cart')}
               >
-                Checkout <ShoppingCart size={13} className="ml-1 inline" />
+                {tr('pos.checkout')} <ShoppingCart size={13} className="ml-1 inline" />
               </Button>
             </div>
           )}
@@ -416,30 +419,30 @@ export default function PosPage() {
                 variant="ghost"
                 className="md:hidden !p-1 text-slate-300 hover:text-white"
                 onClick={() => setMobileTab('catalog')}
-                title="Back to products"
+                title={tr('pos.backToProducts')}
               >
                 <ArrowLeft size={16} />
               </Button>
               <div>
-                <div className="font-bold text-base text-white">Bill</div>
-                <div className="text-[11px] pos-cart-muted capitalize">{orderType.replace('_', ' ')} checkout</div>
+                <div className="font-bold text-base text-white">{tr('pos.bill')}</div>
+                <div className="text-[11px] pos-cart-muted capitalize">{trEnum('orderType', orderType, orderType.replace('_', ' '))} {tr('pos.checkoutSuffix')}</div>
               </div>
             </div>
             <Button size="sm" variant="ghost" className="text-slate-200 hover:text-white" onClick={clearCart}>
-              Clear
+              {tr('pos.clear')}
             </Button>
           </div>
 
           <div className="px-3 pt-2.5 pb-2 grid grid-cols-2 gap-2 shrink-0 border-b border-white/10">
             <input
               className="rounded-xl px-2.5 py-1.5 text-xs outline-none md:w-16"
-              placeholder="Table / counter label"
+              placeholder={tr('pos.tableLabelPlaceholder')}
               value={tableLabel}
               onChange={(e) => setTableLabel(e.target.value)}
             />
             <input
               className="rounded-xl px-2.5 py-1.5 text-xs outline-none"
-              placeholder="Order notes"
+              placeholder={tr('pos.notesPlaceholder')}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
             />
@@ -447,7 +450,7 @@ export default function PosPage() {
 
           <div className="flex-1 min-h-0 overflow-y-auto p-2.5 sm:p-3 space-y-2">
             {cart.length === 0 ? (
-              <p className="text-sm pos-cart-muted text-center py-10">Tap products or scan barcode</p>
+              <p className="text-sm pos-cart-muted text-center py-10">{tr('pos.cart.empty')}</p>
             ) : (
               cart.map((line) => (
                 <div key={line.product_id} className="pos-cart-line rounded-xl p-2.5 space-y-1.5">
@@ -456,7 +459,7 @@ export default function PosPage() {
                       <div className="pos-cart-line-title text-xs font-semibold truncate" title={line.name}>
                         {line.name}
                       </div>
-                      <div className="text-[11px] pos-cart-line-meta">{money(line.unit_price)} each</div>
+                      <div className="text-[11px] pos-cart-line-meta">{tr('pos.each', { price: money(line.unit_price) })}</div>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                       <div className="text-xs font-bold text-white">
@@ -465,7 +468,7 @@ export default function PosPage() {
                       <button
                         onClick={() => removeLine(line.product_id)}
                         className="text-slate-300 hover:text-red-400 p-0.5 transition"
-                        title="Remove line"
+                        title={tr('pos.removeLine')}
                       >
                         <Trash2 size={13} />
                       </button>
@@ -488,7 +491,7 @@ export default function PosPage() {
                       </button>
                     </div>
                     <div className="flex items-center gap-1.5 shrink-0">
-                      <span className="text-[10px] pos-cart-line-meta">Line disc.</span>
+                      <span className="text-[10px] pos-cart-line-meta">{tr('pos.lineDisc')}</span>
                       <input
                         type="number"
                         className="w-16 rounded-md px-1.5 py-0.5 text-xs text-right outline-none"
@@ -504,15 +507,15 @@ export default function PosPage() {
 
           <div className="pos-cart-totals p-3 border-t border-white/15 space-y-1.5 text-xs shrink-0">
             <div className="pos-cart-row flex justify-between">
-              <span>Subtotal</span>
+              <span>{tr('pos.subtotal')}</span>
               <span className="font-semibold text-white">{money(t.subtotal)}</span>
             </div>
             <div className="pos-cart-row flex justify-between">
-              <span>Tax</span>
+              <span>{tr('pos.tax')}</span>
               <span className="font-semibold text-white">{money(t.tax)}</span>
             </div>
             <div className="pos-cart-row flex items-center justify-between gap-2">
-              <span>Bill discount</span>
+              <span>{tr('pos.billDiscount')}</span>
               <input
                 type="number"
                 className="w-20 rounded-lg px-2 py-1 text-right outline-none text-xs"
@@ -521,7 +524,7 @@ export default function PosPage() {
               />
             </div>
             <div className="flex justify-between text-base font-black pt-1 text-white">
-              <span>Total</span>
+              <span>{tr('pos.total')}</span>
               <span className="pos-cart-total-value">{money(t.grand)}</span>
             </div>
             <Button
@@ -534,29 +537,29 @@ export default function PosPage() {
                 setPayOpen(true)
               }}
             >
-              Charge {money(t.grand)}
+              {tr('pos.charge', { amount: money(t.grand) })}
             </Button>
           </div>
         </div>
       </div>
 
       {/* Payment */}
-      <Modal open={payOpen} onClose={() => setPayOpen(false)} title="Collect payment" subtitle="Cash, card, UPI or split tender" wide>
+      <Modal open={payOpen} onClose={() => setPayOpen(false)} title={tr('pos.collectPayment')} subtitle={tr('pos.collectPaymentSubtitle')} wide>
         <div className="space-y-5">
           <div className="text-center py-3 rounded-3xl bg-gradient-to-br from-brand-50 to-violet-50 dark:from-brand-950 dark:to-violet-950 border border-brand-100 dark:border-brand-900">
-            <div className="text-sm text-ink-500">Amount due</div>
+            <div className="text-sm text-ink-500">{tr('pos.amountDue')}</div>
             <div className="text-4xl font-black text-brand-700 dark:text-brand-300 mt-1">{money(t.grand)}</div>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {(
               [
-                ['cash', 'Cash', Banknote],
-                ['card', 'Card', CreditCard],
-                ['upi', 'UPI', Smartphone],
-                ['wallet', 'Wallet', CreditCard],
+                ['cash', Banknote],
+                ['card', CreditCard],
+                ['upi', Smartphone],
+                ['wallet', CreditCard],
               ] as const
-            ).map(([key, label, Icon]) => (
+            ).map(([key, Icon]) => (
               <button
                 key={key}
                 onClick={() => setMethod(key)}
@@ -566,16 +569,16 @@ export default function PosPage() {
                   }`}
               >
                 <Icon size={18} />
-                {label}
+                {trEnum('paymentMethods', key, key)}
               </button>
             ))}
           </div>
 
           {method === 'cash' && (
             <div className="grid sm:grid-cols-2 gap-3">
-              <Input label="Cash tendered" type="number" value={tendered} onChange={(e) => setTendered(e.target.value)} />
+              <Input label={tr('pos.cashTendered')} type="number" value={tendered} onChange={(e) => setTendered(e.target.value)} />
               <div className="rounded-2xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-950/30 dark:border-emerald-900 p-4 flex flex-col justify-center">
-                <div className="text-xs text-emerald-700 dark:text-emerald-300">Change to return</div>
+                <div className="text-xs text-emerald-700 dark:text-emerald-300">{tr('pos.changeToReturn')}</div>
                 <div className="text-2xl font-black text-emerald-700 dark:text-emerald-300">{money(change)}</div>
               </div>
               <div className="sm:col-span-2 flex flex-wrap gap-2">
@@ -590,20 +593,20 @@ export default function PosPage() {
 
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" checked={splitSecond} onChange={(e) => setSplitSecond(e.target.checked)} />
-            Split with second payment method
+            {tr('pos.splitCheckbox')}
           </label>
           {splitSecond && (
             <div className="grid sm:grid-cols-2 gap-3">
-              <Select label="Second method" value={secondMethod} onChange={(e) => setSecondMethod(e.target.value as 'card' | 'upi')}>
-                <option value="card">Card</option>
-                <option value="upi">UPI</option>
+              <Select label={tr('pos.secondMethod')} value={secondMethod} onChange={(e) => setSecondMethod(e.target.value as 'card' | 'upi')}>
+                <option value="card">{trEnum('paymentMethods', 'card', 'Card')}</option>
+                <option value="upi">{trEnum('paymentMethods', 'upi', 'UPI')}</option>
               </Select>
               <Input
-                label="Second amount"
+                label={tr('pos.secondAmount')}
                 type="number"
                 value={secondAmount}
                 onChange={(e) => setSecondAmount(e.target.value)}
-                hint={`Primary (${method}) will take the rest`}
+                hint={tr('pos.primaryTakesRest', { method: trEnum('paymentMethods', method, method) })}
               />
             </div>
           )}
@@ -611,13 +614,13 @@ export default function PosPage() {
           {error && <Alert tone="danger">{error}</Alert>}
 
           <Button className="w-full" size="xl" disabled={checkoutMut.isPending} onClick={() => checkoutMut.mutate()}>
-            {checkoutMut.isPending ? 'Processing…' : 'Complete sale & print bill'}
+            {checkoutMut.isPending ? tr('pos.processing') : tr('pos.completeSale')}
           </Button>
         </div>
       </Modal>
 
       {/* Receipt / tax invoice */}
-      <Modal open={!!lastInvoice} onClose={() => setLastInvoice(null)} title="Sale complete" wide>
+      <Modal open={!!lastInvoice} onClose={() => setLastInvoice(null)} title={tr('pos.saleComplete')} wide>
         {lastInvoice && (
           <div className="space-y-4">
             <InvoiceReceipt
@@ -628,7 +631,7 @@ export default function PosPage() {
               taxTotal={lastInvoice.tax_total}
               discountTotal={lastInvoice.discount_total}
               grandTotal={lastInvoice.grand_total}
-              statusLabel={`PAID · ${lastInvoice.status}`}
+              statusLabel={`${tr('receipt.paid')} · ${trEnum('orderStatus', lastInvoice.status, lastInvoice.status)}`}
               snapshot={lastInvoice.invoice?.snapshot as never}
               fallbackItems={lastInvoice.items.map((i) => ({
                 name: i.product_name,
@@ -649,8 +652,8 @@ export default function PosPage() {
               notes={lastInvoice.notes}
             />
             <div className="no-print flex gap-2 justify-end pt-1">
-              <Button variant="secondary" onClick={() => window.print()}>Print invoice</Button>
-              <Button onClick={() => setLastInvoice(null)}>New sale</Button>
+              <Button variant="secondary" onClick={() => window.print()}>{tr('pos.printInvoice')}</Button>
+              <Button onClick={() => setLastInvoice(null)}>{tr('pos.newSale')}</Button>
             </div>
           </div>
         )}

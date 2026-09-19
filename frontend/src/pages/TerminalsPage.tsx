@@ -5,9 +5,11 @@ import { Alert, Badge, Button, Card, EmptyState, Input, Modal, PageHeader, Spinn
 import { Plus, Monitor } from 'lucide-react'
 import { useAuthStore } from '@/store/authStore'
 import { usePosStore } from '@/store/posStore'
+import { useT } from '@/i18n/useT'
 
 export default function TerminalsPage() {
   const orgId = useAuthStore((s) => s.organizationId)
+  const tr = useT()
   const setTerminalId = usePosStore((s) => s.setTerminalId)
   const activeTerminal = usePosStore((s) => s.terminalId)
   const [open, setOpen] = useState(false)
@@ -44,23 +46,23 @@ export default function TerminalsPage() {
   })
 
   if (!orgId) {
-    return <Card><EmptyState title="Select an organization first" /></Card>
+    return <Card><EmptyState title={tr('empty.selectOrgFirst')} /></Card>
   }
 
   return (
     <div>
       <PageHeader
-        breadcrumb="Hardware"
-        title="POS machines / terminals"
-        subtitle="Cash drawers, counters, printer-linked stations with opening float."
-        actions={<Button onClick={() => { setError(''); setOpen(true) }}><Plus size={16} /> Add terminal</Button>}
+        breadcrumb={tr('terminals.breadcrumb')}
+        title={tr('terminals.title')}
+        subtitle={tr('terminals.subtitle')}
+        actions={<Button onClick={() => { setError(''); setOpen(true) }}><Plus size={16} /> {tr('terminals.add')}</Button>}
       />
 
       {isLoading ? (
         <div className="flex justify-center py-16"><Spinner className="h-8 w-8" /></div>
       ) : !data?.items?.length ? (
         <Card>
-          <EmptyState icon={<Monitor size={24} />} title="No terminals" description="Create a POS machine for the counter." action={<Button onClick={() => setOpen(true)}>Add terminal</Button>} />
+          <EmptyState icon={<Monitor size={24} />} title={tr('terminals.empty')} description={tr('terminals.emptyHint')} action={<Button onClick={() => setOpen(true)}>{tr('terminals.add')}</Button>} />
         </Card>
       ) : (
         <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -73,14 +75,14 @@ export default function TerminalsPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
                     <h3 className="font-bold truncate">{t.name}</h3>
-                    <Badge tone={t.is_active ? 'success' : 'neutral'}>{t.is_active ? 'Online' : 'Off'}</Badge>
+                    <Badge tone={t.is_active ? 'success' : 'neutral'}>{t.is_active ? tr('common.online') : tr('common.off')}</Badge>
                   </div>
                   <p className="text-xs text-ink-500 mt-1 font-mono">{t.code}</p>
                   {t.location && <p className="text-sm text-ink-500 mt-1">{t.location}</p>}
-                  <p className="text-sm mt-3">Cash float: <span className="font-bold">{money(t.cash_float)}</span></p>
-                  {t.printer_name && <p className="text-xs text-ink-400 mt-1">Printer: {t.printer_name}</p>}
+                  <p className="text-sm mt-3">{tr('terminals.cashFloat')} <span className="font-bold">{money(t.cash_float)}</span></p>
+                  {t.printer_name && <p className="text-xs text-ink-400 mt-1">{tr('terminals.printer')} {t.printer_name}</p>}
                   <Button size="sm" className="mt-4" variant={activeTerminal === t.id ? 'success' : 'secondary'} onClick={() => setTerminalId(t.id)}>
-                    {activeTerminal === t.id ? 'Selected for POS' : 'Use on POS'}
+                    {activeTerminal === t.id ? tr('terminals.selectedForPos') : tr('terminals.useOnPos')}
                   </Button>
                 </div>
               </div>
@@ -89,14 +91,14 @@ export default function TerminalsPage() {
         </div>
       )}
 
-      <Modal open={open} onClose={() => setOpen(false)} title="New POS terminal">
+      <Modal open={open} onClose={() => setOpen(false)} title={tr('terminals.newTitle')}>
         <div className="space-y-4">
-          <Input label="Name *" value={name} onChange={(e) => setName(e.target.value)} placeholder="Counter 1" />
-          <Input label="Location" value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Front desk / Floor 2" />
-          <Input label="Opening cash float" type="number" value={cashFloat} onChange={(e) => setCashFloat(e.target.value)} />
-          <Input label="Printer name" value={printer} onChange={(e) => setPrinter(e.target.value)} />
+          <Input label={tr('terminals.nameLabel')} value={name} onChange={(e) => setName(e.target.value)} placeholder={tr('terminals.namePlaceholder')} />
+          <Input label={tr('terminals.locationLabel')} value={location} onChange={(e) => setLocation(e.target.value)} placeholder={tr('terminals.locationPlaceholder')} />
+          <Input label={tr('terminals.cashFloatLabel')} type="number" value={cashFloat} onChange={(e) => setCashFloat(e.target.value)} />
+          <Input label={tr('terminals.printerLabel')} value={printer} onChange={(e) => setPrinter(e.target.value)} />
           {error && <Alert tone="danger">{error}</Alert>}
-          <Button className="w-full" disabled={!name || createMut.isPending} onClick={() => { setError(''); createMut.mutate() }}>Create terminal</Button>
+          <Button className="w-full" disabled={!name || createMut.isPending} onClick={() => { setError(''); createMut.mutate() }}>{tr('terminals.create')}</Button>
         </div>
       </Modal>
     </div>

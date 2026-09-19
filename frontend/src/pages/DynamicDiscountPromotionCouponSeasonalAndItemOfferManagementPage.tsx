@@ -7,6 +7,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { api, errMsg } from '@/lib/api'
 import { Alert, Badge, Button, Card, Input, PageHeader, Select, Spinner } from '@/components/ui'
 import { useAuthStore } from '@/store/authStore'
+import { useT } from '@/i18n/useT'
 
 type DiscountPromotionRule = {
   id: number
@@ -33,6 +34,7 @@ const SCOPES = [
 export default function DynamicDiscountPromotionCouponSeasonalAndItemOfferManagementPage() {
   const user = useAuthStore((s) => s.user)
   const orgId = useAuthStore((s) => s.organizationId)
+  const t = useT()
   const isSuper = user?.role === 'super_admin'
   const qc = useQueryClient()
   const [error, setError] = useState('')
@@ -104,7 +106,7 @@ export default function DynamicDiscountPromotionCouponSeasonalAndItemOfferManage
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['discount-promotions'] })
-      setMsg('Promotion saved')
+      setMsg(t('discounts.saved'))
       setError('')
       setForm({ ...form, promotion_display_name: '', coupon_code_normalized: '' })
     },
@@ -114,7 +116,7 @@ export default function DynamicDiscountPromotionCouponSeasonalAndItemOfferManage
   if (!orgId && !isSuper) {
     return (
       <Card>
-        <p className="text-sm font-medium text-slate-600">Select an organization to manage promotions.</p>
+        <p className="text-sm font-medium text-slate-600">{t('discounts.pickOrgHint')}</p>
       </Card>
     )
   }
@@ -122,9 +124,9 @@ export default function DynamicDiscountPromotionCouponSeasonalAndItemOfferManage
   return (
     <div>
       <PageHeader
-        breadcrumb="Promotions"
-        title="Discount · coupon · seasonal · item offers"
-        subtitle="Org admins create local offers. Super admin can push platform offers to organizations."
+        breadcrumb={t('discounts.breadcrumb')}
+        title={t('discounts.title')}
+        subtitle={t('discounts.subtitle')}
       />
       {msg && (
         <div className="mb-3">
@@ -138,20 +140,20 @@ export default function DynamicDiscountPromotionCouponSeasonalAndItemOfferManage
       )}
 
       <div className="grid lg:grid-cols-2 gap-4">
-        <Card title="Create promotion">
+        <Card title={t('discounts.createTitle')}>
           <div className="space-y-3">
             <Input
-              label="Display name *"
+              label={t('discounts.displayName')}
               value={form.promotion_display_name}
               onChange={(e) => setForm({ ...form, promotion_display_name: e.target.value })}
             />
             <Input
-              label="Coupon code (optional)"
+              label={t('discounts.couponCode')}
               value={form.coupon_code_normalized}
               onChange={(e) => setForm({ ...form, coupon_code_normalized: e.target.value.toUpperCase() })}
             />
             <Select
-              label="Scope"
+              label={t('discounts.scope')}
               value={form.discount_scope_type}
               onChange={(e) => setForm({ ...form, discount_scope_type: e.target.value })}
             >
@@ -162,49 +164,49 @@ export default function DynamicDiscountPromotionCouponSeasonalAndItemOfferManage
               ))}
             </Select>
             <Select
-              label="Value type"
+              label={t('discounts.valueType')}
               value={form.discount_value_type}
               onChange={(e) => setForm({ ...form, discount_value_type: e.target.value })}
             >
-              <option value="percentage_of_base">Percentage</option>
-              <option value="fixed_amount_off">Fixed amount</option>
+              <option value="percentage_of_base">{t('discounts.valueType.percentage')}</option>
+              <option value="fixed_amount_off">{t('discounts.valueType.fixed')}</option>
             </Select>
             <Input
-              label="Value"
+              label={t('discounts.value')}
               type="number"
               value={form.discount_value_amount}
               onChange={(e) => setForm({ ...form, discount_value_amount: e.target.value })}
             />
             <Input
-              label="Min order subtotal"
+              label={t('discounts.minSubtotal')}
               type="number"
               value={form.minimum_order_subtotal_amount}
               onChange={(e) => setForm({ ...form, minimum_order_subtotal_amount: e.target.value })}
             />
             <Input
-              label="Max discount cap"
+              label={t('discounts.maxCap')}
               type="number"
               value={form.maximum_discount_cap_amount}
               onChange={(e) => setForm({ ...form, maximum_discount_cap_amount: e.target.value })}
             />
             <Input
-              label="Product ID (item-wise)"
+              label={t('discounts.productId')}
               value={form.applies_to_product_id}
               onChange={(e) => setForm({ ...form, applies_to_product_id: e.target.value })}
             />
             <Input
-              label="Category ID (category-wise)"
+              label={t('discounts.categoryId')}
               value={form.applies_to_category_id}
               onChange={(e) => setForm({ ...form, applies_to_category_id: e.target.value })}
             />
             <Input
-              label="Valid from (ISO)"
+              label={t('discounts.validFrom')}
               value={form.valid_from_utc}
               onChange={(e) => setForm({ ...form, valid_from_utc: e.target.value })}
               placeholder="2026-08-01T00:00:00+00:00"
             />
             <Input
-              label="Valid until (ISO)"
+              label={t('discounts.validUntil')}
               value={form.valid_until_utc}
               onChange={(e) => setForm({ ...form, valid_until_utc: e.target.value })}
             />
@@ -216,11 +218,11 @@ export default function DynamicDiscountPromotionCouponSeasonalAndItemOfferManage
                     checked={form.as_platform_offer}
                     onChange={(e) => setForm({ ...form, as_platform_offer: e.target.checked })}
                   />
-                  Super admin platform offer to organization
+                  {t('discounts.platformOffer')}
                 </label>
                 {form.as_platform_offer && (
                   <Input
-                    label="Target organization ID (empty = all orgs)"
+                    label={t('discounts.targetOrg')}
                     value={form.target_organization_id}
                     onChange={(e) => setForm({ ...form, target_organization_id: e.target.value })}
                   />
@@ -231,12 +233,12 @@ export default function DynamicDiscountPromotionCouponSeasonalAndItemOfferManage
               disabled={!form.promotion_display_name || createMut.isPending}
               onClick={() => createMut.mutate()}
             >
-              Save promotion
+              {t('discounts.save')}
             </Button>
           </div>
         </Card>
 
-        <Card title="Active & available rules" subtitle="Org + super-admin offers">
+        <Card title={t('discounts.rulesTitle')} subtitle={t('discounts.rulesSubtitle')}>
           {list.isLoading ? (
             <Spinner />
           ) : (
@@ -245,7 +247,7 @@ export default function DynamicDiscountPromotionCouponSeasonalAndItemOfferManage
                 <div key={r.id} className="rounded-xl border border-slate-200 p-3">
                   <div className="flex justify-between gap-2">
                     <div className="font-bold">{r.promotion_display_name}</div>
-                    {r.is_platform_wide_super_admin_offer && <Badge tone="purple">Platform</Badge>}
+                    {r.is_platform_wide_super_admin_offer && <Badge tone="purple">{t('discounts.platformBadge')}</Badge>}
                   </div>
                   <div className="text-xs text-slate-500 mt-1 font-mono">
                     {r.coupon_code_normalized || '-'} · {r.discount_scope_type}
@@ -253,12 +255,12 @@ export default function DynamicDiscountPromotionCouponSeasonalAndItemOfferManage
                   <div className="text-sm font-bold text-orange-700 mt-1">
                     {r.discount_value_type === 'percentage_of_base'
                       ? `${r.discount_value_amount}%`
-                      : `${r.discount_value_amount} off`}{' '}
-                    · redeemed {r.current_total_redemption_count}
+                      : t('discounts.amountOff', { amount: r.discount_value_amount })}{' '}
+                    · {t('discounts.redeemed', { count: r.current_total_redemption_count })}
                   </div>
                 </div>
               ))}
-              {!list.data?.length && <p className="text-sm text-slate-500">No promotions yet.</p>}
+              {!list.data?.length && <p className="text-sm text-slate-500">{t('discounts.empty')}</p>}
             </div>
           )}
         </Card>

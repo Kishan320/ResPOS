@@ -34,6 +34,13 @@ class UserOut(ORMModel):
     role: UserRole
     organization_id: Optional[int] = None
     is_active: bool
+    language: Optional[str] = None
+
+
+class LanguageUpdateRequest(BaseModel):
+    """Persist the signed-in user's preferred UI language ('en' | 'de')."""
+
+    language: str = Field(min_length=2, max_length=5)
 
 
 class LoginResponse(BaseModel):

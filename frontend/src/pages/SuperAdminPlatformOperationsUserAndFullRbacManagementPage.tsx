@@ -8,6 +8,7 @@ import { Navigate } from 'react-router-dom'
 import { api, errMsg } from '@/lib/api'
 import { Alert, Button, Card, Input, PageHeader, Spinner } from '@/components/ui'
 import { useAuthStore } from '@/store/authStore'
+import { useT } from '@/i18n/useT'
 
 type Module = { id: number; code: string; name: string; super_only: boolean }
 type PlatformUser = {
@@ -22,6 +23,7 @@ type PlatformUser = {
 export default function SuperAdminPlatformOperationsUserAndFullRbacManagementPage() {
   const user = useAuthStore((s) => s.user)
   const qc = useQueryClient()
+  const t = useT()
   const [form, setForm] = useState({
     email: '',
     username: '',
@@ -77,7 +79,7 @@ export default function SuperAdminPlatformOperationsUserAndFullRbacManagementPag
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['platform-operators'] })
-      setMsg('Platform operator created with RBAC grants')
+      setMsg(t('platformUsers.created'))
       setError('')
       setForm({ email: '', username: '', full_name: '', password: '', phone: '' })
     },
@@ -87,9 +89,9 @@ export default function SuperAdminPlatformOperationsUserAndFullRbacManagementPag
   return (
     <div>
       <PageHeader
-        breadcrumb="Super admin · Malik"
-        title="Platform operators & full RBAC"
-        subtitle="Create super-admin-side users (no organization) and assign module permissions for platform operations."
+        breadcrumb={t('platformUsers.breadcrumb')}
+        title={t('platformUsers.title')}
+        subtitle={t('platformUsers.subtitle')}
       />
       {msg && (
         <div className="mb-3">
@@ -103,15 +105,15 @@ export default function SuperAdminPlatformOperationsUserAndFullRbacManagementPag
       )}
 
       <div className="grid lg:grid-cols-2 gap-4">
-        <Card title="Create platform operator">
+        <Card title={t('platformUsers.createTitle')}>
           <div className="space-y-3">
-            <Input label="Full name" value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} />
-            <Input label="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-            <Input label="Username" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
-            <Input label="Password" type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
-            <Input label="Phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+            <Input label={t('users.fullNameLabel')} value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} />
+            <Input label={t('users.emailLabel')} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+            <Input label={t('users.usernameLabel')} value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
+            <Input label={t('users.passwordLabel')} type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+            <Input label={t('users.phoneLabel')} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
             <div>
-              <div className="text-sm font-bold mb-2">Module permissions</div>
+              <div className="text-sm font-bold mb-2">{t('platformUsers.modulePermissions')}</div>
               <div className="max-h-56 overflow-y-auto space-y-1 border border-slate-200 rounded-xl p-3">
                 {modules.isLoading ? (
                   <Spinner />
@@ -133,11 +135,11 @@ export default function SuperAdminPlatformOperationsUserAndFullRbacManagementPag
               disabled={createMut.isPending || !form.email || !form.password || !form.username}
               onClick={() => createMut.mutate()}
             >
-              Create platform user
+              {t('platformUsers.create')}
             </Button>
           </div>
         </Card>
-        <Card title="Platform users (no org)">
+        <Card title={t('platformUsers.usersTitle')}>
           {users.isLoading ? (
             <Spinner />
           ) : (
@@ -150,7 +152,7 @@ export default function SuperAdminPlatformOperationsUserAndFullRbacManagementPag
                   </div>
                 </div>
               ))}
-              {!users.data?.items?.length && <p className="text-sm text-slate-500">Only super admin exists so far.</p>}
+              {!users.data?.items?.length && <p className="text-sm text-slate-500">{t('platformUsers.onlySuperAdmin')}</p>}
             </div>
           )}
         </Card>

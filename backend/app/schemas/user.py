@@ -24,6 +24,7 @@ class UserUpdate(BaseModel):
     is_active: Optional[bool] = None
     pin_code: Optional[str] = None
     password: Optional[str] = None
+    language: Optional[str] = None
 
 
 class UserOut(ORMModel):
@@ -35,3 +36,4 @@ class UserOut(ORMModel):
     role: UserRole
     organization_id: Optional[int] = None
     is_active: bool
+    language: Optional[str] = None

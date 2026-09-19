@@ -1,5 +1,6 @@
 import axios, { type AxiosInstance } from 'axios'
 import { useAuthStore } from '@/store/authStore'
+import { tStatic } from '@/i18n/i18nStore'
 
 const API_BASE = import.meta.env.VITE_API_URL || '/api/v1'
 
@@ -42,6 +43,7 @@ export type User = {
   role: string
   organization_id?: number | null
   is_active: boolean
+  language?: string | null
 }
 
 export type Organization = {
@@ -190,12 +192,33 @@ export function money(v: string | number | undefined | null, currency = 'AED ') 
 export function errMsg(e: unknown): string {
   if (axios.isAxiosError(e)) {
     const d = e.response?.data?.detail
-    if (typeof d === 'string') return d
+    if (typeof d === 'string') return translateApiMessage(d)
     if (Array.isArray(d)) return d.map((x) => x.msg || JSON.stringify(x)).join(', ')
     return e.message
   }
-  if (e instanceof Error) return e.message
-  return 'Something went wrong'
+  if (e instanceof Error) {
+    const known = translateApiMessage(e.message)
+    return known === e.message && e.message === 'Something went wrong' ? tStatic('errors.somethingWentWrong') : known
+  }
+  return tStatic('errors.somethingWentWrong')
+}
+
+/** Translate the small set of stable backend messages shown to users; unknown messages pass through. */
+const API_MESSAGE_KEYS: Record<string, Parameters<typeof tStatic>[0]> = {
+  'Not authenticated': 'errors.notAuthenticated',
+  'Invalid credentials': 'errors.invalidCredentials',
+  'Account disabled': 'errors.accountDisabled',
+  'Email already registered': 'errors.emailRegistered',
+  'User not found': 'errors.userNotFound',
+  'Access denied': 'errors.accessDenied',
+  'Super admin only': 'errors.superAdminOnly',
+  'Cannot create super admin': 'errors.cannotCreateSuperAdmin',
+  'Something went wrong': 'errors.somethingWentWrong',
+}
+
+function translateApiMessage(message: string): string {
+  const key = API_MESSAGE_KEYS[message]
+  return key ? tStatic(key) : message
 }
 
 export function labelize(s: string | null | undefined) {

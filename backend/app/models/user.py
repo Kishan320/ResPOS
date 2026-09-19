@@ -38,6 +38,8 @@ class User(Base, TimestampMixin, SoftDeleteMixin):
     role: Mapped[UserRole] = mapped_column(varchar_enum(UserRole), nullable=False, index=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False, index=True)
     pin_code: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)  # quick POS login PIN
+    # Preferred UI language ('en' | 'de'); None = not chosen yet
+    language: Mapped[Optional[str]] = mapped_column(String(5), nullable=True)
 
     organization = relationship("Organization", back_populates="users")
 
