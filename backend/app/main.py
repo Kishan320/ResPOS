@@ -4,10 +4,11 @@ Multi-tenant Point of Sale for restaurants, cafes, grocery, kirana and retail.
 """
 
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import ORJSONResponse
+from fastapi.responses import FileResponse, ORJSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.api.v1.router import api_router
@@ -55,12 +56,16 @@ def health():
     }
 
 
-@app.get("/")
-def root():
-    return {
-        "message": f"Welcome to {settings.app_name}",
-        "docs": "/docs",
-        "api": settings.api_prefix,
-        "health": "/health",
-        "media": "/media/",
-    }
+# ── Serve React frontend (must be mounted AFTER all API routes) ──────────────
+FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+
+if FRONTEND_DIST.is_dir():
+    app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIST / "assets")), name="assets")
+
+    @app.get("/{full_path:path}")
+    def serve_frontend(full_path: str):
+        """Catch-all: serve React index.html for any non-API route."""
+        requested = FRONTEND_DIST / full_path
+        if requested.is_file():
+            return FileResponse(str(requested))
+        return FileResponse(str(FRONTEND_DIST / "index.html"))
